@@ -1,0 +1,55 @@
+@import '../../node_modules/reveal.js/dist/reveal.css';
+@import '../../node_modules/reveal.js/dist/theme/black.css';
+@import '../../node_modules/reveal.js/plugin/highlight/monokai.css';
+
+:root {
+	--conference-hue: 18;
+	--r-heading-font: 'Google Sans', sans-serif;
+	--r-main-font: 'Google Sans', sans-serif;
+	--r-code-font: 'JetBrains Mono', monospace;
+	--r-link-color: hsl(var(--conference-hue) 100% 50%);
+	--r-link-color-dark: hsl(var(--conference-hue) 100% 25%);
+	--r-link-color-hover: hsl(var(--conference-hue) 100% 75%);
+	--r-selection-background-color: hsl(var(--conference-hue) 100% 90%);
+}
+
+section:first-of-type h2 {
+	text-decoration: underline;
+	text-decoration-color: var(--r-link-color);
+}
+
+del {
+	opacity: 0.5;
+}
+
+.deck__logo {
+	position: fixed;
+	width: 10vmin;
+	bottom: 2vmin;
+	left: 2vmin;
+	z-index: 999;
+}
+
+.deck__logo-eye {
+	animation: blink 8s infinite linear;
+	transform-origin: var(--origin, 0 371px);
+}
+
+@keyframes blink {
+   0%, 46%, 48%, 50%, 100% {
+     transform: scaleY(1);
+   }
+   47%, 49% {
+     transform: scaleY(0.01);
+   }
+}
+
+.googley {
+	--color-one: #ea4335;
+  --color-two: #4285f4;
+  --color-three: #34a853;
+  --color-four: #fbbc05;
+	background: linear-gradient(90deg, var(--color-one) 0 25%, var(--color-two) 25% 50%, var(--color-three) 50% 75%, var(--color-four) 75% 100%);
+	color: transparent;
+	background-clip: text;
+}

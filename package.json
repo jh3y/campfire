@@ -1,0 +1,38 @@
+{
+  "name": "campfire",
+  "version": "0.0.1",
+  "description": "repository for demos used in talks by Jhey Tompkins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jh3y/campfire.git"
+  },
+  "keywords": [
+    "css",
+    "javascript",
+    "html",
+    "animation",
+    "devrel",
+    "talks",
+    "whimsy",
+    "creative"
+  ],
+  "private": true,
+  "author": "jh3y <jh3y@users.noreply.github.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jh3y/campfire/issues"
+  },
+  "homepage": "https://github.com/jh3y/campfire#readme",
+  "dependencies": {
+    "parcel": "^2.5.0",
+    "prettier": "^2.6.2",
+    "reveal.js": "^4.3.1"
+  },
+  "workspaces": [
+    "all-day-hey-2022"
+  ]
+}

@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Cracking the Code</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<main>
+			<div class="safe">
+				<div class="safe__outer">
+					<div class="cuboid">
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+					</div>
+				</div>
+				<div class="safe__inner">
+					<div class="cuboid">
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+					</div>
+				</div>
+				<div class="safe__door">
+					<div class="cuboid">
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+						<div class="cuboid__side"></div>
+					</div>
+				</div>
+			</div>
+			<label for="gamma" class="control__label">Gamma</label>
+			<input id="gamma" type="range" name="gamma" class="control__input" min="0" max="100" step="1" value="50">
+			<label for="alpha" class="control__label">Alpha</label>
+			<input id="alpha" type="range" name="alpha" class="control__input" min="0" max="100" step="1" value="50">
+			<label for="beta" class="control__label">Beta</label>
+			<input id="beta" type="range" name="beta" class="control__input" min="0" max="100" step="1" value="50">
+			<button>Begin Cracking</button>
+			<h1>You Cracked It!</h1>
+		</main>
+		<script type="module" src="script.js"></script>
+	</body>
+</html>
