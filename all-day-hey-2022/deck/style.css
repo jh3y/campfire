@@ -44,6 +44,32 @@ del {
    }
 }
 
+.reveal iframe {
+	border:  0;
+}
+
+.reveal sub {
+	font-size: small;
+	opacity:  0.75;
+}
+
+.multi-col ul {
+	column-count: 2;
+}
+
+* > code {
+	color: var(--r-link-color);
+}
+
+table {
+	color: inherit !important;
+}
+
+cite {
+	font-style: normal;
+	opacity: 0.5;
+}
+
 .googley {
 	--color-one: #ea4335;
   --color-two: #4285f4;

@@ -6,4 +6,10 @@ let deck = new Reveal({
 	plugins: [Markdown, RevealHighlight]
 })
 
-deck.initialize()
+deck.initialize().then(() => {
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'microphone *'))
+})
+
+deck.on('slidechanged', () => {
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'microphone *'))
+})
