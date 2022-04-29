@@ -22,10 +22,7 @@ class Captcha {
 			throw Error('Captcha: Can not have more pieces than available')
 		// Set CSS inline custom properties
 		this._element.style.setProperty('--captcha-image', `url(${opts.image})`)
-		this._grid.style.setProperty('--captcha-grid-size', opts.gridSize)
-		// ROOTING
-		document.documentElement.style.setProperty('--captcha-image', `url(${opts.image})`)
-		document.documentElement.style.setProperty('--captcha-grid-size', opts.gridSize)
+		this._element.style.setProperty('--captcha-grid-size', opts.gridSize)
 		// Now set up the moveable pieces
 		this.setup()
 	}
@@ -74,22 +71,16 @@ class Captcha {
 		const handleDragStart =
 			({ piece, px, py, sx, sy }) =>
 			(e) => {
-				this._clone = piece.cloneNode(true)
-				this._clone.classList.add('captcha__piece--clone')
-				this._grid.appendChild(this._clone)
+				// this._clone = piece.cloneNode(true)
+				// this._clone.classList.add('captcha__piece--clone')
+				// this._grid.appendChild(this._clone)
 				e.dataTransfer.setData('text/json', JSON.stringify({ px, py, sx, sy }))
 			}
 		
 		const handleDragEnd = (piece) => () => {
 			this._clone.remove()
 		}
-		const handleDragEnter = (e) => {
-			e.preventDefault()
-		}
-		const handleDragLeave = (e) => {
-			e.preventDefault()
-		}
-		const handleDragOver = (e) => {
+		const doNothing = (e) => {
 			e.preventDefault()
 		}
 		const handleDrop =
@@ -140,9 +131,9 @@ class Captcha {
 				handleDragStart({ piece, px, py, sx, sy })
 			)
 			piece.addEventListener('dragend', handleDragEnd(piece))
-			slot.addEventListener('dragover', handleDragOver)
-			slot.addEventListener('dragenter', handleDragEnter)
-			slot.addEventListener('dragleave', handleDragLeave)
+			slot.addEventListener('dragover', doNothing)
+			slot.addEventListener('dragenter', doNothing)
+			slot.addEventListener('dragleave', doNothing)
 			slot.addEventListener('drop', handleDrop({ piece, slot, px, py, sx, sy }))
 		}
 	}

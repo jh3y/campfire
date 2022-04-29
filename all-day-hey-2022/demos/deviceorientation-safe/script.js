@@ -26,7 +26,6 @@ const COMBINATIONS = [
 	{
 		id: 'alpha',
 		unlock: GET_RANDOM(0, 100),
-		visible: false,
 		input: ALPHA,
 		label: ALPHA_LABEL,
 		mapper: ALPHA_MAPPER,
@@ -34,7 +33,6 @@ const COMBINATIONS = [
 	{
 		id: 'beta',
 		unlock: GET_RANDOM(0, 100),
-		visible: false,
 		input: BETA,
 		label: BETA_LABEL,
 		mapper: BETA_MAPPER,
@@ -42,7 +40,6 @@ const COMBINATIONS = [
 	{
 		id: 'gamma',
 		unlock: GET_RANDOM(0, 100),
-		visible: false,
 		input: GAMMA,
 		label: GAMMA_LABEL,
 		mapper: GAMMA_MAPPER,
@@ -50,15 +47,10 @@ const COMBINATIONS = [
 ]
 
 const showCombination = step => {
-	const { input, label, visible } = COMBINATIONS[step]
-	// Hide other combinations
-	COMBINATIONS.filter(combo => combo.visible).forEach(combo => {
-		combo.visible = false
-		combo.input.style.display = combo.label.style.display = 'none'
+	const { input, label } = COMBINATIONS[step]
+	COMBINATIONS.forEach((combo, index) => {
+		combo.input.style.display = combo.label.style.display = index === step ? 'block' : 'none'
 	})
-	// Show the one we want
-	COMBINATIONS[step].visible = true
-	input.style.display = label.style.display = 'block'
 }
 
 let step = 0

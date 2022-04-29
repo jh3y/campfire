@@ -8,10 +8,11 @@ body {
 	min-height: 100vh;
 	margin: 0;
 }
-
+:root {
+	--size: 50vmin;
+}
 .captcha {
 	/* "4" is "2*" the gutter which is "2" */
-	--size: 50vmin;
 	--grid-size: calc(var(--captcha-grid-size) + 4);
 	--cell-size: calc(var(--size) / var(--grid-size));
 	--image-size: calc(var(--cell-size) * var(--captcha-grid-size));
@@ -50,7 +51,6 @@ body {
 	grid-row:  3 / -3;
 	grid-column: 3 / -3;
 	background-size: var(--image-size);
-
 }
 
 .captcha__piece {
@@ -63,6 +63,13 @@ body {
 	background-size: var(--image-size);
 	background-position: calc(var(--segment-x) * var(--cell-size)) calc(var(--segment-y) * var(--cell-size));
 }
+.captcha__slot {
+	background: blue;
+	grid-column: var(--segment-x);
+	grid-row: var(--segment-y);
+	z-index:  2;
+}
+
 .captcha__piece[draggable] {
 	cursor: -webkit-grab;
 }
@@ -71,11 +78,4 @@ body {
 	background: red;
 	transform: scale(1.1);
 	z-index: -1;
-}
-
-.captcha__slot {
-	background: blue;
-	grid-column: var(--segment-x);
-	grid-row: var(--segment-y);
-	z-index:  2;
 }

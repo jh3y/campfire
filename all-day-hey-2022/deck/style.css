@@ -23,6 +23,7 @@ del {
 }
 
 .deck__logo {
+	--base-coat: hsl(0 0% 100%);
 	position: fixed;
 	width: 10vmin;
 	bottom: 2vmin;
@@ -44,6 +45,10 @@ del {
    }
 }
 
+.slide img {
+	margin: 0;
+}
+
 .reveal iframe {
 	border:  0;
 }
@@ -57,6 +62,21 @@ del {
 	column-count: 2;
 }
 
+.multi-column {
+	display: grid !important;
+	grid-template-columns: var(--split-one, 1fr) var(--split-two, 0.65fr);
+	align-items: center;
+	justify-content: center;
+}
+
+.reveal.has-light-background ~ .deck__logo {
+	--base-coat: hsl(0 0% 0%);
+}
+
+[data-background-iframe] .hljs {
+	background: hsl(70 8% 15% / 0.85);
+}
+
 * > code {
 	color: var(--r-link-color);
 }
@@ -65,9 +85,81 @@ table {
 	color: inherit !important;
 }
 
+.reveal table tbody tr td {
+	border-bottom-color: transparent;
+}
+
 cite {
 	font-style: normal;
 	opacity: 0.5;
+}
+
+.perspective {
+	display: inline-block;
+	transform-style: preserve-3d;
+	perspective: 40vmin;
+}
+
+.whitespace {
+	width: 1ch;
+}
+
+.reveal .hljs {
+	min-height: auto;
+}
+
+.animated-title span {
+	--step:  0.1s;
+	display: inline-block;
+	animation: wave calc(var(--char-total) * var(--step)) calc(var(--char-index) * var(--step)) infinite;
+}
+
+.table-shot th,
+.table-shot tbody {
+	font-size: var(--r-heading1-size);
+}
+
+.code-wrapper {
+	max-height:  80vh;
+}
+
+.reveal pre code {
+	max-height: 80vh;
+	white-space: pre;
+}
+
+table.hljs-ln {
+	white-space: pre;
+}
+
+@keyframes wave {
+	50% {
+		transform: translate(0, -30%);
+	}
+}
+
+.pray-hands {
+  transform-style: preserve-3d;
+  display: inline-block;
+  transform-origin: 50% 85%;
+  animation: bob 2s infinite ease-in-out;
+}
+
+.raise-hands {
+	display: inline-block;
+	animation: raise 0.25s infinite;
+}
+
+@keyframes raise {
+	50% {
+		transform: translateY(-25%);
+	}
+}
+
+@keyframes bob {
+	50% {
+		transform: rotateX(-45deg);
+	}
 }
 
 .googley {

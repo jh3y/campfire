@@ -30,7 +30,8 @@
   "dependencies": {
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",
-    "reveal.js": "^4.3.1"
+    "reveal.js": "^4.3.1",
+    "splitting": "^1.0.6"
   },
   "workspaces": [
     "all-day-hey-2022"
