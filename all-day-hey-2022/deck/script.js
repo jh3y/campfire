@@ -9,10 +9,10 @@ let deck = new Reveal({
 })
 
 deck.initialize().then(() => {
-	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'microphone *'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer *; gyroscope *; microphone *'))
 	Splitting()
 })
 
 deck.on('slidechanged', () => {
-	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'microphone *'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer *; gyroscope *; microphone *'))
 })

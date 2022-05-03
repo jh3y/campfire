@@ -44,12 +44,13 @@ del {
 	--r-main-font-size: 24px;
 	--primary: hsl(59 89% 76%);
 	font-size: var(--r-main-font-size);
-	background: var(--primary);
+	background: linear-gradient(hsl(59 89% 62%) 20%, transparent 20%), var(--primary);
 	color: hsl(0 0% 25%);
 	text-align: left;
 	display: inline-block;
 	padding: 1rem;
 	position: relative;
+	max-width: 350px;
 	clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0 100%);
 	transform: rotate(-10deg) translate(10%, 20%);
 }
@@ -109,6 +110,7 @@ del {
 	display: grid !important;
 	grid-template-columns: var(--split-one, 1fr) var(--split-two, 1fr);
 	align-items: center;
+	justify-items: center;
 }
 
 .reveal.has-light-background ~ .deck__logo {
@@ -254,6 +256,56 @@ table.hljs-ln {
 	--y: -40%;
 }
 
+.capy-collage *:nth-of-type(1) {
+	--s: 2;
+	--y: 50%;
+}
+.capy-collage *:nth-of-type(2) {
+	--s: 1.25;
+	--y: 0;
+}
+.capy-collage *:nth-of-type(3) {
+	--r: 10deg;
+	--s: 1.6;
+	--y: -25%;
+}
+.capy-collage *:nth-of-type(4) {
+	--r: -14deg;
+	--s: 1.2;
+	--x: 14%;
+	--y: -80%;
+}
+.capy-collage *:nth-of-type(5) {
+	--y: -60%;
+	--r: 22deg;
+}
+
+.safe-collage *:nth-of-type(1) {
+	--y: -10%;
+	--x: 5%;
+}
+.safe-collage *:nth-of-type(2) {
+	--s: 2;
+	--y: 40%;
+	--r: 25deg;
+}
+.safe-collage *:nth-of-type(3) {
+	--r: 10deg;
+	--s: 1.6;
+	--y: -25%;
+}
+.safe-collage *:nth-of-type(4) {
+	--r: -14deg;
+	--s: 1.2;
+	--x: 18%;
+	--y: -60%;
+}
+.safe-collage *:nth-of-type(5) {
+	--y: -60%;
+	--r: 22deg;
+	--s: 1;
+}
+
 .pray-hands {
   transform-style: preserve-3d;
   display: inline-block;
@@ -263,7 +315,7 @@ table.hljs-ln {
 
 .polaroid {
 	--backdrop: hsl(74 29% 96%);
-	--dot: hsl(74 29% 92%);
+	--dot: hsl(74 29% 82%);
 	--width: 300px;
 	--spread: 10px;
 	color: var(--dot);
@@ -482,7 +534,7 @@ h4 del {
 	}
 }
 
-.puff {
+.reveal .present .puff {
 	display: inline-block;
 	transform-origin: 50% 85%;
 	animation: puff 1s 1s both, rock 1s 2s infinite linear;

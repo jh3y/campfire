@@ -17,9 +17,8 @@ body {
   position: absolute;
   top: calc(var(--y, 0) * 1%);
   left: calc(var(--x, 0) * 1%);
-  transform: translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg));
-  -webkit-animation: thought 2s calc(var(--delay) * 1s) both;
-          animation: thought 2s calc(var(--delay) * 1s) both;
+  transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg));
+  animation: thought 2s calc(var(--delay) * 1s) both;
 }
 .column--left span {
   --mirror: 1;
@@ -27,19 +26,12 @@ body {
 .column--right {
   grid-column: -2;
 }
-@-webkit-keyframes thought {
-  25%, 40% {
-    transform: translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) rotate(calc(var(--rotation, 0) * 1deg)) scale(5);
-  }
-  0%, 75%, 100% {
-    transform: translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) rotate(0deg) scale(0);
-  }
-}
+
 @keyframes thought {
   25%, 40% {
-    transform: translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) rotate(calc(var(--rotation, 0) * 1deg)) scale(5);
+    transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) scale(4);
   }
   0%, 75%, 100% {
-    transform: translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) rotate(0deg) scale(0);
+    transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) scale(0);
   }
 }

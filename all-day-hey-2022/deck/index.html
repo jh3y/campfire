@@ -94,7 +94,7 @@
             yarn add this-but-for-react
             ```
 
-            <sub>Pssst. The web platform is awesome. Future proof.</sub>
+            <sub>Pssst. The web platform is awesome. Future proof yo'self!</sub>
 
             ---
 
@@ -662,11 +662,17 @@
             
             |Source | What? | How? |
             |---|---|---|
-            | TikTok | Sliding Puzzle Captcha | HTML Drag and Drop, CSS Grid |
+            | TikTok | Sliding Puzzle Captcha | HTML Drag and Drop, CSS Grid, Custom Properties |
 
             ---
 
-            Inspo shots from Dribbble Capy puzzle, etc.
+            <div class="collage-grid capy-collage">
+              <img src="../../assets/capy-puzzle.png" width="300">
+              <img src="../../assets/drag-and-drop.png" width="300">
+              <img src="../../assets/homer-puzzle.gif" width="300">
+              <img src="../../assets/grid-inspector.png" width="300">
+              <img src="../../assets/capy-range.png" width="300">
+            </div>
 
             ---
             <!-- Slide 2 -->
@@ -722,7 +728,7 @@
             ```
             ---
             <!-- Slide 5 -->
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 0.5fr;" -->
+            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
             ```js[1-100|2|4,6,11|7-10|14]
             generatePieces() {
               const pieces = []
@@ -740,11 +746,14 @@
               this._pieces = pieces
             }
             ```
-            #### Picture of grid
+            <img src="../../assets/grid-inspection.png" width="300" />
             ---
             <!-- Slide 6 -->
-            <!-- .slide: class="multi-column" style="--split-one: 0.5fr; --split-two: 1fr;" -->
-            #### Picture of dotted pieces
+            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
+            
+            <img src="../../assets/dotted-inspection.png" width="300" />
+
+
             ```js[1-29|2-13|14-17|18-22|23-28]
             const generatePiece = () => {
               // Create an Array of two items
@@ -777,7 +786,7 @@
             }
             ```
             ---
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 0.5fr;" -->
+            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
             <!-- Slide 7 -->
             ```js[1-25|2-5|6-11|12-20|21-23]
             createPieces() {
@@ -806,7 +815,7 @@
               }
             }
             ```
-            #### Pic of positioned slot and piece
+            <img src="../../assets/dotted-grid-tool.png" width="300" />
             ---
             <!-- Slide 8 -->
             ```css[1-13|15-21|23-31]
@@ -844,7 +853,7 @@
             ```
             ---
             <!-- Slide 9 -->
-            PIC OF IMAGE IN THE GRID
+            <img src="../../assets/moon-grid.png" width="300" />
             ---
             <!-- Slide 10 -->
             ```css[1-16|7,8,13,14|2,3,4,5,6]
@@ -867,7 +876,7 @@
             ```
             ---
             <!-- Slide 11 -->
-            DEMO OF INTERACTIVE GRID DRAGGING
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha-step-one/index.html" data-background-interactive -->
             ---
             <!-- Slide 12 -->
             ## HANDLING DRAG
@@ -894,7 +903,7 @@
             ```
             ---
             <!-- Slide 13 -->
-            GIF OF DRAGGING AND END
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha-step-two/index.html" data-background-interactive -->
             ---
             <!-- Slide 14 -->
             ## The Drop
@@ -923,7 +932,7 @@
               }
             ```
             ---
-            GIF OF DRAGGING PIECES IN OR IFRAME
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha-step-three/index.html" data-background-interactive -->
             ---
             ## Remember this?
             ```css[1-18|1-5|7,18,9,10|7,18,11-15,16]
@@ -947,19 +956,26 @@
             }
             ```
             ---
-            FINAL DEMO IFRAME
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha-step-four/index.html" data-background-interactive -->
             ---
             <!-- Slide 13 -->
             ## Debrief 💫
             
-            <div style="column-count: 2;">
+            <div class="col-count" style="column-count: 2;">
               
+              <div>
+
               ### Learned
               - Math
+              - Reusable Classes
               - CSS Grid
               - HTML Drag and Drop
               - Applied @property
               - CSS Custom Properties
+
+              </div>
+              
+              <div>
               
               ### Next
               - A11y?
@@ -967,10 +983,22 @@
               - FLIP
               - Whimsy?
 
+              </div>
+
+              <div class="practical-post-it">
+              
+              ### Practical Corner
+              - Create components
+              - Layout with CSS Grid
+              - Drag and Drop interactions (Reordering, etc.)
+
+              </div>
+
             </div>
             ---
             <!-- Slide 14 -->
-            POLISHED DEMO
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha/index.html" data-background-interactive -->
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/draggable-captcha/index.html" data-background-interactive -->
             ---
 
             <!-- .slide: data-auto-animate -->
@@ -985,7 +1013,13 @@
 
             ---
             <!-- Slide 2 -->
-            Pics of safe, 3D Knob UI, Thermostat, Kent Parallax
+            <div class="collage-grid safe-collage">
+              <img src="../../assets/3d-knob.png" width="300">
+              <img src="../../assets/sensors.png" width="300">
+              <img src="../../assets/safe-crack.gif" width="300">
+              <img src="../../assets/kent-parallax.png" width="300">
+              <img src="../../assets/thermostat.png" width="300">
+            </div>
             ---
             <!-- Slide 3 -->
             <!-- .slide: class="multi-column" -->
@@ -1006,7 +1040,7 @@
               step="1"
             /&gt;
             ```
-            ### Pic of Pete's Diagram
+            <img src="../../assets/petes-diagram.png" width="300" />
             ---
             <!-- Slide 4 -->
             ```js[1-15|1-8|10-15|10,11|12,13|14,15]
@@ -1043,7 +1077,8 @@
             ```
             ---
             <!-- Slide 6 -->
-            <!-- .slide: data-background-iframe="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada" data-background-interactive -->
+            
+            <!-- .slide: data-background-iframe="https://localhost:1234/demos/detecting-deviceorientation/index.html" data-background-interactive -->
 
             ---
             <!-- Slide 7 -->

@@ -5,7 +5,8 @@ class Captcha {
 	static defaults = {
 		gridSize: 5,
 		// image: 'https://source.unsplash.com/random/720x720?moon',
-		image: 'https://images.unsplash.com/photo-1499578124509-1611b77778c8?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=720&ixid=MnwxfDB8MXxyYW5kb218MHx8bW9vbnx8fHx8fDE2NTA3MzA3MzM&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=720',
+		// image: 'https://images.unsplash.com/photo-1499578124509-1611b77778c8?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=720&ixid=MnwxfDB8MXxyYW5kb218MHx8bW9vbnx8fHx8fDE2NTA3MzA3MzM&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=720',
+		image: new URL('../../../assets/moon.jpeg', import.meta.url),
 		pieces: 4,
 		onComplete: () => console.info('captcha: You are not a robot?')
 	}
@@ -74,11 +75,12 @@ class Captcha {
 				// this._clone = piece.cloneNode(true)
 				// this._clone.classList.add('captcha__piece--clone')
 				// this._grid.appendChild(this._clone)
+				piece.style.opacity = 0.25
 				e.dataTransfer.setData('text/json', JSON.stringify({ px, py, sx, sy }))
 			}
 		
 		const handleDragEnd = (piece) => () => {
-			this._clone.remove()
+			piece.style.opacity = 1
 		}
 		const doNothing = (e) => {
 			e.preventDefault()

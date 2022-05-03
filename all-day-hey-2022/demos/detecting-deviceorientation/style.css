@@ -1,0 +1,25 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	accent-color: hsl(120 80% 50%);
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+  background: #191919;
+}
+
+main {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-template-rows: repeat(3, auto);
+	grid-gap: 0.5rem;
+}
+
+label {
+	font-family: sans-serif;
+	color: hsl(0 0% 100%);
+	font-weight: bold;
+}
