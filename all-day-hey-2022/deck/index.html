@@ -86,6 +86,8 @@
 
             <sub>You're much more than a TODO app! 💅</sub>
 
+            <img class="commit-graph" src="../../assets/commit-graph.png" width="300" />
+
             ---
 
             ```zsh
@@ -1078,12 +1080,13 @@
             ---
 
             <iframe src="https://localhost:1234/demos/detecting-deviceorientation/index.html"></iframe>
-            <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe>
+            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
             
-            <!-- <a class="demo-link" href="https://localhost:1234/demos/detecting-deviceorientation" target="_blank" rel="noreferrer noopener">
-              <span>Check out Demo</span>
-              <span>✨</span>
-            </a> -->
+
+
+            <a class="demo-link" href="https://localhost:1234/demos/detecting-deviceorientation/index.html" target="_blank" rel="noreferrer noopener">
+              Let's check out the demo! <span class="rocket">🚀</span>
+            </a>
 
             ---
             <!-- Slide 7 -->
@@ -1198,14 +1201,24 @@
             })
             ```
             ---
-            <!-- .slide: data-background-iframe="https://codepen.io/pen/debug/qBxWmEb/0ba0b0db6a4c9d490cae94746fb8db9d" data-background-interactive -->
-            <!-- Slide 11 -->
+            <iframe class="demo-embed" src="https://localhost:1234/demos/detecting-deviceorientation-no-indication/index.html"></iframe>
+            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
+            
+
+
+            <a class="demo-link" href="https://localhost:1234/demos/detecting-deviceorientation-no-indication/index.html" target="_blank" rel="noreferrer noopener">
+              Let's check out the demo! <span class="lightning">✨</span>
+            </a>
             ---
             <!-- Slide 12 -->
             ## There's no indication
+            <div class="stacked">
+
             ```css[1-14|1-5|7-14|14]
             [type="range"] {
               --rotation: 20deg;
+              --proximity-hue: calc(130 - ((130 / 100) * var(--proximity, 0)));
+              accent-color:  hsl(var(--proximity-hue) 80% 50%);
               /* Animation speed will be 1 to 0.1 */
               animation: shake calc((1 - ((var(--proximity, 0) / 100) * 0.9)) * 1s) infinite;
             }
@@ -1219,6 +1232,7 @@
               }
             }
             ```
+
             ```js[1-10|1-2|9-10]
             const PROXIMITY_THRESHOLD = 15
             const PROXIMITY_MAPPER = mapRange(0, PROXIMITY_THRESHOLD, 100, 0)
@@ -1231,28 +1245,53 @@
             const proximity = PROXIMITY_MAPPER(CLAMPED)
             input.style.setProperty('--proximity', proximity)
             ```
+
+            </div>
             ---
-            <!-- .slide: data-background-iframe="https://codepen.io/pen/debug/eYyavaZ/6113f10ed9d93e3ac7c636e43d89d112" data-background-interactive -->
-            <!-- Slide 13 -->
+            <iframe class="demo-embed" src="https://localhost:1234/demos/detecting-deviceorientation-with-indication/index.html"></iframe>
+            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
+            
+
+
+            <a class="demo-link" href="https://localhost:1234/demos/detecting-deviceorientation-with-indication/index.html" target="_blank" rel="noreferrer noopener">
+              Let's check out the demo! <span class="muscle">💪</span>
+            </a>
             ---
 
             <!-- Slide 14 -->
             ## Debrief 💫
             
-            <div style="column-count: 2;">
+            <div class="col-count" style="column-count: 2;">
               
+              <div>
+
               ### Learned
               - DeviceOrientation Event
               - Cross Browser DeviceOrientation
               - Mapping values
               - Dynamic Animations w/ CSS Custom Properties
               
+              </div>
+
+              <div>
+
               ### Next
               - A11y?
               - Sounds
               - Turn it into a safe!
               - Whimsy?
               - Web Vibration API (Yep, that's a thing!)
+
+              </div>
+
+              <div class="practical-post-it">
+              
+              ### Practical Corner
+              - New APIs!
+              - Interesting Utilities (Map)
+              - Custom Property Magic
+
+              </div>
 
             </div>
 

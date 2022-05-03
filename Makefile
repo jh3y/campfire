@@ -44,3 +44,6 @@ develop: checkForDemo ## Runs demo source
 
 develop-conf: checkForConf ## Runs conference deck including demos
 	$(PARCEL) $(CONF)/**/*.html --https --cert ./localhost.pem --key ./localhost-key.pem
+
+build-conf: checkForConf ## Runs conference deck including demos
+	$(PARCEL) build $(CONF)/deck/**/*.html $(CONF)/demos/**/*.html

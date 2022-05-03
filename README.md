@@ -7,7 +7,10 @@ The repository for my conference demos, etc. from Jhey Tompkins.
 mkdir -pv <DEMO_DIRECTORY>
 make create DEMO=<DEMO_DIRECTORY>
 make develop DEMO=<DEMO_DIRECTORY>
+make develop-conf CONF=<CONF_DIRECTORY>
 ```
+
+__NOTE::__ Make a certificate for `https://` usage locally first with `mkcert` in the repo root.
 
 ---
 

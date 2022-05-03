@@ -23,15 +23,21 @@ del {
 	opacity: 0.5;
 }
 
-.reveal a.demo-link {
-	font-size: 10vh;
+.commit-graph {
 	position: absolute;
-	right: 0;
-	top: -20vh;
+	bottom: 100%;
+	transform: translate(30%, -50%) rotate(24deg) scale(1.2);
+	opacity: 0.5;
 }
 
-.demo-link span:first-of-type {
-	display: none;
+.reveal a.demo-link {
+	display: block;
+	font-size: 1rem;
+}
+
+.stacked {
+	display: inline-grid;
+	gap: 1rem;
 }
 
 .deck__logo {

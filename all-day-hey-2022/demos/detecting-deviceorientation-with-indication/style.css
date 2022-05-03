@@ -1,0 +1,78 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	accent-color: hsl(120 80% 50%);
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	font-family: sans-serif;
+	font-weight: bold;
+  background: #191919;
+  color: hsl(0 0% 100%);
+}
+
+main {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-template-rows: repeat(3, auto);
+	grid-gap: 0.5rem;
+}
+
+label {
+	color: hsl(0 0% 100%);
+}
+
+button {
+	grid-column: 1 / -1;
+	font-weight: bold;
+	font-family: sans-serif;
+	padding: 8px 16px;
+	font-size: 1rem;
+	border-radius: 4px;
+	border: 0;
+	color: hsl(0 0% 100%);
+	background: hsl(120 50% var(--lightness, 50%));
+	transition: background 0.2s;
+}
+
+button:hover {
+	--lightness: 60%;
+}
+
+button:active {
+	--lightness: 40%;
+}
+
+[type="range"] {
+  --rotation: 20deg;
+	--proximity-hue: calc(130 - ((130 / 100) * var(--proximity, 0)));
+	accent-color:  hsl(var(--proximity-hue) 80% 50%);
+	/* Animation speed will be 1 to 0.1 */
+	animation: shake calc((1 - ((var(--proximity, 0) / 100) * 0.9)) * 1s) infinite;
+}
+
+@keyframes shake {
+	25% {
+		transform: rotate(calc((var(--proximity, 0) / 100) * var(--rotation)));
+	}
+	75% {
+		transform: rotate(calc((var(--proximity, 0) / -100) * var(--rotation)));
+	}
+}
+
+.control__label,
+.control__input {
+	display: none;
+}
+
+h1 {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0;
+	display: none;
+}
