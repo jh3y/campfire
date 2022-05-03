@@ -46,7 +46,6 @@ body {
 .captcha__img {
 	position: relative;
 	object-fit: cover;
-	background-color: hsl(0 0% 75%);
 	background-image: var(--captcha-image);
 	grid-row:  3 / -3;
 	grid-column: 3 / -3;

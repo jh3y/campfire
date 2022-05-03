@@ -14,14 +14,14 @@ body {
   flex-direction: column;
 }
 .panel {
-  --hue: 200;
+  --hue: 18;
   --lightness-base: 30;
   font-family: 'Google Sans', sans-serif;
   font-weight: bold;
   font-size: 2vmin;
-  color: hsl(0 0% 98%);
+  color: hsl(0 0% 94%);
   display: inline-block;
-  background: hsl(var(--hue), 100%, calc(var(--lightness) * 1%));
+  background: hsl(var(--hue) 100% calc(var(--lightness, var(--lightness-base)) * 1%));
   overflow: hidden;
   height: 15vmin;
   width: 15vmin;
