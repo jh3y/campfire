@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>TypeStyle</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<form class="stopwatch">
+		  <input id="start" type="checkbox"/>
+		  <input id="pause" type="checkbox"/>
+		  <label class="stopwatch__control stopwatch__start" for="start"><span>Start</span></label>
+		  <label class="stopwatch__control stopwatch__pause" for="pause"><span>Pause</span></label>
+		  <button class="stopwatch__control stopwatch__reset" id="reset" type="reset"><span>Reset</span></button>
+	    <div class="stopwatch__face">
+	      <div class="digit m m--tens">0</div>
+	      <div class="digit m m--singles">0</div><span>:</span>
+	      <div class="digit second s s--tens">0</div>
+	      <div class="digit second s s--singles">0</div><span>.</span>
+	      <div class="digit digit--small ms ms--tens">0</div>
+	      <div class="digit digit--small ms ms--singles">0</div>
+	    </div>
+		</form>
+	</body>
+</html>

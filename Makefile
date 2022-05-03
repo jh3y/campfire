@@ -27,6 +27,11 @@ ifndef DEMO
 	$(error DEMO not set!!!)
 endif
 
+checkForConf:
+ifndef CONF
+	$(error CONF not set!!!)
+endif
+
 create: checkForDemo ## Creates new demo code ready to run
 	cat $(BOILERPLATE_README) > $(README_SRC)
 	cat $(BOILERPLATE_MARKUP) > $(MARKUP_SRC)
@@ -36,3 +41,6 @@ create: checkForDemo ## Creates new demo code ready to run
 
 develop: checkForDemo ## Runs demo source
 	$(PARCEL) $(DEMO)/$(MARKUP_FILE)
+
+develop-conf: checkForConf ## Runs conference deck including demos
+	$(PARCEL) $(CONF)/**/*.html

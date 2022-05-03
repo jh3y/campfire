@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto;
+  gap: 5vmin;
+}
+
+.box {
+  height: 20vmin;
+  width: 20vmin;
+  border: 2px solid hsl(0, 0%, 90%);
+}
+
+.box:nth-of-type(1) {
+  --content: 'direct';
+  background: hsl(0, 100%, 50%);
+  animation: bg-direct 2s infinite linear;
+}
+
+@keyframes bg-direct {
+  to {
+    background: hsl(360, 100%, 50%);
+  }
+}
+
+.box {
+  position: relative;
+}
+
+.box:after {
+  content: var(--content, 'type');
+  position: absolute;
+  top: 100%;
+  line-height: 5vmin;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-weight: bold;
+  font-family: sans-serif;
+  color: hsl(0 0% 100%);
+}
+
+.box:nth-of-type(2) {
+  /* No fallback */
+  --content: 'filter';
+  background: hsl(0, 100%, 50%);
+  animation: bg-filter 5s infinite linear;
+}
+
+@keyframes bg-filter {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.box:nth-of-type(3) {
+  /* No fallback */
+  --content: 'untyped';
+  background: hsl(var(--hue-untyped), 100%, 50%);
+  animation: bg-untyped 5s infinite linear;
+}
+
+@keyframes bg-untyped {
+  to {
+    --hue-untyped: 360;
+  }
+}
+
+@property --hue {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.box:nth-of-type(4) {
+  --content: 'typed';
+  background: hsl(var(--hue), 100%, 50%);
+  animation: hue-rotate 5s infinite linear;
+}
+
+@keyframes hue-rotate {
+  to {
+    --hue: 360;
+  }
+}

@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
+@property --hue {
+  inherits: false;
+  initial-value: 0;
+  syntax: '<number>';
+}
+:root {
+  --bg: #e6b319;
+  --stroke: #1a1a1a;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+}
+h1 {
+  --color: hsl(var(--hue), 80%, 60%);
+  text-transform: uppercase;
+  font-size: 150px;
+  letter-spacing: 0.25vmin;
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  line-height: 0.8;
+  color: var(--color);
+  transform: translate(-30%, -70%) translate(calc(var(--index) * (var(--x, -4) * 1%)), calc(var(--index) * (var(--y, 20) * 1%)));
+  -webkit-text-stroke: 1vmin var(--stroke);
+  -webkit-animation: party 1s calc(var(--index) * -0.1s) infinite linear;
+          animation: party 1s calc(var(--index) * -0.1s) infinite linear;
+}
+@-webkit-keyframes party {
+  100% {
+    --hue: 360;
+  }
+}
+@keyframes party {
+  100% {
+    --hue: 360;
+  }
+}

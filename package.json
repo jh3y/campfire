@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/jh3y/campfire#readme",
   "dependencies": {
+    "gsap": "^3.10.4",
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",
     "reveal.js": "^4.3.1",

@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  user-select: none;
+}
+:root {
+  --state: paused;
+  --bg: #ead9f2;
+  --digit: #ffffff;
+  --face: hsl(0 0% 0%);
+  --content: #666;
+  --shadow: rgba(0,0,0,0.25);
+  --glare: rgba(255,255,255,0.2);
+  --watch-bg: #197fe6;
+  --watch-bg--light: #d1e5fa;
+  --watch-bg--dark: #0a335c;
+  --stroke: #262626;
+  --start: #b83014;
+  --start-two: #eb6347;
+  --restart: #b3b3b3;
+  --restart-two: #e6e6e6;
+}
+
+#start:checked ~ .stopwatch__face .digit,
+#pause:checked ~ .stopwatch__face .digit {
+  animation: var(--name, none) var(--duration, 1s) infinite steps(var(--steps)) var(--state);
+}
+
+#start:checked ~ .stopwatch__face {
+  --state: running;
+}
+#pause:checked ~ .stopwatch__face {
+  --state: paused;
+}
+
+@property --ms-tens {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+@property --ms-singles {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+@property --s-tens {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+@property --s-singles {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+@property --m-tens {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+@property --m-singles {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<integer>';
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  font-family: 'Google Sans', 'Orbitron', sans-serif;
+  place-items: center;
+  margin: 0;
+  overflow: hidden;
+}
+
+form {
+  margin: 0;
+}
+
+.stopwatch {
+  text-align: center;
+}
+
+.stopwatch__control {
+  padding: 16px 8px;
+  border: 1px solid hsl(0 0% 15%);
+  border-radius: 4px;
+  appearance: none;
+  background: none;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: hsl(0 0% 98%);
+  border-color: hsl(0 0% 98%);
+}
+
+.stopwatch__control:hover {
+  background: hsl(0 0% 85%);
+  color: hsl(0 0% 15%);
+}
+
+.stopwatch__face {
+  color: var(--digit);
+  display: flex;
+  font-size: 6rem;
+  padding: 2rem;
+  background: var(--face);
+  margin-top: 1rem;
+}
+.digit {
+  position: relative;
+  color: transparent;
+  counter-reset: var(--counter-name) var(--counter-variable);
+}
+.digit:after {
+  content: counter(var(--counter-name));
+  font-variant: tabular-nums;
+  color: var(--digit);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.ms {
+  font-size: 2rem;
+  transform: translate(0, -16%);
+}
+.ms--tens {
+  --duration: 1s;
+  --steps: 10;
+  --counter-name: ms-tens;
+  --counter-variable: var(--ms-tens);
+  --name: ms-tens;
+}
+.ms--singles {
+  --duration: 0.1s;
+  --steps: 10;
+  --counter-name: ms-singles;
+  --counter-variable: var(--ms-singles);
+  --name: ms-singles;
+}
+.s--tens {
+  --duration: 60s;
+  --steps: 6;
+  --counter-name: s-tens;
+  --counter-variable: var(--s-tens);
+  --name: s-tens;
+}
+.s--singles {
+  --duration: 10s;
+  --steps: 10;
+  --counter-name: s-singles;
+  --counter-variable: var(--s-singles);
+  --name: s-singles;
+}
+.m--tens {
+  --duration: 3600s;
+  --steps: 6;
+  --counter-name: m-tens;
+  --counter-variable: var(--m-tens);
+  --name: m-tens;
+}
+.m--singles {
+  --duration: 600s;
+  --steps: 10;
+  --counter-name: m-singles;
+  --counter-variable: var(--m-singles);
+  --name: m-singles;
+}
+
+@keyframes ms-tens {
+  to {
+    --ms-tens: 10;
+  }
+}
+
+@keyframes ms-singles {
+  to {
+    --ms-singles: 10;
+  }
+}
+
+@keyframes s-tens {
+  to {
+    --s-tens: 6;
+  }
+}
+
+@keyframes s-singles {
+  to {
+    --s-singles: 10;
+  }
+}
+
+@keyframes m-tens {
+  to {
+    --m-tens: 6;
+  }
+}
+
+@keyframes m-singles {
+  to {
+    --m-singles: 10;
+  }
+}

@@ -28,47 +28,60 @@
               <sub>I've always had a thing for bears... Supposedly</sub>
             </div>
           
-            <img src="../../assets/baby-photo--resized.jpeg" width="300">
+            <img class="polaroid" src="../../assets/baby-photo--resized.jpeg" width="300">
 
             ---
 
-            # Here
-            # we
-            # goooo!
+            <div class="block-reveal">
+              
+              # Here
+              # we
+              # gooooo!
+
+            </div>
             
             ---
-
             <!--- Slide of creative demos vidoes -->
 
-            # CREATIVE CODING WALL
+            <img class="fullscreen" src="../../assets/creative-wall.gif" />
 
             ---
 
             ## You !== Me
-            ## ✈️
+            ## <span class="runway"><span class="flight">✈️</span></span>
             <sub>It's not for everyone. And that's fine. It wasn't for me once.</sub>
 
             ---
+
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/hmmm/index.html" -->
 
             ## What?
             ## How?
             ## Why?
 
             ---
-            <!-- .slide: data-background-iframe="https://codepen.io/pen/debug/MWrMMjo" data-background-interactive -->
+
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/eq-range-inputs/index.html" data-background-interactive -->
 
             ~~Creative over function~~
             ## Expression through the "Impractically Practical"
+            
+            ---
+
+            - Supercharge your learning <span class="lightning">⚡️</span>
+            - Go beyond the docs <span class="rocket">🚀</span>
+            - Become a problem solver or a challenge crusher! <span class="muscle">💪</span>
+            - Don't limit yourself with your tech stack! <span class="wag">☝️</span>
 
             ---
 
-            - Supercharge your learning ⚡️
-            - Go beyond the docs 🚀
-            - Become a problem solver or a challenge crusher! 💪
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/perspective-steps/index.html" -->
+
+            <h2 style="text-align: left; margin: 0 auto; width: 50%;"><span class="phone">📱</span></h2>
 
             ---
 
-            ## 🐡
+            ## <span class="puff">🐡</span>
             Make for yourself.
 
             <sub>You're much more than a TODO app! 💅</sub>
@@ -97,13 +110,26 @@
 
             <sub>Remember `you !== me`?</sub>
 
+            <sub>The limit is your `imagination` ✨</sub>
+
             ---
 
+            <!-- .slide: class="multi-column" -->
+
+            <div>
+
             ## Train It 👟
+
             1. Start your list 📝 (Notion, Trello, ~~Post-It~~, Keep, Analog 🤯)
             2. Document all the thingz!!11! ʕ·ᴥ·　ʔ
             3. No idea is a bad idea
             4. __No idea is a bad idea__
+
+            <sub>Heck! You can even make a demo of your notebook</sub>
+
+            </div>
+
+            <img src="../../assets/notebook.jpeg" width="300">
 
             ---
 
@@ -127,7 +153,7 @@
             - Social Media 🤝
             - etc. etc. 🚀
 
-            <sub>I can provide a story for the majority of my 1000+ CodePen demos</sub>
+            <sub>I can provide a story for the majority of my `1000+` CodePen demos</sub>
 
             ---
 
@@ -180,10 +206,16 @@
             ---
 
             <!-- Slide 2 -->
-            web.dev article shot + Support
-            Cool thing is we don't have to worry about support
-            Magic GIF
+            
+            <div class="collage-grid">
+              <img src="../../assets/houdini-smarts.png" width="300">
+              <img src="../../assets/caniuse-houdini.png" width="300">
+              <img src="../../assets/magic.gif" width="300">
+              <img src="../../assets/is-houdini-ready-yet.png" width="300">
+              <img src="../../assets/houdini-superpower.png" width="300">
+            </div>
             ---
+            <!-- .slide: class="shrink-code" -->
 
             ```css [1-8|10-19|11,17-18]
             :root {
@@ -207,9 +239,8 @@
             }
 
             ```
-
             ---
-            <!-- .slide: class="multi-column" -->
+            <!-- .slide: class="multi-column"-->
             <!-- Slide 3 -->
             ```css [1-8|10-19]
             :root {
@@ -233,7 +264,8 @@
             }
 
             ```
-            <img src="../../assets/baby-photo--resized.jpeg" width="100%">
+            
+            <iframe class="demo-embed" src="http://localhost:1234/demos/typestyle/index.html" ></iframe>
 
             ---
             <!-- .slide: data-auto-animate -->
@@ -254,7 +286,7 @@
             ### Less Tricks! 🤔
 
             ---
-            <!-- .slide: class="multi-column" -->
+            <!-- .slide: class="multi-column" data-auto-animate -->
             <!-- Slide 5 -->
             ```css[7-10|12-16|18-22|24-28|1-5,24-28]
             @property --hue {
@@ -287,10 +319,11 @@
             }
 
             ```
-            INSERT GIF
+            
+            <iframe class="demo-embed" src="http://localhost:1234/demos/typeanimation/index.html" ></iframe>
 
             ---
-            <!-- .slide: data-background-iframe="https://codepen.io/pen/debug/oNYxRXb" data-background-interactive data-background-color="#e6b319" -->
+            <!-- .slide: data-background-iframe="http://localhost:1234/demos/wow/index.html" data-background-color="#e6b319" -->
             <!-- Slide 6 -->
             ```css [1-100]
             h1 {
@@ -312,31 +345,288 @@
             ```
 
             ---
+            <!-- .slide: class="multi-column" -->
             <!-- Slide 7 -->
-            Separation of concerns === masked loader
-            Transition a background-image
-            Composition of transforms
-            Transition delays
+
+            ```css[]
+            @property --wave {
+              inherits: false;
+              initial-value: 0%;
+              syntax: '<percentage>';
+            }
+            body {
+              --half-wave: calc(var(--wave) * 0.5);
+              background: linear-gradient(
+                transparent 0 calc(35% + var(--half-wave)),
+                var(--wave-four) calc(75% + var(--wave)) 100%
+              ), var(--sand);
+              animation: waves 5s infinite ease-in-out;
+            }
+            @keyframes waves {
+              50% {
+                --wave: 25%;
+              }
+            }
+            ```
+            <iframe class="demo-embed" src="http://localhost:1234/demos/waves/index.html" ></iframe>
+            ---
+
+            <!-- .slide: class="multi-column" style="--split-one: 0.5fr; --split-two: 0.5fr;" -->
+
+            ```css[1-18,28-42]
+            @property --nose {
+              syntax: '<percentage>';
+              initial-value: 0%;
+              inherits: false;
+            }
+            @property --tail {
+              syntax: '<percentage>';
+              initial-value: 0%;
+              inherits: false;
+            }
+            .loader {
+              mask: conic-gradient(
+                from 45deg,
+                transparent 0 var(--tail),
+                #000 0 var(--nose),
+                transparent 0 var(--nose)
+              );
+              animation: load 2.5s both infinite ease-in-out,
+                      spin 3.25s infinite linear;
+            }
+
+            @keyframes spin {
+              to {
+                transform: rotate(360deg);
+              }
+            }
+
+            @keyframes load {
+              0% {
+                --tail: 0%;
+                --nose: 0%;
+              }
+              40%,
+              60% {
+                --nose: 100%;
+                --tail: 0%;
+              }
+              100% {
+                --nose: 100%;
+                --tail: 100%;
+              }
+            }
+            ```
+
+            <iframe class="demo-embed" src="http://localhost:1234/demos/that-loader/index.html" ></iframe>
+
+            ---
+            <!-- .slide: class="multi-column" -->
+
+            ```css[]
+
+            .car {
+              animation: journey 5s infinite linear;
+              transform: translate(
+                      calc(var(--x) * 1vmin),
+                      calc(var(--y) * 1vmin)
+                    )
+                    rotate(var(--r));
+            }
+            @keyframes journey {
+              0% {
+                --x: -22.5;
+                --y: 0;
+                --r: 0deg;
+              }
+              10% {
+                --r: 0deg;
+              }
+              12.5% {
+                --x: -22.5;
+                --y: -22.5;
+              }
+              15% {
+                --r: 90deg;
+              }
+              25% {
+                --x: 0;
+                --y: -22.5;
+              }
+              /* Obfuscated keyframes */
+            }
+
+            ```
+
+            <iframe class="demo-embed" src="http://localhost:1234/demos/track-race/index.html" ></iframe> 
+
+            ---
+            <!-- .slide: class="multi-column" -->
+
+
+            ```css[]
+            .button[aria-pressed="true"] {
+              --accessory-translation: 30%;
+              --main-rotation: -45deg;
+              --final-translation: -55%;
+            }
+            .button[aria-pressed="true"] .icon span:nth-of-type(odd) {
+              transition: --hover-translation var(--transition),
+              --accessory-translation var(--transition),
+              --main-rotation var(--transition) calc(var(--transition) * 2),
+              --final-translation var(--transition) calc(var(--transition) * 3);
+            }
+            .button[aria-pressed="true"] .icon span:nth-of-type(2) {
+              transition: --main-rotation var(--transition) var(--transition);
+            }
+            .icon > span:nth-of-type(odd) {
+              width: 60%;
+              transform: translate(calc(var(--hover-translation) * var(--coefficient)))
+                translate(calc(var(--accessory-translation) * var(--coefficient)), 0)
+                rotate(calc(var(--main-rotation) * -1))
+                translate(calc(var(--final-translation) * var(--coefficient)));
+            }
+            ```
+            <iframe class="demo-embed" src="http://localhost:1234/demos/transition-toggle/index.html" ></iframe> 
+
             ---
             <!-- Slide 8 -->
             Could you animate a number?
+            <div class="multi-column">
+              
+            ```css[]
+            [data-char]:after {
+              --txt: attr(data-char);
+              animation: glitch 0.2s 0.5s steps(1) infinite;
+              content: var(--txt);
+              color: var(--color);
+              position: absolute;
+              left: 0;
+              top: 0;
+            }
+
+            @keyframes glitch-switch {
+              0% {
+                content: var(--char-0);
+              }
+              10% {
+                content: var(--char-1);
+              }
+              20% {
+                content: var(--char-2);
+              }
+              30% {
+                content: var(--char-3);
+              }
+              /* Obfuscated keyframes */
+            }
+            ```
+
+            <iframe class="demo-embed" src="http://localhost:1234/demos/glitchy-text/index.html" ></iframe>
+
+            </div>
+
+            ---
+
+            <!-- .slide: class="multi-column" -->
+
+            ```css[]
+            @property --count {
+              inherits: false;
+              initial-value: 0;
+              syntax: '<integer>';
+            }
+
+            .counter {
+              counter-reset: count var(--count);
+              animation: count 1s steps(100) infinite;
+            }
+
+            .counter:nth-of-type(2) {
+              animation-duration: 5s;
+            }
+
+            .counter:after {
+              font-variant: tabular-nums;
+              content: counter(ms);
+            }
+
+            @keyframes count {
+              to {
+                --count: 100;
+              }
+            }
+            ```
+
+            <iframe class="demo-embed" src="http://localhost:1234/demos/animating-numbers/index.html" ></iframe>
+
+            <sub>Note the `tabular-nums` usage</sub>
+
             ---
             <!-- Slide 9 -->
-            Then could you record time? Make a stopwatch?
-            ---
-            <!-- Slide 10 -->
-            Well, yes you could! And there's no drift either! No JavaScript overhead.
+            <!-- .slide: class="multi-column" -->
+
+            ```css[1-5|33-39|23-31|7-21|1-39]
+            @property --ms-tens {
+              initial-value: 0;
+              inherits: false;
+              syntax: '<integer>';
+            }
+
+            #start:checked ~ .stopwatch__face .digit,
+            #pause:checked ~ .stopwatch__face .digit {
+              animation: var(--name, none)
+                  var(--duration, 1s)
+                  infinite
+                  steps(var(--steps))
+                  var(--state);
+            }
+
+            #start:checked ~ .stopwatch__face {
+              --state: running;
+            }
+            #pause:checked ~ .stopwatch__face {
+              --state: paused;
+            }
+
+            .digit {
+              color: transparent;
+              counter-reset: var(--counter-name) var(--counter-variable);
+            }
+            .digit:after {
+              content: counter(var(--counter-name));
+              color: white;
+              font-variant: tabular-nums;
+            }
+
+            .ms--tens {
+              --duration: 1s;
+              --steps: 10;
+              --counter-name: ms-tens;
+              --counter-variable: var(--ms-tens);
+              --name: ms-tens;
+            }
+            ```
+
+            <iframe class="demo-embed" src="http://localhost:1234/demos/bland-stopwatch/index.html"></iframe>
+
+            <div style="grid-column: span 2; margin-top: 1em;"><sub>No drift! 🏎</sub></div>
             ---
 
             ## Debrief 💫
 
-            <div style="column-count: 2;">
+            <div class="col-count" style="column-count: 2;">
+              <div>
               
               ### Learned
               - Houdini Properties and Values API
               - Semantic HTML tricks
               - Drawbacks of JavaScript timers
               
+              </div>
+              
+              <div>
+
               ### Next
               - Make it pretty?
               - 3D 🤯
@@ -344,11 +634,22 @@
               - Pure CSS all the way?
               - Wrote an article [CSS Tricks]
 
+              </div>
+
+              <div class="practical-post-it">
+              
+              ### Practical Corner
+              - Awesome use cases
+              - Less tricks!
+              - Type checking
+
+              </div>
+
             </div>
 
             ---
 
-            3D Stopwatch demo 👀
+            <!-- .slide: data-background-color="#ead9f2" data-background-iframe="http://localhost:1234/demos/css-stopwatch/index.html" data-background-interactive -->
 
             ---
 

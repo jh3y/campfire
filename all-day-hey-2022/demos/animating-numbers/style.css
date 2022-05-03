@@ -1,0 +1,43 @@
+@property --milliseconds {
+  inherits: false;
+  initial-value: 0;
+  syntax: '<integer>';
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  grid-template-rows: 1fr 1fr;
+  align-content: center;
+}
+
+.counter {
+  position: relative;
+  counter-reset: ms var(--milliseconds);
+  animation: count 1s steps(100) infinite;
+}
+
+.counter:nth-of-type(2) {
+  animation-duration: 5s;
+}
+
+.counter:after {
+  content: counter(ms);
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 5rem;
+  transform: translate(-50%, -50%);
+  font-variant: tabular-nums;
+  color: hsl(0, 0%, 100%);
+  font-weight: bold;
+  font-family: "Google Sans", sans-serif;
+}
+
+@keyframes count {
+  to {
+    --milliseconds: 100;
+  }
+}

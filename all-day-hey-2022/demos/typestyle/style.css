@@ -1,0 +1,58 @@
+@property --my-color {
+  syntax: '<color>';
+  initial-value: red;
+  inherits: false;
+}
+
+:root {
+  --my-untyped-color: red;
+}
+
+.typed {
+  --my-color: url('https://assets.codepen.io/605876/bear-2022--white.png');
+  background: var(--my-color);
+  --content: 'typed';
+}
+
+.untyped {
+  --my-untyped-color: url('https://assets.codepen.io/605876/bear-2022--white.png');
+  background: var(--my-untyped-color);
+  --content: 'untyped';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+body > * + * {
+  margin-left: 1rem;
+}
+
+.box {
+  height: 25vmin;
+  width: 25vmin;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.box:after {
+  content: var(--content);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translate(-50%, 10%);
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: hsl(0 0% 100%);
+}
