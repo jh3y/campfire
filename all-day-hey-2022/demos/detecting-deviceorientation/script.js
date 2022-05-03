@@ -12,7 +12,6 @@ const GAMMA_MAPPER = mapRange(-90, 90, 0, 100)
 const ALPHA = document.querySelector('#alpha') // Z-axis (0deg - 360deg)
 const BETA = document.querySelector('#beta') // X-axis (-180deg - 180deg)
 const GAMMA = document.querySelector('#gamma') // Y-axis (-90deg - 90deg)
-const BUTTON = document.querySelector('button')
 
 const handleOrientation = ({ alpha, beta, gamma }) => {
 	console.info({ alpha, beta, gamma })
@@ -21,20 +20,4 @@ const handleOrientation = ({ alpha, beta, gamma }) => {
 	GAMMA.value = GAMMA_MAPPER(gamma)
 }
 
-
-
-/**
- * Cater for iOS being "fussy" by adding a button to kick things off h/t @Vanaf1979
- * */
-const START = () => {
-	BUTTON.remove()
-	if (DeviceOrientationEvent?.requestPermission) {
-		DeviceOrientationEvent.requestPermission().then(permission => {
-			if (permission === 'granted') window.addEventListener('deviceorientation', handleOrientation)
-		})
-	} else {
-		window.addEventListener('deviceorientation', handleOrientation)
-	}
-}
-
-BUTTON.addEventListener('click', START)
+window.addEventListener('deviceorientation', handleOrientation)

@@ -9,10 +9,12 @@ let deck = new Reveal({
 })
 
 deck.initialize().then(() => {
-	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer *; gyroscope *; microphone *'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write;'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('sandbox', 'allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation'))
 	Splitting()
 })
 
 deck.on('slidechanged', () => {
-	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer *; gyroscope *; microphone *'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('allow', 'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write;'))
+	document.querySelectorAll('iframe').forEach(iframe => iframe.setAttribute('sandbox', 'allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation'))
 })

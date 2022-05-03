@@ -23,6 +23,17 @@ del {
 	opacity: 0.5;
 }
 
+.reveal a.demo-link {
+	font-size: 10vh;
+	position: absolute;
+	right: 0;
+	top: -20vh;
+}
+
+.demo-link span:first-of-type {
+	display: none;
+}
+
 .deck__logo {
 	--base-coat: hsl(0 0% 100%);
 	position: fixed;

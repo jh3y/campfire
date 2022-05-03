@@ -1,3 +1,5 @@
 dist
 node_modules
 .parcel-cache
+localhost.pem
+localhost-key.pem

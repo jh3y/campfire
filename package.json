@@ -2,7 +2,6 @@
   "name": "campfire",
   "version": "0.0.1",
   "description": "repository for demos used in talks by Jhey Tompkins",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
