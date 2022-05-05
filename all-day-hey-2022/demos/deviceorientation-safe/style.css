@@ -355,10 +355,24 @@ button:active {
 .lock {
 	height: 32px;
 	aspect-ratio: 1;
+	display: none;
 	position: relative;
 	color: hsl(130 calc(var(--unlocked, 0) * 90%) 75%);
   opacity: calc(1 - var(--unlocked, 0));
   transition: opacity 0.25s 0.25s;
+  animation: bounce-in 0.5s calc(var(--index) * 0.25s) both;
+}
+
+@keyframes bounce-in {
+	0% {
+		transform: scale(0);
+	}
+	90% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
 .lock:before {

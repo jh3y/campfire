@@ -1,5 +1,26 @@
 import confetti from 'canvas-confetti'
 
+const throttle = (func, limit) => {
+  let lastFunc
+  let lastRan
+  return function() {
+    const context = this
+    const args = arguments
+    if (!lastRan) {
+      func.apply(context, args)
+      lastRan = Date.now()
+    } else {
+      clearTimeout(lastFunc)
+      lastFunc = setTimeout(function() {
+        if ((Date.now() - lastRan) >= limit) {
+          func.apply(context, args)
+          lastRan = Date.now()
+        }
+      }, limit - (Date.now() - lastRan))
+    }
+  }
+}
+
 const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
   const INPUT_RANGE = inputUpper - inputLower
   const OUTPUT_RANGE = outputUpper - outputLower
@@ -56,9 +77,10 @@ let vibrating = false
 const LOCKS = document.querySelector('.locks')
 LOCKS.style.setProperty('--locks', COMBINATIONS.length)
 // Create lock animations
-COMBINATIONS.forEach(combo => {
+COMBINATIONS.forEach((combo, index) => {
 	const LOCK = document.createElement('div')
 	LOCK.className = 'lock lock--locked'
+	LOCK.style.setProperty('--index', index)
 	LOCKS.appendChild(LOCK)
 })
 
@@ -71,19 +93,40 @@ SAFE.style.setProperty('--side', 2 * radius * Math.cos(INNER_ANGLE * (Math.PI / 
 SAFE.style.setProperty('--sides', sides)
 SAFE.style.setProperty('--radius', radius)
 
+const AUDIO = {
+	SUCCESS: new Audio(new URL('../../../assets/grunt-party--optimised.mp3', import.meta.url)),
+	TWIST: new Audio(new URL('../../../assets/vault-twist--notch.mp3', import.meta.url))
+}
+
+AUDIO.TWIST.volume = 0.5
+
 const openSafe = () => {
 	SAFE.classList.remove('safe--cracking')
 	SAFE.classList.remove('safe--cracked')
 	SAFE.classList.add('safe--opened')
+	confetti()
+	AUDIO.SUCCESS.play()
 	SAFE.removeEventListener('transitionend', openSafe)
 }
 
+let playing = false
 const handleOrientation = e => {
 	const { alpha, beta, gamma } = e
 
 	// Set the value of the step input
 	const { input, id, label, mapper, unlock } = COMBINATIONS[step]
 	input.value = mapper(e[id])
+	console.info()
+	if (!playing) {
+		playing = true
+		AUDIO.TWIST.pause()
+		AUDIO.TWIST.currentTime = 0
+		AUDIO.TWIST.play()
+		setTimeout(() => {
+			playing = false
+		}, 100)
+	}
+	
 	SAFE.style.setProperty('--combo', input.value)
 	
 	// Let's also signal it to user how close they are to the value
@@ -101,13 +144,11 @@ const handleOrientation = e => {
 	}
 
 	if (parseInt(input.value, 10) === unlock) {
-		console.info('UNLOCKED')
 		LOCKS.children[step].classList.remove('lock--locked')
 		LOCKS.children[step].classList.add('lock--unlocked')
 		step += 1
 		if (step === COMBINATIONS.length) {
 			SAFE.style.setProperty('--proximity', 0)
-			confetti()
 			MARQUEE.style.display = 'block'
 			SAFE.classList.add('safe--cracked')
 			SAFE.addEventListener('transitionend', openSafe)
@@ -122,6 +163,7 @@ const handleOrientation = e => {
  * Cater for iOS being "fussy" by adding a button to kick things off h/t @Vanaf1979
  * */
 const getCracking = () => {
+	[...LOCKS.children].forEach(lock => lock.style.display = 'block')
 	SAFE.classList.add('safe--cracking')
 	SAFE.removeEventListener('transitionend', getCracking)
 }
