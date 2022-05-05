@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/jh3y/campfire#readme",
   "dependencies": {
+    "canvas-confetti": "^1.5.1",
     "gsap": "^3.10.4",
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",

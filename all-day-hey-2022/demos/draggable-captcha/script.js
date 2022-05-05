@@ -1,12 +1,49 @@
 // Polyfill that sucka! But why is it necessary?!!!
-window.MobileDragDrop.polyfill()
+// window.MobileDragDrop.polyfill()
+import Splitting from 'splitting'
+
+const RESULT = Splitting()
+console.info(RESULT)
+
+const glitches = '`¡™£¢∞§¶•ªº–≠åß∂ƒ©˙∆˚¬…æ≈ç√∫˜µ≤≥÷/?░▒▓<>/'.split('')
+
+// for (let r = 0; r < results.length; r++) {
+//   const chars = results[r].chars
+//   for (let c = 0; c < chars.length; c++) {
+//     chars[c].style.setProperty('--count', Math.round(Math.random() * 5 + 1))
+//     for (let g = 0; g < 10; g++) {
+//       chars[c].style.setProperty(
+//         `--char-${g}`,
+//         `"${glitches[Math.floor(Math.random() * glitches.length)]}"`
+//       )
+//     }
+//   }
+// }
+
+
+RESULT[0].chars.forEach(char => {
+	if (Math.random() > 0.9) {
+		char.classList.add('glitchy')
+		// Pick out 5 glitches
+		char.style.setProperty('--speed', Math.random() * 2)
+		char.style.setProperty('--delay', Math.round(Math.random() * 5 + 1))
+		for (let g = 0; g < 5; g++) {
+			char.style.setProperty(`--char-${g}`, `"${glitches[Math.floor(Math.random() * glitches.length)]}"`)
+		}
+	}
+})
+
+// Pick 3 random chars in the length of the first result and glitch them...
+
 
 class Captcha {
 	static defaults = {
 		gridSize: 5,
 		// image: 'https://source.unsplash.com/random/720x720?moon',
 		// image: 'https://images.unsplash.com/photo-1499578124509-1611b77778c8?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=720&ixid=MnwxfDB8MXxyYW5kb218MHx8bW9vbnx8fHx8fDE2NTA3MzA3MzM&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=720',
-		image: new URL('../../../assets/moon.jpeg', import.meta.url),
+		// image: new URL('../../../assets/moon.jpeg', import.meta.url),
+		// image: new URL('../../../assets/phil-is-on-fire--cropped.png', import.meta.url),
+		image: new URL('../../../assets/phil-moon.png', import.meta.url),
 		pieces: 4,
 		onComplete: () => console.info('captcha: You are not a robot?')
 	}
@@ -26,6 +63,7 @@ class Captcha {
 		this._element.style.setProperty('--captcha-grid-size', opts.gridSize)
 		// Now set up the moveable pieces
 		this.setup()
+		return this
 	}
 
 	generatePieces() {
@@ -101,10 +139,9 @@ class Captcha {
 					piece.remove()
 					slot.remove()
 					this._progress++
+					if (this._options.onProgress && (this._progress !== this._options.pieces)) this._options.onProgress((this._progress / this._options.pieces) * 100)
 					this._element.style.setProperty('--progress', (this._progress / this._options.pieces) * 100)
 					if (this._progress === this._options.pieces && this._options.onComplete) this._options.onComplete() 
-				} else {
-					this._clone.remove()
 				}
 			}
 		for (const {
@@ -146,4 +183,32 @@ class Captcha {
 	}
 }
 
-new Captcha({ pieces: 3, element: document.querySelector('.captcha') })
+let CAPTCHA
+const ROBOT = document.querySelector('.robot')
+const FORM = document.querySelector('form')
+const CONFIRM = document.querySelector('.confirm')
+
+const onSubmit = e => {
+	e.preventDefault()
+	FORM.classList.add('form--submitted')
+	console.info('Check for robot')
+	CAPTCHA._element.style.display = ROBOT.style.display = 'block'
+}
+
+const onComplete = () => {
+	console.info('FINISHED')
+	CAPTCHA._element.addEventListener('animationend', () => {
+		CONFIRM.style.display = 'block'
+		console.info('doing something...')
+	})
+	CAPTCHA._element.classList.add('captcha--finished')
+	ROBOT.style.setProperty('--progress', 200)
+	ROBOT.classList.add('robot--disappointed')
+	// Play Robot Noise
+}
+
+const onProgress = progress => ROBOT.style.setProperty('--progress', progress)
+
+CAPTCHA = new Captcha({ pieces: 8, element: document.querySelector('.captcha'), onComplete, onProgress })
+
+FORM.addEventListener('submit', onSubmit)

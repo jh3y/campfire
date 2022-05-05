@@ -5,17 +5,27 @@
 	</head>
 	<body>
 		<main>
-			<!-- 	The main element -->
-			<div class="captcha">
-				<!-- An element for layout -->
-				<div class="captcha__grid">
-					<!-- An element for displaying the image -->
-				  <div class="captcha__img"></div>
-				  <!-- Pieces && Slots would be added here? -->
+			<form class="form">
+				<div class="form__controls">
+					<input type="email" required />
+					<button>Sign up!</button>
 				</div>
-			</div>
+				<!-- 	The main element -->
+				<div class="captcha">
+					<header data-splitting class="captcha__header">Are you a robot? 🧐</header>
+					<!-- An element for layout -->
+					<div class="captcha__grid">
+						<!-- An element for displaying the image -->
+					  <div class="captcha__img"></div>
+					  <!-- Pieces && Slots would be added here? -->
+					</div>
+				</div>
+			</form>
+			<button class="confirm">Confirm</button>
+
 		</main>
-		<script src="https://unpkg.com/mobile-drag-drop"></script>
+		<div class="robot"></div>
+		<!-- <script src="https://unpkg.com/mobile-drag-drop"></script> -->
 		<script type='module' src="script.js"></script>
 	</body>
 </html>

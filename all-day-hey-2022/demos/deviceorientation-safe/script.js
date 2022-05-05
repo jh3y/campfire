@@ -1,9 +1,10 @@
+import confetti from 'canvas-confetti'
+
 const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
   const INPUT_RANGE = inputUpper - inputLower
   const OUTPUT_RANGE = outputUpper - outputLower
   return value => outputLower + (((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0)
 }
-
 
 const PROXIMITY_THRESHOLD = 20
 const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
@@ -45,35 +46,72 @@ const COMBINATIONS = [
 		mapper: GAMMA_MAPPER,
 	},
 ]
+const SAFE = document.querySelector('.safe')
+const MARQUEE = document.querySelector('marquee')
+const SHADOW = document.querySelector('.safe__shadow')
+let step = 0
+let vibrating = false
 
-const showCombination = step => {
-	const { input, label } = COMBINATIONS[step]
-	COMBINATIONS.forEach((combo, index) => {
-		combo.input.style.display = combo.label.style.display = index === step ? 'block' : 'none'
-	})
+
+const LOCKS = document.querySelector('.locks')
+LOCKS.style.setProperty('--locks', COMBINATIONS.length)
+// Create lock animations
+COMBINATIONS.forEach(combo => {
+	const LOCK = document.createElement('div')
+	LOCK.className = 'lock lock--locked'
+	LOCKS.appendChild(LOCK)
+})
+
+
+const sides = 30
+// 50% of 0.9 * size
+const radius = 20 * 0.8 * 0.3 * 0.5
+const INNER_ANGLE = (((sides - 2) * 180) / sides) * 0.5
+SAFE.style.setProperty('--side', 2 * radius * Math.cos(INNER_ANGLE * (Math.PI / 180)))
+SAFE.style.setProperty('--sides', sides)
+SAFE.style.setProperty('--radius', radius)
+
+const openSafe = () => {
+	SAFE.classList.remove('safe--cracking')
+	SAFE.classList.remove('safe--cracked')
+	SAFE.classList.add('safe--opened')
+	SAFE.removeEventListener('transitionend', openSafe)
 }
 
-let step = 0
 const handleOrientation = e => {
 	const { alpha, beta, gamma } = e
 
 	// Set the value of the step input
 	const { input, id, label, mapper, unlock } = COMBINATIONS[step]
 	input.value = mapper(e[id])
+	SAFE.style.setProperty('--combo', input.value)
 	
 	// Let's also signal it to user how close they are to the value
 	const proximity = PROXIMITY_MAPPER(Math.min(Math.max(0, Math.abs(input.value - unlock)), PROXIMITY_THRESHOLD))
-	input.style.setProperty('--proximity', proximity)
+	SAFE.style.setProperty('--proximity', proximity)
+	if (((100 - proximity) <= 10) && !vibrating) {
+		vibrating = true
+		window.navigator.vibrate(200)
+		setTimeout(() => {
+			window.navigator.vibrate(0)
+			vibrating = false
+		}, 200)
+	} else {
+		document.body.removeAttribute('style')
+	}
 
 	if (parseInt(input.value, 10) === unlock) {
 		console.info('UNLOCKED')
+		LOCKS.children[step].classList.remove('lock--locked')
+		LOCKS.children[step].classList.add('lock--unlocked')
 		step += 1
 		if (step === COMBINATIONS.length) {
-			TITLE.style.display = 'block'
-			input.style.display = label.style.display = 'none'
+			SAFE.style.setProperty('--proximity', 0)
+			confetti()
+			MARQUEE.style.display = 'block'
+			SAFE.classList.add('safe--cracked')
+			SAFE.addEventListener('transitionend', openSafe)
 			window.removeEventListener('deviceorientation', handleOrientation)
-		} else {
-			showCombination(step)
 		}
 	}
 }
@@ -83,9 +121,16 @@ const handleOrientation = e => {
 /**
  * Cater for iOS being "fussy" by adding a button to kick things off h/t @Vanaf1979
  * */
+const getCracking = () => {
+	SAFE.classList.add('safe--cracking')
+	SAFE.removeEventListener('transitionend', getCracking)
+}
 const START = () => {
 	BUTTON.remove()
-	showCombination(step)
+	navigator.vibrate([1000])
+	SAFE.addEventListener('transitionend', getCracking)
+	SAFE.style.setProperty('--flight', 0)
+	SHADOW.style.setProperty('--o', 1)
 	if (DeviceOrientationEvent?.requestPermission) {
 		DeviceOrientationEvent.requestPermission().then(permission => {
 			if (permission === 'granted') window.addEventListener('deviceorientation', handleOrientation)

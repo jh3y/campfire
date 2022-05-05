@@ -7,10 +7,29 @@ body {
 	place-items: center;
 	min-height: 100vh;
 	margin: 0;
+	text-align: center;
+	font-family: 'Google Sans', sans-serif;
+	background: hsl(210 80% 99%);
 }
 :root {
 	--size: 50vmin;
 }
+
+.form {
+	position: relative;
+}
+
+.form__controls {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.form--submitted .form__controls {
+	animation: scale-out 0.25s both reverse ease-in;
+}
+
 .captcha {
 	/* "4" is "2*" the gutter which is "2" */
 	--grid-size: calc(var(--captcha-grid-size) + 4);
@@ -19,6 +38,41 @@ body {
 	height: var(--size);
 	aspect-ratio: 1 / 1;
 	position: relative;
+	animation: scale-out 1s 0.35s both steps(5, end);
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.captcha--finished {
+	animation: scale-in 0.5s steps(5) both;
+}
+
+@keyframes scale-in {
+	to {
+		transform: translate(-50%, -50%) scale(0);
+	}
+}
+
+@keyframes scale-out {
+	from {
+		transform: translate(-50%, -50%) scale(0);
+	}
+}
+
+
+.captcha__header {
+	font-size: 2rem;
+	color: hsl(0 0% 10%);
+	font-weight: bold;
+	position: absolute;
+	bottom: 100%;
+	text-align: center;
+	left: 0;
+	right: 0;
+	font-family: 'JetBrains Mono', monospace;
 }
 
 @property --progress {
@@ -77,4 +131,74 @@ body {
 	background: red;
 	transform: scale(1.1);
 	z-index: -1;
+}
+
+.glitchy {
+	color: transparent;
+	position: relative;
+	display: inline-block;
+}
+.glitchy:after {
+	content: attr(data-char);
+	position: absolute;
+	color: hsl(0 0% 10%);
+	left: 0;
+	top: 0;
+	animation: glitch calc(var(--speed) * 1s) calc(var(--delay) * 1s) infinite steps(1);
+}
+
+@keyframes glitch {
+	0% {
+		content: var(--char-0);
+	}
+	10% {
+		content: var(--char-1);
+	}
+	20% {
+		content: var(--char-2);
+	}
+	30% {
+		content: var(--char-3);
+	}
+	40% {
+		content: var(--char-4);
+	}
+	50%, 100% {
+		content: attr(data-char);
+	}
+}
+
+.confirm {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	display: none;
+	animation: scale-out 0.25s both steps(10);
+}
+
+.robot {
+	display: none;
+	position: fixed;
+	height: 40vmin;
+	width: 20vmin;
+	background: red;
+	bottom: 0;
+	right: 15%;
+	transform: rotate(-10deg) translate(0, 50%) translateY(calc(((var(--progress, 0) / 100) * 30) * 1%));
+	transition: transform 0.25s;
+	animation: entrance 0.25s 1.35s backwards;
+}
+
+.robot--disappointed {
+	transition: transform 0.25s 1s;
+}
+
+@keyframes entrance {
+	0% {
+		transform: rotate(-10deg) translate(0, 120%) translateY(calc(var(--progress, 0) * 1%));
+	}
+	90% {
+		transform: rotate(-10deg) translate(0, 40%) translateY(calc(var(--progress, 0) * 1%));
+	}
 }
