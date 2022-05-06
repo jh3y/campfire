@@ -7,8 +7,12 @@
 		<main>
 			<form class="form">
 				<div class="form__controls">
-					<input type="email" required />
-					<button>Sign up!</button>
+					<h1 data-splitting>Sign up for Awesome Newsletter</h1>
+					<div class="form-group">
+						<label data-splitting for="email">Email</label>
+						<input id="email" type="email" required />
+						<button>Sign up!</button>
+					</div>
 				</div>
 				<!-- 	The main element -->
 				<div class="captcha">
@@ -21,10 +25,29 @@
 					</div>
 				</div>
 			</form>
-			<button class="confirm">Confirm</button>
+			<button data-splitting class="confirm">Confirm</button>
 
 		</main>
-		<div class="robot"></div>
+		<div class="robot">
+			<svg viewBox="0 0 300 355" fill="none" xmlns="https://www.w3.org/2000/svg">
+			  <rect x="2.5" y="127.5" width="295" height="67" rx="14.5" fill="#fff" stroke="#898989" stroke-width="5"/>
+			  <path fill="#fff" stroke="#898989" stroke-width="5" d="M110.5 224.5h80v128h-80z"/>
+			  <rect x="27.5" y="72.5" width="246" height="178" rx="20.5" fill="#fff" stroke="#898989" stroke-width="5"/>
+			  <rect x="50.5" y="89.5" width="199" height="144" rx="20.5" fill="#1B1B1B" stroke="#898989" stroke-width="5"/>
+			  <path fill="#FF1E1E" d="M111.067 55.905h77.6V67.54h-77.6z"/>
+			  <path fill-rule="evenodd" clip-rule="evenodd" d="M209.397 19.74C225.15 32.38 234 52.362 234 70.238h-54.134c-.076-12.003-9.83-21.71-21.851-21.71h-16.297c-12.021 0-21.775 9.707-21.851 21.71H66C66 52.36 74.85 32.38 90.603 19.74 106.356 7.1 127.722 0 150 0s43.644 7.1 59.397 19.74Z" fill="#000"/>
+			  <g class="robot__eyes robot__eyes--sad">
+				  <circle cx="107.5" cy="148.5" r="12.5" fill="#82FFFF"/>
+				  <circle cx="192.5" cy="148.5" r="12.5" fill="#82FFFF"/>
+				</g>
+				<g class="robot__eyes robot__eyes--happy">
+				  <path d="M120 148.5a12.501 12.501 0 0 0-25 0h25Z" fill="#82FFFF"/>
+				  <path d="M205 148.5a12.501 12.501 0 0 0-25 0h25Z" fill="#82FFFF"/>
+				</g>
+			  <path class="robot__mouth robot__mouth--sad" d="M188 202a34.003 34.003 0 0 0-9.958-24.042 34.003 34.003 0 0 0-48.084 0A34.003 34.003 0 0 0 120 202h68Z" fill="#82FFFF"/>
+			  <path class="robot__mouth robot__mouth--happy" d="M120 170a34.003 34.003 0 0 0 9.958 24.042 34.003 34.003 0 0 0 48.084 0A34.003 34.003 0 0 0 188 170h-68Z" fill="#82FFFF"/>
+			</svg>
+		</div>
 		<!-- <script src="https://unpkg.com/mobile-drag-drop"></script> -->
 		<script type='module' src="script.js"></script>
 	</body>

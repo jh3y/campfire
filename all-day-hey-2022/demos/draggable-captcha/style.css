@@ -19,15 +19,67 @@ body {
 	position: relative;
 }
 
+button {
+	padding: 8px 16px;
+	border-radius: 4px;
+	background: hsl(130 60% var(--lightness, 50%));
+	color: hsl(0 0% 98%);
+	appearance: none;
+	border: 0;
+	font-family: 'Google Sans', sans-serif;
+	font-weight: bold;
+	font-size: 1.25rem;
+	transform: scale(var(--s, 1));
+	transition: transform 0.1s, background 0.1s;
+}
+
+button:hover {
+	--lightness: 65%;
+	--s: 1.1;
+}
+
+button:active {
+	--lightness: 35%;
+	--s: 0.9;
+}
+
+[type="email"] {
+	padding: 8px 16px;
+}
+
 .form__controls {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	display: grid;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	justify-items: center;
 }
 
 .form--submitted .form__controls {
 	animation: scale-out 0.25s both reverse ease-in;
+}
+
+.form-group {
+	display: grid;
+	max-width: 300px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	align-items: center;
+	justify-content: center;
+	grid-gap: 0.5rem 0;
+}
+
+.form-group button {
+	grid-column: span 2;
+}
+
+main {
+	width: 100%;
 }
 
 .captcha {
@@ -126,11 +178,15 @@ body {
 .captcha__piece[draggable] {
 	cursor: -webkit-grab;
 }
-
+	
 .captcha__piece--clone {
 	background: red;
 	transform: scale(1.1);
 	z-index: -1;
+}
+
+button .glitchy:after {
+	color: hsl(0 0% 98%);
 }
 
 .glitchy {
@@ -139,7 +195,7 @@ body {
 	display: inline-block;
 }
 .glitchy:after {
-	content: attr(data-char);
+	content: attr(data-char);	
 	position: absolute;
 	color: hsl(0 0% 10%);
 	left: 0;
@@ -182,12 +238,16 @@ body {
 	position: fixed;
 	height: 40vmin;
 	width: 20vmin;
-	background: red;
 	bottom: 0;
 	right: 15%;
 	transform: rotate(-10deg) translate(0, 50%) translateY(calc(((var(--progress, 0) / 100) * 30) * 1%));
 	transition: transform 0.25s;
 	animation: entrance 0.25s 1.35s backwards;
+}
+
+.robot__mouth--sad,
+.robot__eyes--sad {
+	display: none;
 }
 
 .robot--disappointed {

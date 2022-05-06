@@ -95,7 +95,8 @@ SAFE.style.setProperty('--radius', radius)
 
 const AUDIO = {
 	SUCCESS: new Audio(new URL('../../../assets/grunt-party--optimised.mp3', import.meta.url)),
-	TWIST: new Audio(new URL('../../../assets/vault-twist--notch.mp3', import.meta.url))
+	TWIST: new Audio(new URL('../../../assets/vault-twist--notch.mp3', import.meta.url)),
+	SLAM: new Audio(new URL('../../../assets/anvil.mp3', import.meta.url))
 }
 
 AUDIO.TWIST.volume = 0.5
@@ -116,7 +117,6 @@ const handleOrientation = e => {
 	// Set the value of the step input
 	const { input, id, label, mapper, unlock } = COMBINATIONS[step]
 	input.value = mapper(e[id])
-	console.info()
 	if (!playing) {
 		playing = true
 		AUDIO.TWIST.pause()
@@ -170,6 +170,8 @@ const getCracking = () => {
 const START = () => {
 	BUTTON.remove()
 	navigator.vibrate([1000])
+	AUDIO.SLAM.currentTime = 0
+	AUDIO.SLAM.play()
 	SAFE.addEventListener('transitionend', getCracking)
 	SAFE.style.setProperty('--flight', 0)
 	SHADOW.style.setProperty('--o', 1)

@@ -3,25 +3,17 @@
 import Splitting from 'splitting'
 
 const RESULT = Splitting()
-console.info(RESULT)
 
 const glitches = '`¡™£¢∞§¶•ªº–≠åß∂ƒ©˙∆˚¬…æ≈ç√∫˜µ≤≥÷/?░▒▓<>/'.split('')
 
-// for (let r = 0; r < results.length; r++) {
-//   const chars = results[r].chars
-//   for (let c = 0; c < chars.length; c++) {
-//     chars[c].style.setProperty('--count', Math.round(Math.random() * 5 + 1))
-//     for (let g = 0; g < 10; g++) {
-//       chars[c].style.setProperty(
-//         `--char-${g}`,
-//         `"${glitches[Math.floor(Math.random() * glitches.length)]}"`
-//       )
-//     }
-//   }
-// }
+const AUDIO = {
+	PLUG: new Audio(new URL('../../../assets/plug-in-piece.mp3', import.meta.url)),
+	SAD: new Audio(new URL('../../../assets/robot-sad.mp3', import.meta.url)),
+	INTRO: new Audio(new URL('../../../assets/robot-intro.mp3', import.meta.url)),
 
+}
 
-RESULT[0].chars.forEach(char => {
+RESULT.forEach(result => result.chars.forEach(char => {
 	if (Math.random() > 0.9) {
 		char.classList.add('glitchy')
 		// Pick out 5 glitches
@@ -31,7 +23,7 @@ RESULT[0].chars.forEach(char => {
 			char.style.setProperty(`--char-${g}`, `"${glitches[Math.floor(Math.random() * glitches.length)]}"`)
 		}
 	}
-})
+}))
 
 // Pick 3 random chars in the length of the first result and glitch them...
 
@@ -136,6 +128,8 @@ class Captcha {
 					transferred.py === py
 				) {
 					// It's a match
+					AUDIO.PLUG.currentTime = 0
+					AUDIO.PLUG.play()
 					piece.remove()
 					slot.remove()
 					this._progress++
@@ -191,23 +185,34 @@ const CONFIRM = document.querySelector('.confirm')
 const onSubmit = e => {
 	e.preventDefault()
 	FORM.classList.add('form--submitted')
-	console.info('Check for robot')
 	CAPTCHA._element.style.display = ROBOT.style.display = 'block'
+	AUDIO.INTRO.currentTime = 0
+	AUDIO.INTRO.play()
 }
 
 const onComplete = () => {
-	console.info('FINISHED')
 	CAPTCHA._element.addEventListener('animationend', () => {
 		CONFIRM.style.display = 'block'
-		console.info('doing something...')
 	})
 	CAPTCHA._element.classList.add('captcha--finished')
 	ROBOT.style.setProperty('--progress', 200)
 	ROBOT.classList.add('robot--disappointed')
 	// Play Robot Noise
+	AUDIO.SAD.currentTime = 0
+	AUDIO.SAD.play()
 }
 
-const onProgress = progress => ROBOT.style.setProperty('--progress', progress)
+const onProgress = progress => {
+	if (progress > 0) {
+		ROBOT.querySelector('.robot__eyes--happy').style.display = 'none'
+		ROBOT.querySelector('.robot__eyes--sad').style.display = 'block'
+	}
+	if (progress > 30) {
+		ROBOT.querySelector('.robot__mouth--happy').style.display = 'none'
+		ROBOT.querySelector('.robot__mouth--sad').style.display = 'block'
+	}
+	ROBOT.style.setProperty('--progress', progress)
+}
 
 CAPTCHA = new Captcha({ pieces: 8, element: document.querySelector('.captcha'), onComplete, onProgress })
 
