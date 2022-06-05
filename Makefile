@@ -42,8 +42,14 @@ create: checkForDemo ## Creates new demo code ready to run
 develop: checkForDemo ## Runs demo source
 	$(PARCEL) $(DEMO)/$(MARKUP_FILE)
 
+clean:
+	rm -rf .parcel-cache dist
+
 develop-conf: checkForConf ## Runs conference deck including demos
-	$(PARCEL) $(CONF)/**/*.html --https --cert ./localhost.pem --key ./localhost-key.pem
+	$(PARCEL) $(CONF)/deck/**/*.html --https --cert ./localhost.pem --key ./localhost-key.pem
 
 build-conf: checkForConf ## Runs conference deck including demos
-	$(PARCEL) build $(CONF)/deck/**/*.html $(CONF)/demos/**/*.html
+	$(PARCEL) build $(CONF)/deck/**/*.html
+
+build-demos: checkForConf ## Runs conference deck including demos
+	$(PARCEL) build $(CONF)/demos/**/*.html

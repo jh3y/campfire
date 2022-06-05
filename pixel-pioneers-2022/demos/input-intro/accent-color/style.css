@@ -1,0 +1,16 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+input {
+	accent-color:  hsl(10 80% 50%);
+	transform: scale(2);
+}
