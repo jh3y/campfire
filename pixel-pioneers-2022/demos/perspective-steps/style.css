@@ -14,7 +14,7 @@ body {
   flex-direction: column;
 }
 .panel {
-  --hue: 18;
+  --hue: 156;
   --lightness-base: 30;
   font-family: 'Google Sans', sans-serif;
   font-weight: bold;

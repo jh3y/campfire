@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Pixel Pioneers 2022 – Jhey Tompkins</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <link rel="icon" type="image/x-icon" href="../../assets/favicon.png" />
   </head>
   <body>
@@ -51,11 +51,9 @@
             ---
 
             <!-- .slide: data-background-iframe="https://localhost:1234/input-intro/changing-accent-color/index.html" data-background-interactive -->
-            
-            ---
-            
-            <!-- .slide: data-auto-animate -->
-            <iframe class="demo-embed" src="https://localhost:1234/eq-range-inputs/index.html"></iframe>
+
+            ---            
+            <!-- .slide: data-auto-animate data-background-iframe="https://localhost:1234/eq-range-inputs/index.html" -->
             <div class="fader-block" style="opacity: 0;">
               <del data-id="cross">Creative over function</del>
               <h2>Expression through the "Impractically Practical"</h2>
@@ -63,8 +61,7 @@
             
             ---
             
-            <!-- .slide: data-auto-animate -->
-            <iframe class="demo-embed" src="https://localhost:1234/eq-range-inputs/index.html"></iframe>
+            <!-- .slide: data-auto-animate data-background-iframe="https://localhost:1234/eq-range-inputs/index.html"-->
             <div class="fader-block" style="opacity: 1;">
               <del data-id="cross">Creative over function</del>
               <h2>Expression through the "Impractically Practical"</h2>
@@ -87,7 +84,7 @@
             <sub>Let's deviate from the usual thinking...</sub>
             
             ---
-            
+
             <!--- Slide of creative demos videos -->
 
             <img class="fullscreen" src="../../assets/creative-wall.gif" />
@@ -125,7 +122,7 @@
             <sub>Pssst. The web platform is awesome. Future proof yo'self!</sub>
 
             ---
-
+            
             # How?
 
             ---
@@ -140,8 +137,7 @@
 
             <sub>The limit is __your__ `imagination` ✨</sub>
 
-            ---
-
+            ---            
             <!-- .slide: class="multi-column" -->
 
             <div>
@@ -159,11 +155,13 @@
 
             <img src="../../assets/notebook.jpeg" width="300">
 
-            ---
-
+            ---            
+            <!-- .slide: class="multi-col" -->
+            
             > __"Plucking ideas out of nothing is something you can train your mind to do over time"__ – <cite>Me; new Date().toDateString()</cite>
 
             ---
+
             <!-- .slide: class="multi-col" -->
             
             - CodePen ✨
@@ -181,7 +179,7 @@
             - Social Media 🤝
             - etc. etc. 🚀
 
-            <sub>I can provide a story for the majority of my `1300+` CodePen demos</sub>
+            <sub>I can provide a story for the majority of my `1400+` CodePen demos</sub>
 
             ---
 
@@ -189,13 +187,13 @@
             5 minutes && 10 lifetimes
 
             ---
+
             <!-- .slide: data-auto-animate -->
 
             ## What? ➡️ How? ➡️ Why?
 
             ---
             <!-- .slide: data-auto-animate -->
-
 
             <!-- Can we back drop impossible bear smashing "Why?" out of the way? -->
             ## What? ➡️ How? ~~➡️ Why?~~
@@ -212,14 +210,17 @@
             <h1 data-splitting class="animated-title">Example Time!</h1>
 
             ---
+
             <!-- .slide: data-auto-animate -->
             # <span>CSS</span><span>, UI, && DevTools</span>
 
             ---
+
             <!-- .slide: data-auto-animate -->
             # <span>CSS</span><span style="opacity: 0.2;">, UI, && DevTools</span>
 
             ---
+
             <!-- .slide: class="table-shot" -->
             <!-- Try and limit each demo to 10 slides. That's a minute a slideish. -->
             <!-- Slide 1 -->
@@ -232,7 +233,6 @@
             <sub>Absolute game changer! 💯</sub>
 
             ---
-
             <!-- Slide 2 -->
             
             <div class="collage-grid">
@@ -242,6 +242,15 @@
               <img src="../../assets/kent-useforce-tweet.png" width="300">
               <img src="../../assets/usefull-tweet.png" width="500">
             </div>
+            ---
+
+            ```css
+            <element_we_want_to_target>:has(<some_selector_combo_list_etc.>) {
+              /* Awesome styles to apply */
+            }
+
+            ```
+
             ---
             <!-- .slide: class="shrink-code" -->
 
@@ -371,31 +380,261 @@
             
             ---
             
-            <!-- .slide: class="multi-column" data-auto-animate -->
+            <!-- .slide: class="shrink-code multi-column" data-auto-animate -->
             <!-- Forms and Labels? -->
-            <div class="code-column"></div>
+            <div class="code-column">
+              
+              ```css
+              label:has(+ :invalid) {
+                color: red;
+              }
+
+              label:has(+ :valid) {
+                color: green;
+              }
+
+              input:valid {
+                border-color: green;
+              }
+
+              ```
+
+              ```html
+              <label for="formInput" class="form-label">Email</label>
+
+              <input
+                required
+                type="email"
+                id="formInput"
+                class="form-input"
+                title="Enter valid email address"
+                placeholder="Enter valid email address"
+              />
+              ```
+
+
+            </div>
             
-            ### Forms and Labels example
+            <iframe class="demo-embed" src="https://localhost:1234/has-forms/index.html"></iframe>
 
             ---
 
+            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- Forms and Labels? -->
+            <div class="code-column">
+              
+              ```css
+              .form-group:has(:valid) {
+                --color: var(--valid, green);
+              }
+              
+              label {
+                color: var(--color);
+              }
+              
+              input {
+                outline-color: var(--color);
+                border-color: var(--color);
+              }
+
+              .form-group:has(:valid) ~ [type="submit"] {
+                --color: var(--valid, green);
+              }
+
+              ```
+
+              ```html
+              <form>
+                <div class="form-group">
+                  <label for="formInput">Email</label>
+                  <input
+                    required
+                    type="email"
+                    id="formInput"
+                  />
+                </div>
+                <input type="submit" value="Submit"/>
+              </form>
+              ```
+
+
+            </div>
+            
+            <iframe class="demo-embed" src="https://localhost:1234/has-forms-submit/index.html"></iframe>
+
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- Forms and Labels? -->
+            <div class="code-column">
+              
+              ```css
+              .form-group:has(:valid) {
+                --color: var(--valid, green);
+              }
+              
+              label {
+                color: var(--color);
+              }
+              
+              input {
+                outline-color: var(--color);
+                border-color: var(--color);
+              }
+
+              .form-group:has(:valid) ~ [type="submit"] {
+                --color: var(--valid, green);
+              }
+
+              ```
+
+              ```html
+              <label for="formInput">
+                <span class="label__letter" style="--index: 0;">E</span>
+                <span class="label__letter" style="--index: 1;">m</span>
+                <span class="label__letter" style="--index: 2;">a</span>
+                <span class="label__letter" style="--index: 3;">i</span>
+                <span class="label__letter" style="--index: 4;">l</span>
+              </label>
+              ```
+
+            </div>
+            
+            <iframe class="demo-embed" src="https://localhost:1234/has-forms-whimsical/index.html"></iframe>
+
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
             <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
 
-            <div class="code-column"></div>
+            <div class="code-column">
+              
+              ```css
+              :root {
+                --reveal: 0;
+              }
+              :root:has(.revealer:active) {
+                --reveal: 1;
+              }
+              .secret-message {
+                opacity: var(--reveal, 0);
+                transition: opacity 0.2s;
+              }
+              ```
 
-            ### Hover to reveal things a11y warning
+              ```html
+              <body>
+                <fieldset class="controls">
+                  <legend>Controls</legend>
+                  <button class="revealer">Reveal</button>
+                </fieldset>
+                <main>
+                  <h1>Amazing Article</h1>
+                  <p>
+                    <span class="secret-message">Whoah!</span>
+                    Lorem ipsum...
+                  </p>
+                </main>
+              </body>
+              ```
 
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-hunt/index.html"></iframe>
 
             ---
-            <!-- .slide: class="multi-column" -->
-            <!-- Cards with and without images would usually require some extra class that doesn't help -->
-            <!-- Wiggly feature, etc. -->
 
-            <div class="code-column"></div>
+            <!-- .slide: class="shrink-code multi-column" -->
 
-            ## Wiggly feature card/media with missing image
+            <div class="code-column">
+              
+              ```css
+              .card {
+                --card-border: var(--blue-2);
+                --bg: var(--gray-2);
+                align-items: center;
+                display: grid;
+                background: var(--bg);
+                grid-gap: var(--size-2) 0;
+                border-top: var(--size-2) solid var(--card-border);
+                border-left: var(--size-2) solid var(--card-border);
+              }
+              ```
+
+              ```html
+              <div class="card">
+                <h3 class="card__title">Awesome :has article</h3>
+                <p class="card__blurb">Join me and the Chrome...</p>
+              </div>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-media/index.html"></iframe>
 
             ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+
+            <div class="code-column">
+              
+              ```css
+              .card:has(img) {
+                --card-border: var(--green-3);
+                grid-template-columns: 1fr 1fr;
+                padding: 0;
+                grid-gap: 0;
+              }
+
+              .card:has(img) :is(.card__title, .card__blurb) {
+                grid-column: 1;
+                padding: var(--size-2) var(--size-4);
+              }
+              ```
+
+              ```html
+              <div class="card">
+                <h3 class="card__title">Awesome :has article</h3>
+                <p class="card__blurb">Join me and the Chrome...</p>
+                <img class="card__media" src="https://asts/awe.png" />
+              </div>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-media-with-media/index.html"></iframe>
+
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+
+            <div class="code-column">
+              
+              ```css
+              .card:has(.card__featured) {
+                --card-border: var(--red-3);
+                animation: wiggle 6s infinite;
+              }
+              ```
+
+              ```html
+              <div class="card">
+                <h3 class="card__title">Awesome :has article</h3>
+                <p class="card__blurb">Join me and the Chrome...</p>
+                <img class="card__media" src="https://asts/awe.png" />
+                <div class="card__featured">
+                  <span>Featured</span>
+                  <svg viewBox="0 0 576 512" title="star"></svg>
+                </div>
+              </div>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-media-with-featured/index.html"></iframe>
+
+            ---
+
             <!-- .slide: data-auto-animate -->
             <!-- Slide 4 -->
             <h2 data-id="goodbye" style="opacity: 1;">Goodbye "Checkbox Hack" 🥲</h2>
@@ -407,6 +646,7 @@
             ```
 
             ---
+
             <!-- .slide: data-auto-animate -->
 
             <h2 data-id="goodbye" style="opacity: 0.25;">Goodbye "Checkbox Hack" 🥲</h2>
@@ -414,24 +654,59 @@
             ## Hello Semantic Markup && "Magic" CSS Tricks/Powers ✨
 
             <sub>Honestly. So many possibilities. Please try it out! 🙏</sub>
+
+            ---
+
+            ## Nav Menu Drawer
+
+            ---
+
+            ## Basic Dark Mode Toggle
+
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
+            <div class="code-column">
+              
+              ```css              
+              @property --inset-top {
+                syntax: '&lt;length-percentage&gt;',
+                inherits: true;
+                initial-value: 0%;
+              }
+
+              :root:has(#bus:checked) {
+                --inset-top: 58%;
+                /* styles obfuscated */
+              }
+
+              img {
+                object-view-box: inset(var(--inset-top), ...);
+                transition: --inset-top var(--zoom-speed);
+              }
+              ```
+
+              ```html
+              <img alt="Zoomer" src="https://zoom.png"/>
+              <div class="controls">
+                <fieldset>
+                  <legend>Zoom Spots</legend>
+                  <div class="controls__group">
+                    <label for="bus">Bus</label>
+                    <input type="radio" id="bus" name="zoomies" />
+                  </div>
+                </fieldset>
+              </div>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-primitive-zoom/index.html"></iframe>
+            ---
+
+            ## Tic Tac Toe
             
-            ---
-
-            <!-- .slide: class="multi-column" style="--split-one: 0.5fr; --split-two: 0.5fr;" -->
-
-            <!-- Making a game with :has -->
-            <div class="code-column"></div>
-
-            ## Tic Tac Toe Game?
-
-            ---
-            <!-- .slide: class="multi-column" -->
-
-            <!-- You can even check things from the root. If something happens anywhere in the body -->
-            <!-- Dark Mode Toggle -->
-
-            ### A Basic Dark Mode Toggle
-
             ---
 
             ## Debrief 💫
@@ -471,711 +746,10 @@
 
             ---
 
-            <!-- .slide: data-background-color="#ead9f2" data-background-iframe="https://localhost:1234/css-stopwatch/index.html" data-background-interactive -->
-
-            <!-- Insert Phil :has a dark side demo. Out there but practical. -->
-
-            ### Phil has a darkside demo
+            ## Dino Stan Game Bishi Bashi
 
             ---
 
-            <!-- .slide: data-auto-animate -->
-            # <span style="opacity: 0.2;">CSS, </span><span style="opacity: 1;">UI<span style="opacity: 0.2;">, && DevTools</span>
-
-            ---
-            <!-- .slide: class="table-shot" -->
-            <!-- Slide 1 -->
-            
-            |Source | What? | How? |
-            |---|---|---|
-            | TikTok | Sliding Puzzle Captcha | HTML Drag and Drop, CSS Grid, Custom Properties |
-
-            ---
-
-            <div class="collage-grid capy-collage">
-              <img src="../../assets/capy-puzzle.png" width="300">
-              <img src="../../assets/drag-and-drop.png" width="300">
-              <img src="../../assets/homer-puzzle.gif" width="300">
-              <img src="../../assets/grid-inspector.png" width="300">
-              <img src="../../assets/capy-range.png" width="300">
-            </div>
-
-            ---
-            <!-- Slide 2 -->
-            ## Where to begin?
-            ```html[1-100]
-            <!--  The main element -->
-            <div class="captcha">
-              <!-- An element for layout -->
-              <div class="captcha__grid">
-                <!-- An element for displaying the image -->
-                <div class="captcha__img"></div>
-                <!-- Pieces && Slots would be added here? -->
-              </div>
-            </div>
-            ```
-            ---
-            <!-- Slide 3 -->
-            ## How about something reusable?
-            ```javascript[1-100|1,10|2-7|11,12]
-            class Captcha {
-              static defaults = {
-                gridSize: 5,
-                image: 'https://source.unsplash.com/random/720x720?moon',
-                pieces: 4,
-                onComplete: () => alert('You are not a robot?')
-              }
-
-              constructor(options) {...}
-            }
-            const element = document.querySelector('.captcha')
-            new Captcha({ element, gridSize: 4, pieces: 2 })
-            ```
-            ---
-            <!-- Slide 4 -->
-            ## Construction
-            ```javascript[1-100|2|12-13|14-15]
-            constructor(options) {
-              const opts = (this._options = { ...Captcha.defaults, ...options })
-              this._element = opts.element
-              this._progress = 0
-              this._grid = opts.element.querySelector('.captcha__grid')
-              this._img = opts.element.querySelector('.captcha__img')
-              if (!this._element || !this._img || !this._grid)
-                throw Error('Captcha: Required elements missing!')
-              if (opts.pieces > Math.pow(opts.gridSize, 2))
-                throw Error('Captcha: Can not have more pieces than available')
-              // Set CSS inline custom properties
-              this._element.style.setProperty('--captcha-image', `url(${opts.image})`)
-              this._element.style.setProperty('--captcha-grid-size', opts.gridSize)
-              // Now set up the moveable pieces
-              this.setup()
-            }
-            ```
-            ---
-            <!-- Slide 5 -->
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
-            ```js[1-100|2|4,6,11|7-10|14]
-            generatePieces() {
-              const pieces = []
-              const generatePiece = () => {...}
-              while (pieces.length !== this._options.pieces) {
-                const pushPiece = () => {
-                  const newPiece = generatePiece()
-                  // Don't want duplicates
-                  const alreadyExists = pieces.filter(...).length
-                  if (alreadyExists) pushPiece()
-                  else pieces.push(newPiece)
-                }
-                pushPiece()
-              }
-              this._pieces = pieces
-            }
-            ```
-            <img src="../../assets/grid-inspection.png" width="300" />
-            ---
-            <!-- Slide 6 -->
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
-            
-            <img src="../../assets/dotted-inspection.png" width="300" />
-
-
-            ```js[1-29|2-13|14-17|18-22|23-28]
-            const generatePiece = () => {
-              // Create an Array of two items
-              // One is 1 || -2 [CSS Grid]
-              // The other is the gap
-              // Flip a coin to reverse and return the Array.
-              const positions = [
-                // This can either be the start or the finish
-                Math.random() > 0.5 ? -2 : 1,
-                // This can be 3, 4, 5, or 6. Gutter is 2
-                Math.floor(
-                  Math.random() * (this._options.gridSize - 1)
-                ) + 3,
-              ]
-              // Which cell is it?
-              const slot = Math.floor(
-                Math.random() * Math.pow(this._options.gridSize, 2)
-              )
-              // What are the coordinates?
-              const slotPositions = [
-                slot % this._options.gridSize,
-                Math.floor(slot / this._options.gridSize),
-              ]
-              return {
-                // Flip positions?
-                positions: Math.random() > 0.5 ?
-                  positions.reverse() : positions,
-                slots: slotPositions,
-              }
-            }
-            ```
-            ---
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
-            <!-- Slide 7 -->
-            ```js[1-25|2-5|6-11|12-20|21-23]
-            createPieces() {
-              for (const {
-                positions: [px, py],
-                segments: [sx, sy],
-              } of this._pieces) {
-                const piece = document.createElement('div')
-                piece.className = 'captcha__piece'
-                // Position the piece and make it draggable
-                piece.setAttribute('draggable', true)
-                piece.style.setProperty('--captcha-x', px)
-                piece.style.setProperty('--captcha-y', py)
-                const slot = document.createElement('div')
-                slot.className = 'captcha__slot'
-                // Account for the gutter
-                slot.style.setProperty('--slot-x', sx + 3)
-                slot.style.setProperty('--slot-y', sy + 3)
-                // Needs to be able to show the correct image
-                // Negate for background-position
-                piece.style.setProperty('--slot-x', -sx)
-                piece.style.setProperty('--slot-y', -sy)
-                // Throw in the grid
-                this._grid.appendChild(piece)
-                this._grid.appendChild(slot)
-              }
-            }
-            ```
-            <img src="../../assets/dotted-grid-tool.png" width="300" />
-            ---
-            <!-- Slide 8 -->
-            ```css[1-13|15-21|23-31]
-            :root {
-              --size: 50vmin;
-            }
-
-            .captcha {
-              /* "4" is "2*" the gutter which is "2" */
-              --grid-size: calc(var(--captcha-grid-size) + 4);
-              --cell-size: calc(var(--size) / var(--grid-size));
-              --image-size: calc(var(--cell-size) * var(--captcha-grid-size));
-              height: var(--size);
-              aspect-ratio: 1 / 1;
-              position: relative;
-            }
-
-            .captcha__grid {
-              height: 100%;
-              width: 100%;
-              display: grid;
-              grid-template-columns: repeat(var(--grid-size), 1fr);
-              grid-template-rows: repeat(var(--grid-size), 1fr);
-            }
-
-            .captcha__img {
-              position: relative;
-              object-fit: cover;
-              background-color: hsl(0 0% 75%);
-              background-image: var(--captcha-image);
-              background-size: var(--image-size);
-              grid-row:  3 / -3;
-              grid-column: 3 / -3;
-            }
-            ```
-            ---
-            <!-- Slide 9 -->
-            <img src="../../assets/moon-grid.png" width="300" />
-            ---
-            <!-- Slide 10 -->
-            ```css[1-16|7,8,13,14|2,3,4,5,6]
-            .captcha__piece {
-              background-image: var(--captcha-image);
-              background-size: var(--image-size);
-              background-position: calc(
-                var(--segment-x) * var(--cell-size)) calc(var(--segment-y) * var(--cell-size)
-              );
-              grid-column: var(--captcha-x);
-              grid-row: var(--captcha-y);
-              z-index:  2;
-            }
-            .captcha__slot {
-              background: blue;
-              grid-column: var(--segment-x);
-              grid-row: var(--segment-y);
-              z-index:  2;
-            }
-            ```
-            ---
-            <!-- Slide 11 -->
-            <!-- .slide: data-background-iframe="https://localhost:1234/draggable-captcha-step-one/index.html" data-background-interactive -->
-            ---
-            <!-- Slide 12 -->
-            ## HANDLING DRAG
-            ```js[]
-            piece.addEventListener('dragstart',handleDragStart({ piece, px, py, sx, sy }))
-            piece.addEventListener('dragend', handleDragEnd(piece))
-            slot.addEventListener('drop', handleDrop({ piece, slot, px, py, sx, sy }))
-            slot.addEventListener('dragover', doNothing)
-            ```
-            <sub>The business end 💼</sub>
-            ---
-            ## Start && End
-            ```js[1-10|2,3|4|5|8-10]
-            const handleDragStart =
-              ({ piece, px, py, sx, sy }) =>
-              (e) => {
-                piece.style.opacity = 0.25
-                e.dataTransfer.setData('text/json', JSON.stringify({ px, py, sx, sy }))
-              }
-
-            const handleDragEnd = piece => () => {
-              piece.style.opacity = 1
-            }
-            ```
-            ---
-            <!-- Slide 13 -->
-            <!-- .slide: data-background-iframe="https://localhost:1234/draggable-captcha-step-two/index.html" data-background-interactive -->
-            ---
-            <!-- Slide 14 -->
-            ## The Drop
-            ```js[1-22|4-10|11-13|14|15-18|19-20]
-            const handleDrop =
-              ({ piece, slot, px, py, sx, sy }) =>
-              (e) => {
-                const transferred = JSON.parse(e.dataTransfer.getData('text/json'))
-                if (
-                  transferred.sx === sx &&
-                  transferred.sy === sy &&
-                  transferred.px === px &&
-                  transferred.py === py
-                ) {
-                  // It's a match!
-                  piece.remove()
-                  slot.remove()
-                  this._progress++
-                  this._element.style.setProperty(
-                    '--progress',
-                    (this._progress / this._options.pieces) * 100
-                  )
-                  if (this._progress === this._options.pieces && this._options.onComplete)
-                    this._options.onComplete() 
-                }
-              }
-            ```
-            ---
-            <!-- .slide: data-background-iframe="https://localhost:1234/draggable-captcha-step-three/index.html" data-background-interactive -->
-            ---
-            ## Remember this?
-            ```css[1-18|1-5|7,18,9,10|7,18,11-15,16]
-            @property --progress {
-              syntax: '<number>';
-              inherits: true;
-              initial-value: 0;
-            } 
-
-            .captcha__img:before {
-              content: "";
-              position: absolute;
-              inset: -1vmin;
-              background: conic-gradient(
-                from 315deg,
-                hsl(130 80% 50%) calc(var(--progress) * 1%),
-                transparent calc(var(--progress) * 1%)
-              );
-              transition: --progress 0.5s;
-              z-index: -1;
-            }
-            ```
-            ---
-            <!-- .slide: data-background-iframe="https://localhost:1234/draggable-captcha-step-four/index.html" data-background-interactive -->
-            ---
-            <!-- Slide 13 -->
-            ## Debrief 💫
-            
-            <div class="col-count" style="column-count: 2;">
-              
-              <div>
-
-              ### Learned
-              - Math
-              - Reusable Classes
-              - CSS Grid
-              - HTML Drag and Drop
-              - Applied @property
-              - CSS Custom Properties
-
-              </div>
-              
-              <div>
-              
-              ### Next
-              - A11y?
-              - Sounds
-              - FLIP
-              - Whimsy?
-              - Masking/Clipping Shapes
-
-              </div>
-
-              <div class="practical-post-it">
-              
-              ### Practical Corner
-              - Create components
-              - Layout with CSS Grid
-              - Drag and Drop interactions (Reordering, etc.)
-
-              </div>
-
-            </div>
-            ---
-            <!-- Slide 14 -->
-            <!-- .slide: data-background-iframe="https://localhost:1234/draggable-captcha/index.html" data-background-interactive data-background-color="hsl(210 80% 99%)"-->
-            ---
-
-            <!-- .slide: data-auto-animate -->
-            # <span style="opacity: 0.2;">CSS, UI, && </span><span style="opacity: 1;">DevTools</span>
-
-            ---
-            <!-- .slide: class="table-shot" -->
-            <!-- Slide 1 -->
-            |Source | What? | How? |
-            |---|---|---|
-            | Freelance/Dribbble | Safe Cracking | DeviceOrientation, DeviceOrientation Simulator |
-
-            ---
-            <!-- Slide 2 -->
-            <div class="collage-grid safe-collage">
-              <img src="../../assets/3d-knob.png" width="300">
-              <img src="../../assets/sensors.png" width="300">
-              <img src="../../assets/safe-crack.gif" width="300">
-              <img src="../../assets/kent-parallax.png" width="300">
-              <img src="../../assets/thermostat.png" width="300">
-            </div>
-            ---
-            <!-- Slide 3 -->
-            <!-- .slide: class="multi-column" -->
-            ```html[]
-            <label
-              for="alpha"
-              class="control__label"
-            >
-              Alpha
-            </label>
-            &lt;input
-              id="alpha"
-              name="alpha"
-              class="control__input"
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-            /&gt;
-            ```
-            <img src="../../assets/petes-diagram.png" width="300" />
-            ---
-            <!-- Slide 4 -->
-            ```js[1-15|1-8|10-15|10,11|12,13|14,15]
-            // Given two ranges, return a function to map a value
-            const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
-              const INPUT_RANGE = inputUpper - inputLower
-              const OUTPUT_RANGE = outputUpper - outputLower
-              return value => outputLower + (
-                ((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0
-              )
-            }
-
-            // Z-axis (0deg - 360deg)
-            const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
-            // X-axis (-180deg - 180deg)
-            const BETA_MAPPER = mapRange(-180, 180, 0, 100)
-            // Y-axis (-90deg - 90deg)
-            const GAMMA_MAPPER = mapRange(-90, 90, 0, 100)
-            ```
-            ---
-            <!-- Slide 5 -->
-            ```js[1-11|1-3|11|5-9]
-            const ALPHA = document.querySelector('#alpha')
-            const BETA = document.querySelector('#beta')
-            const GAMMA = document.querySelector('#gamma')
-
-            const handleOrientation = ({ alpha, beta, gamma }) => {
-              ALPHA.value = ALPHA_MAPPER(alpha)
-              BETA.value = BETA_MAPPER(beta)
-              GAMMA.value = GAMMA_MAPPER(gamma)
-            }
-
-            window.addEventListener('deviceorientation', handleOrientation)
-            ```
-            ---
-
-            <iframe src="https://localhost:1234/detecting-deviceorientation/index.html"></iframe>
-            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
-            
-
-
-            <a class="demo-link" href="https://localhost:1234/detecting-deviceorientation/index.html" target="_blank" rel="noreferrer noopener">
-              Let's check out the demo! <span class="rocket">🚀</span>
-            </a>
-
-            ---
-            <!-- Slide 7 -->
-            ## That's it? 🍏
-            ```js[1-15|2,15|3,10-12|4-11]
-            const START = () => {
-              BUTTON.remove()
-              if (DeviceOrientationEvent?.requestPermission) {
-                DeviceOrientationEvent
-                  .requestPermission()
-                  .then(permission => {
-                    if (permission === 'granted')
-                      window.addEventListener('deviceorientation', handleOrientation)
-                    else
-                      alert('You denied permission to play!')
-                  })
-              } else {
-                window.addEventListener('deviceorientation', handleOrientation)
-              }
-            }
-
-            BUTTON.addEventListener('click', START)
-            ```
-            <sub>h/t to `@Vanaf1979` for pinging me about this one</sub>
-            ---
-            <!-- Slide 8 -->
-            ## Setting a combo
-            ```js[1-13|1|4,13|5-11]
-            const GET_RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-            const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
-
-            const COMBINATIONS = [
-              {
-                id: 'alpha',
-                unlock: GET_RANDOM(0, 100),
-                input: ALPHA,
-                label: ALPHA_LABEL,
-                mapper: ALPHA_MAPPER,
-              },
-              ...otherCombinations
-            ]
-
-            ```
-            ---
-            <!-- Slide 9 -->
-            ## Get things rolling
-
-            ```js[1-27|1-8,12|18,23]
-            let step = 0
-
-            const showCombination = step => {
-              COMBINATIONS.forEach((combo, index) => {
-                combo.input.style.display =
-                combo.label.style.display = index === step ? 'block' : 'none'
-              })
-            }
-
-            const START = () => {
-              BUTTON.remove()
-              showCombination(step)
-              if (DeviceOrientationEvent?.requestPermission) {
-                DeviceOrientationEvent
-                  .requestPermission()
-                  .then(permission => {
-                    if (permission === 'granted')
-                      window.addEventListener('deviceorientation', handleOrientation)
-                    else
-                      alert('You denied permission to play!')
-                  })
-              } else {
-                window.addEventListener('deviceorientation', handleOrientation)
-              }
-            }
-
-            BUTTON.addEventListener('click', START)
-            ```
-            ---
-            <!-- Slide 10 -->
-            ## Cracking Logic 👴🏼
-            ```js[1-32|30-32|23-28|27,31|11-21|13,14|15-19|1-9]
-            const complete = () => {
-              TITLE.innerText = 'You cracked the code!'
-              TITLE.style.display = 'block'
-              window.removeEventListener('deviceorientation', handleOrientation)
-              COMBINATIONS.forEach(({ input }) => {
-                input.removeEventListener('input', handleUpdate)
-              })
-            }
-
-            const handleUpdate = () => {
-              const { input, label, unlock } = COMBINATIONS[step]
-              if (parseInt(input.value, 10) === unlock) {
-                step += 1
-                if (step === COMBINATIONS.length) {
-                  input.style.display = label.style.display = 'none'
-                  complete()
-                } else {
-                  showCombination(step)
-                }
-              }
-            }
-
-            const handleOrientation = e => {
-              // Set the value of the step input
-              const { input, id, label, mapper, unlock } = COMBINATIONS[step]
-              input.value = mapper(e[id])
-              handleUpdate()
-            }
-
-            COMBINATIONS.forEach(({ input }) => {
-              input.addEventListener('input', handleUpdate)
-            })
-            ```
-            ---
-            <iframe class="demo-embed" src="https://localhost:1234/detecting-deviceorientation-no-indication/index.html"></iframe>
-            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
-            
-
-
-            <a class="demo-link" href="https://localhost:1234/detecting-deviceorientation-no-indication/index.html" target="_blank" rel="noreferrer noopener">
-              Let's check out the demo! <span class="lightning">✨</span>
-            </a>
-            ---
-            <!-- Slide 12 -->
-            ## There's no indication
-            <div class="stacked">
-
-            ```css[1-14|1-5|7-14|14]
-            [type="range"] {
-              --rotation: 20deg;
-              --proximity-hue: calc(130 - ((130 / 100) * var(--proximity, 0)));
-              accent-color:  hsl(var(--proximity-hue) 80% 50%);
-              /* Animation speed will be 1 to 0.1 */
-              animation: shake calc((1 - ((var(--proximity, 0) / 100) * 0.9)) * 1s) infinite;
-            }
-
-            @keyframes shake {
-              25% {
-                transform: rotate(calc((var(--proximity, 0) / 100) * var(--rotation)));
-              }
-              75% {
-                transform: rotate(calc((var(--proximity, 0) / -100) * var(--rotation)));
-              }
-            }
-            ```
-
-            ```js[1-10|1-2|9-10]
-            const PROXIMITY_THRESHOLD = 15
-            const PROXIMITY_MAPPER = mapRange(0, PROXIMITY_THRESHOLD, 100, 0)
-            
-            // Inside the updater
-            const CLAMPED = Math.min(
-              Math.max(0, Math.abs(input.value - unlock)),
-              PROXIMITY_THRESHOLD
-            )
-            const proximity = PROXIMITY_MAPPER(CLAMPED)
-            input.style.setProperty('--proximity', proximity)
-            ```
-
-            </div>
-            ---
-            <iframe class="demo-embed" src="https://localhost:1234/detecting-deviceorientation-with-indication/index.html"></iframe>
-            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
-            
-
-
-            <a class="demo-link" href="https://localhost:1234/detecting-deviceorientation-with-indication/index.html" target="_blank" rel="noreferrer noopener">
-              Let's check out the demo! <span class="muscle">💪</span>
-            </a>
-            ---
-
-            <!-- Slide 14 -->
-            ## Debrief 💫
-            
-            <div class="col-count" style="column-count: 2;">
-              
-              <div>
-
-              ### Learned
-              - DeviceOrientation Event
-              - Cross Browser DeviceOrientation
-              - Mapping values
-              - Dynamic Animations w/ CSS Custom Properties
-              
-              </div>
-
-              <div>
-
-              ### Next
-              - A11y?
-              - Sounds
-              - Turn it into a safe!
-              - Whimsy?
-              - Web Vibration API (Yep, that's a thing!)
-
-              </div>
-
-              <div class="practical-post-it">
-              
-              ### Practical Corner
-              - New APIs!
-              - Interesting Utilities (Map)
-              - Custom Property Magic
-
-              </div>
-
-            </div>
-
-            ---
-
-            <iframe class="demo-embed demo-embed--big" src="https://localhost:1234/deviceorientation-safe/index.html"></iframe>
-            <!-- <iframe src="https://cdpn.io/pen/debug/mdpYOKY/de75efaa529aa7c7026cfe054ca23ada"></iframe> -->
-            
-
-
-            <a class="demo-link" href="https://localhost:1234/deviceorientation-safe/index.html" target="_blank" rel="noreferrer noopener">
-              Let's check out the demo! <span class="rocket">⭐️</span>
-            </a>
-
-            ---
-
-            # That's It! <span class="raise-hands">🙌</span>
-            <sub>Almost...</sub>
-
-            ---
-
-            1. Explore 🧐
-            2. Hoard 📝
-            3. Inspire 💡
-            4. Make 🤓
-            5. Profit 💰
-
-            <sub>Curiosity may have killed the cat, but it built the bear ʕง•ᴥ•ʔง</sub>
-
-            ---
-
-            ## Your Homework 😉
-            <sub>Should you choose to accept it</sub>
-
-            ---
-
-            <!-- > "Being playful with your code and what might seem like "lateral" learning can be a huge driving factor in evolving your skills. Who knows where it could take you" – <cite>🌝</cite> -->
-
-            <!-- --- -->
-            <!-- .slide: data-auto-animate -->
-
-            <!-- ## Make
-            ## Things -->
-
-            <!-- --- -->
-            <!-- .slide: data-auto-animate -->
-<!-- 
-            ## Break
-            ## Things -->
-
-            <!-- --- -->
-            <!-- .slide: data-auto-animate -->
-<!-- 
-            ## Talk About
-            ## Things
-
-            --- -->
-
-            # Thank you! <div class="perspective"><span class="pray-hands">🙏</span></div>
-            <sub>Grab me `@jh3yy` || `jhey.dev/links`</sub>
           </textarea>
         </section>
       </div>

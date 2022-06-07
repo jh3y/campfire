@@ -17,6 +17,7 @@
   --color-three: #34a853;
   --color-four: #fbbc05;
   --speed: 0.65s;
+  --code-size: 0.8rem;
 }
 
 section:first-of-type h2 {
@@ -212,9 +213,14 @@ cite {
 	padding: 20px;
 }
 
+.reveal pre.code-wrapper code {
+	white-space:  pre-wrap;
+}
+
 .reveal pre {
 	display: inline-block;
 	width: auto;
+	font-size:  var(--code-size, 0.55em);
 }
 
 table.hljs-ln {
@@ -260,7 +266,7 @@ table.hljs-ln {
 	transform: translate(-50%, -50%);
 }
 
-[data-auto-animate="running"] iframe[ data-auto-animate] {
+[data-auto-animate="running"] iframe[data-auto-animate] {
 	transform: translate(-50%, -50%) !important;
 }
 

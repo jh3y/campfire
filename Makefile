@@ -1,4 +1,5 @@
 PARCEL = ./node_modules/.bin/parcel
+VITE = ./node_modules/.bin/vite
 
 SRC_BASE = ./
 BOILERPLATE_BASE = ./boilerplate/
@@ -46,10 +47,15 @@ clean:
 	rm -rf .parcel-cache dist
 
 develop-conf: checkForConf ## Runs conference deck including demos
-	$(PARCEL) $(CONF)/deck/**/*.html --https --cert ./localhost.pem --key ./localhost-key.pem
+	$(PARCEL) $(CONF)/deck/**/*.html --https --cert ./localhost.pem --key ./localhost-key.pem --no-cache --no-source-maps
 
 build-conf: checkForConf ## Runs conference deck including demos
 	$(PARCEL) build $(CONF)/deck/**/*.html
 
 build-demos: checkForConf ## Runs conference deck including demos
 	$(PARCEL) build $(CONF)/demos/**/*.html
+
+dev-pixel-pioneers:
+	$(VITE) pixel-pioneers-2022/deck/ --port 1234
+build-pixel-pioneers:
+	$(VITE) build pixel-pioneers-2022/deck/ --outDir ../../.public
