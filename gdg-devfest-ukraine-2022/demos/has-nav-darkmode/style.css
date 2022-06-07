@@ -6,7 +6,6 @@
 }
 
 :root {
-  --open: 0;
   --bg: var(--gray-9);
   --text-1: var(--gray-1);
   --text-2: var(--gray-1);
@@ -15,6 +14,7 @@
   --hover-action: var(--gray-7);
   --nav-color: var(--gray-8);
   --link: var(--red-3);
+  --shadow: 0 0% 25%;
 }
 
 [aria-pressed] {
@@ -40,7 +40,7 @@ body {
 }
 
 nav {
-  padding: var(--size-2) 0;
+  padding: var(--size-4) 0;
   width: 100vw;
   background: var(--nav-color);
   position: fixed;
@@ -48,7 +48,8 @@ nav {
   width: 200px;
   left: 100%;
   bottom: 0;
-  box-shadow: var(--inner-shadow-4);
+  --shadow-strength: 50%;
+  box-shadow: inset 10px 0 20px 0 hsl(var(--shadow)/calc(var(--shadow-strength) + 9%));
 }
 
 header {
@@ -115,6 +116,7 @@ p {
   --nav-color: var(--gray-2);
   --hover-action: var(--gray-3);
   --header-gradient: var(--gradient-6);
+  --shadow: 0 0% 75%;
 }
 
 button svg {

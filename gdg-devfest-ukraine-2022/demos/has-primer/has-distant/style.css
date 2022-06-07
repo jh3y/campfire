@@ -1,0 +1,37 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+  grid-auto-flow: column;
+}
+
+.🐱,
+.🍔 {
+  font-size: 30vmin;
+}
+
+.🐱:before,
+.🍔:before {
+  display: inline-block;
+  content: var(--content);
+}
+
+.🍔:before {
+  --content: "🍔";
+}
+
+.🐱:before {
+  --content: "🐱";
+}
+
+
+.🐱:has(~ .🍔):before {
+  --content: "😾";
+}
+

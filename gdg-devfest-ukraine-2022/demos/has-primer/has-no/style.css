@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+.🐱,
+.🍔 {
+  font-size: 30vmin;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.🐱:before,
+.🍔:before {
+  display: inline-block;
+  content: var(--content);
+}
+
+.🐱:before {
+  --content: "😿";
+}
