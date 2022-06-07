@@ -629,9 +629,16 @@
               </div>
               ```
 
+              <sub>You could even query media <code>src</code> type (.gif, etc.)</sub>
+
             </div>
 
             <iframe class="demo-embed" src="https://localhost:1234/has-media-with-featured/index.html"></iframe>
+
+            ---
+
+            ## 🎻 Mitigate User Error 😎
+            <sub>If naming things is hard, then remembering them is... 🤔</sub>
 
             ---
 
@@ -657,11 +664,153 @@
 
             ---
 
-            ## Nav Menu Drawer
+             <!-- .slide: class="shrink-code multi-column" -->
+
+            <div class="code-column">
+              
+              ```css
+              body {
+                transform: translateX(calc(var(--open, 0) * -200px));
+                transition: transform 0.2s var(--ease-1);
+              }
+              :root:has([aria-expanded="true"]) {
+                --open: 1;
+              }
+              ```
+
+              ```js
+              const BUTTON = document.querySelector('button')
+
+              const TOGGLE_NAV = () =>
+                BUTTON.setAttribute('aria-expanded',
+                  BUTTON.matches('[aria-expanded="false"]')
+                    ? true : false
+                )
+
+              BUTTON.addEventListener('click', TOGGLE_NAV)
+              ```
+
+              ```html
+              <nav>
+                <ul>
+                  <li>Home</li>
+                  <li>About</li>
+                  <li>Writing</li>
+                  <button class="mode-toggle" aria-expanded="false">
+                    <span title="Toggle Nav">Toggle Nav</span>
+                    <svg>...</svg>
+                  </button>
+                </ul>
+              </nav>
+              <header>
+                <h1>Some Awesome Site</h1>
+              </header>
+              <main>
+                <p>Lorem...</p>
+              </main>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-nav/index.html"></iframe>
 
             ---
 
-            ## Basic Dark Mode Toggle
+            <!-- .slide: class="shrink-code multi-column" -->
+
+            <div class="code-column">
+              
+              ```css
+              :root:has([aria-pressed="true"]) {
+                --bg: var(--gray-1);
+                --color: var(--gray-9);
+                --nav-color: var(--gray-2);
+                --hover-action: var(--gray-3);
+                --header-gradient: var(--gradient-6);
+              }
+              ```
+
+              ```js
+              const BUTTON = document.querySelector('button')
+
+              const TOGGLE_MODE = () =>
+                BUTTON.setAttribute('aria-pressed',
+                  BUTTON.matches('[aria-pressed="false"]')
+                    ? true : false
+                )
+
+              BUTTON.addEventListener('click', TOGGLE_MODE)
+              ```
+
+              ```html
+              <nav>
+                <ul>
+                  <li>Home</li>
+                  <li>About</li>
+                  <li>Writing</li>
+                  <button class="mode-toggle" aria-pressed="false">
+                    <span title="Light theme">Light theme</span>
+                    <span title="Dark theme">Dark theme</span>
+                    <svg>...</svg>
+                  </button>
+                </ul>
+              </nav>
+              <header>
+                <h1>Some Awesome Site</h1>
+              </header>
+              <main>
+                <p>Lorem...</p>
+              </main>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-darkmode/index.html"></iframe>
+
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+
+            <div class="code-column">
+              
+              ```css
+              :root:has([aria-expanded="true"]) {
+                --open: 1;
+              }
+              :root:has([aria-pressed="true"]) {
+                --bg: var(--gray-1);
+                --color: var(--gray-9);
+                --nav-color: var(--gray-2);
+                --hover-action: var(--gray-3);
+                --header-gradient: var(--gradient-6);
+              }
+              ```
+
+              ```html
+              <nav>
+                <button class="nav-toggle" aria-expanded="false">
+                  <!-- Obfuscated elements -->
+                </button>
+                <ul>
+                  <li>Home</li>
+                  <li>About</li>
+                  <li>Writing</li>
+                  <button class="mode-toggle" aria-pressed="false">
+                    <!-- Obfuscated elements -->
+                  </button>
+                </ul>
+              </nav>
+              <header>
+                <h1>Some Awesome Site</h1>
+              </header>
+              <main>
+                <p>Lorem...</p>
+              </main>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-nav-darkmode/index.html"></iframe>
 
             ---
 
@@ -718,6 +867,8 @@
               - What :has can do
               - Bye "Checkbox Hack"?
               - More opportunites for less JavaScript
+              - Mitigate user error with DOM stuff
+              - Less classes && cleaner markup
               
               </div>
               
@@ -737,7 +888,7 @@
               ### Practical Corner
               - Awesome use cases
               - Less HTML/CSS hacks!
-              - a11y
+              - Less user error?
               - Many other things!
 
               </div>

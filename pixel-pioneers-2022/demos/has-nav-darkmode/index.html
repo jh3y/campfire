@@ -6,11 +6,16 @@
   </head>
   <body>
     <nav>
+      <button class="nav-control" aria-haspopup="true" aria-expanded="false" aria-controls="nav" aria-pressed="true"><span>Menu Collapsed</span><span>Menu Expanded</span><svg class="nav__icon" viewBox="0 0 24 24" role="img">
+          <title>Menu icon</title>
+          <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="var(--color)"></path>
+          <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="var(--color)"></path>
+        </svg></button>
       <ul>
         <li>Home</li>
         <li>About</li>
         <li>Writing</li>
-        <button class="settings-control nav-control theme-toggle" aria-pressed="false">
+        <button class="theme-toggle" aria-pressed="false">
           <span class="hide" title="Light theme">Light theme</span>
           <span class="hide" title="Dark theme">Dark theme</span>
           <svg viewBox="0 0 24 24" role="img">

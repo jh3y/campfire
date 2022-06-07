@@ -1,7 +1,6 @@
 @import "npm:open-props/open-props.min.css";
 @import "npm:open-props/normalize.min.css";
 
-
 * {
   box-sizing: border-box;
 }
@@ -15,6 +14,7 @@
   --hover-action: var(--gray-7);
   --nav-color: var(--gray-8);
   --link: var(--red-3);
+  --shadow: 0 0% 25%;
 }
 
 [aria-pressed] {
@@ -34,19 +34,22 @@ body {
   justify-items: center;
   min-height: 100vh;
   grid-auto-rows: min-content;
-  transition: color 0.2s, background 0.2s;
-  margin: 0;
+  transition: color 0.2s, background 0.2s, transform 0.2s var(--ease-1);
   overflow-x: hidden;
-}
-
-main {
-  max-width: 90vw;
+  transform: translateX(calc(var(--open, 0) * -200px));
 }
 
 nav {
-  padding: var(--size-2) 0;
+  padding: var(--size-4) 0;
   width: 100vw;
   background: var(--nav-color);
+  position: fixed;
+  top: 0;
+  width: 200px;
+  left: 100%;
+  bottom: 0;
+  --shadow-strength: 50%;
+  box-shadow: inset 10px 0 20px 0 hsl(var(--shadow)/calc(var(--shadow-strength) + 9%));
 }
 
 header {
@@ -62,14 +65,15 @@ h1 {
   width: 100%;
 }
 
-
-
 nav ul {
   list-style-type: none;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  max-width: 90%;
+  justify-content: center;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
   width: var(--size-xl);
   gap: var(--size-4);
 }
@@ -95,11 +99,9 @@ button span {
 
 p {
   margin-top: var(--size-4);
-  max-width:  100%;
-  text-align:  justify;
 }
 
-button :is(span, svg title, svg path) {
+[aria-pressed] :is(span, svg title, svg path) {
   display: none;
 }
 
@@ -108,14 +110,26 @@ button :is(span, svg title, svg path) {
   display: block;
 }
 
-:root:has([aria-pressed="true"]) {
+:root:has(.theme-toggle[aria-pressed="true"]) {
   --bg: var(--gray-1);
   --color: var(--gray-9);
   --nav-color: var(--gray-2);
   --hover-action: var(--gray-3);
   --header-gradient: var(--gradient-6);
+  --shadow: 0 0% 75%;
 }
 
-[aria-pressed] svg {
+button svg {
   height: 75%;
+  stroke: none;
+}
+
+[aria-expanded] {
+  position: absolute;
+  top: var(--size-4);
+  right: calc(100% + var(--size-4));
+}
+
+:root:has([aria-expanded="true"]) {
+  --open: 1;
 }
