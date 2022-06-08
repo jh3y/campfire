@@ -1,10 +1,6 @@
-@import "npm:open-props/open-props.min.css";
-@import "npm:open-props/normalize.min.css";
-
-
 @font-face {
-  font-family: 'Permanent';
-  src: url('../../../assets/PermanentMarker-Regular.ttf') format('ttf');
+  font-family: Cyber;
+  src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
   font-display: swap;
 }
 
@@ -13,123 +9,275 @@
 }
 
 :root {
-  --ultraviolet: hsl(270 70% 60%);
-  --color: var(--gray-8);
-  --text-2: var(--gray-7);
-  --bg: var(--gray-1);
+  --size: 300px;
+  --piece-size: calc(var(--size) / 3);
+  --line: #e6e6e6;
+  --bg: #060d13;
+  --naught: #fed401;
+  --naught-alpha: rgba(254,212,1,0.5);
+  --cross: #3890f5;
+  --cross-alpha: rgba(56,144,245,0.5);
+  --draw-speed: 0.15;
+  --color: #2a2222;
+  --show-naught: 0;
+  --show-cross: 0;
+  --show-draw: 0;
+  --show-it: calc(var(--show-naught) + var(--show-cross) + var(--show-draw));
 }
-
-html {
-  color-scheme: none;
-  background: var(--bg);
-  transition: background 0.2s;
+@media (min-width: 768px) {
+  :root {
+    --size: 50vmin;
+  }
 }
-
+@media (max-height: 500px) {
+  :root {
+    --size: 300px;
+  }
+}
 body {
-  display: grid;
   min-height: 100vh;
+  display: grid;
   place-items: center;
-  max-width: 80ch;
-  margin: 0 auto;
-  color: var(--color);
-  background: var(--bg);
-  transition: background 0.2s;
-}
-
-:where(h1) {
-  color: var(--color);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  margin: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  background: var(--bg);
+  color: var(--color);
+  font-family: 'Cyber', sans-serif;
+  text-transform: uppercase;
 }
-
 svg {
-  height: 100%;
-  color: var(--gray-9);
-  fill: var(--gray-9);
-  stroke: var(--gray-9);
+  filter: drop-shadow(0 -0.25vmin 0.25vmin #000) drop-shadow(0 0 0.5vmin var(--alpha)) drop-shadow(0 0 1vmin var(--alpha)) drop-shadow(0 0 5vmin var(--stroke)) brightness(1.2);
+  stroke: var(--stroke);
+  position: absolute;
 }
-
-.controls {
-  position: fixed;
-  right: 1rem;
-  top: 1rem;
+svg circle,
+svg path {
+  animation: draw calc(var(--draw-speed) * 1s) calc(var(--delay, 0) * 1s) ease-in both;
 }
-
-fieldset {
-  border-color: var(--color);
-}
-
-p {
+.board {
+  display: grid;
+  place-items: center;
   position: relative;
 }
-
-p:nth-of-type(1) {
-  --x: 75%;
-  --y: 25%;
-  --r: 15deg;
-  --s: 1.2;
-}
-
-p:nth-of-type(3) {
-  --x: 25%;
-  --y: 15%;
-  --r: -15deg;
-  --s: 1.5;
-}
-
-p:nth-of-type(5) {
-  --x: 55%;
-  --y: 15%;
-  --r: -10deg;
-  --s: 3;
-}
-
-.revealer {
-  height: 48px;
-  aspect-ratio: 1;
-  padding: 0;
-  margin: 0;
-  padding: 0.25rem;
-  background: var(--gray-4);
-  border-width: 2px;
-}
-
-fieldset {
-  display: grid;
-  place-items: center;
-}
-
-.secret-message {
+.game__result {
   position: absolute;
-  color: var(--ultraviolet);
-  top: var(--y);
-  left: var(--x);
-  font-size: 3rem;
-  transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s, 1));
-  display: inline-block;
-  font-family: 'Permanent Marker', cursive;
+  width: 100vmax;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+label {
+  display: block;
+  position: absolute;
+  height: var(--piece-size);
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+label:hover .ghost {
+  opacity: 0.5;
+}
+.ghost {
+  opacity: 0;
+  transition: opacity calc(var(--draw-speed) * 1s);
+}
+.o {
+  --alpha: var(--naught-alpha);
+  --stroke: var(--naught);
+  transform: rotateX(180deg);
+}
+.x {
+  --alpha: var(--cross-alpha);
+  --stroke: var(--cross);
+}
+.x path:nth-of-type(2) {
+  --delay: var(--draw-speed);
+}
+.board {
+  height: var(--size);
+  aspect-ratio: 1;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.board__x,
+.board__o {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.board__line {
+  --stroke: var(--line);
+  --alpha: rgba(230,230,230,0.5);
+  width: calc(var(--size) * 0.05);
+  height: var(--size);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--rotate) * -90deg)) translate(calc(var(--shift) * ((var(--size) / 3) * 0.5)), 0);
+}
+.board__cell {
+  height: var(--piece-size);
+  width: var(--piece-size);
+  position: relative;
+}
+input,
+button {
+  position: absolute;
+}
+button {
+  bottom: 10%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  left: 50%;
+  height: clamp(48px, 5vmin, 3rem);
+  aspect-ratio: 1;
+  outline: transparent;
+  cursor: pointer;
+  transform: translate(-50%, calc((250 - (250 * var(--show-it))) * 1%)) scale(var(--show-it));
+  transition: transform calc(var(--draw-speed) * 1s), opacity calc(var(--draw-speed) * 1s);
+  opacity: var(--show-it);
+  position: fixed;
+  z-index: 999;
+}
+button:hover {
+  transform: translate(-50%, -4%);
+}
+button:active {
+  transform: translate(-50%, 2%) scale(0.8);
+}
+.reset {
+  height: 100%;
+  fill: var(--line);
+  position: static;
+}
+input {
+  position: fixed;
+  left: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+.result {
+  backdrop-filter: blur(25px);
+  z-index: 10;
+  opacity: var(--show-it);
+  transition: opacity calc(var(--draw-speed) * 1s), transform calc(var(--draw-speed) * 1s);
+  transform: translate(-50%, -50%) translateY(calc((250 - (250 * var(--show-it))) * 1%)) scale(var(--show-it));
+}
+.result__content {
+  height: 40vmin;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 15%;
+  background: rgba(36,51,66,0.8);
+  color: #fff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   font-weight: bold;
-  filter: brightness(1.35) drop-shadow(0 0 1px var(--ultraviolet));
-  opacity: var(--reveal, 0);
-  transition: opacity 0.2s;
+  font-size: 2rem;
+  box-shadow: 0 3vmin 2.5vmin -2.5vmin #000;
+  opacity: var(--opacity, 0);
+}
+.result__content--naught {
+  --opacity: var(--show-naught);
+}
+.result__content--cross {
+  --opacity: var(--show-cross);
+}
+.result__content--draw {
+  --opacity: var(--show-draw);
+}
+.result__winner {
+  position: static;
+  height: calc(var(--size) / 3);
+}
+.zzz {
+  --stroke: #197fe6;
+  fill: var(--stroke);
+}
+.board__cell:has(.o-check:checked) .o,
+.board__cell:has(.x-check:checked) .x {
+  display: block;
+}
+.board__cell:has(.o-check:checked) label,
+.board__cell:has(.x-check:checked) label {
+  display: none;
+}
+.board:has(#x-0:checked) .board__cell:has([for="x-0"]) .board__x,
+.board:has(#x-1:checked) .board__cell:has([for="x-1"]) .board__x,
+.board:has(#x-2:checked) .board__cell:has([for="x-2"]) .board__x,
+.board:has(#x-3:checked) .board__cell:has([for="x-3"]) .board__x,
+.board:has(#x-4:checked) .board__cell:has([for="x-4"]) .board__x,
+.board:has(#x-5:checked) .board__cell:has([for="x-5"]) .board__x,
+.board:has(#x-6:checked) .board__cell:has([for="x-6"]) .board__x,
+.board:has(#x-7:checked) .board__cell:has([for="x-7"]) .board__x,
+.board:has(#x-8:checked) .board__cell:has([for="x-8"]) .board__x,
+.board:has(#o-0:checked) .board__cell:has([for="o-0"]) .board__o,
+.board:has(#o-1:checked) .board__cell:has([for="o-1"]) .board__o,
+.board:has(#o-2:checked) .board__cell:has([for="o-2"]) .board__o,
+.board:has(#o-3:checked) .board__cell:has([for="o-3"]) .board__o,
+.board:has(#o-4:checked) .board__cell:has([for="o-4"]) .board__o,
+.board:has(#o-5:checked) .board__cell:has([for="o-5"]) .board__o,
+.board:has(#o-6:checked) .board__cell:has([for="o-6"]) .board__o,
+.board:has(#o-7:checked) .board__cell:has([for="o-7"]) .board__o,
+.board:has(#o-8:checked) .board__cell:has([for="o-8"]) .board__o {
+  display: block;
+}
+[for*="x"] {
+  z-index: calc(1 + var(--turn));
+}
+[for*="o"] {
+  z-index: 1;
+}
+.board:has(:checked),
+.board:has(:checked ~ :checked ~ :checked),
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked),
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked) {
+  --turn: 1;
+}
+.board:has(:checked ~ :checked),
+.board:has(:checked ~ :checked ~ :checked ~ :checked),
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked),
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked) {
+  --turn: 0;
+}
+:root:has(#x-0:checked ~ #x-1:checked ~ #x-2:checked),
+:root:has(#x-3:checked ~ #x-4:checked ~ #x-5:checked),
+:root:has(#x-6:checked ~ #x-7:checked ~ #x-8:checked),
+:root:has(#x-0:checked ~ #x-3:checked ~ #x-6:checked),
+:root:has(#x-1:checked ~ #x-4:checked ~ #x-7:checked),
+:root:has(#x-2:checked ~ #x-5:checked ~ #x-8:checked),
+:root:has(#x-0:checked ~ #x-4:checked ~ #x-8:checked),
+:root:has(#x-2:checked ~ #x-4:checked ~ #x-6:checked) {
+  --show-cross: 1;
+  --show-draw: 0;
+}
+:root:has(#o-0:checked ~ #o-1:checked ~ #o-2:checked),
+:root:has(#o-3:checked ~ #o-4:checked ~ #o-5:checked),
+:root:has(#o-6:checked ~ #o-7:checked ~ #o-8:checked),
+:root:has(#o-0:checked ~ #o-3:checked ~ #o-6:checked),
+:root:has(#o-1:checked ~ #o-4:checked ~ #o-7:checked),
+:root:has(#o-2:checked ~ #o-5:checked ~ #o-8:checked),
+:root:has(#o-0:checked ~ #o-4:checked ~ #o-8:checked),
+:root:has(#o-2:checked ~ #o-4:checked ~ #o-6:checked) {
+  --show-naught: 1;
+  --show-draw: 0;
+}
+:root:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked) {
+  --show-draw: 1;
 }
 
-.secret-message:not(.cow) {
-  filter: saturated(0.25) brightness(2) drop-shadow(0 0 4px var(--ultraviolet));
-}
-
-:root:has(.revealer:active) {
-  --reveal: 1;
-  --bg: var(--gray-9);
-  --color: var(--gray-8);
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }

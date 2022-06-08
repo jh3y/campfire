@@ -864,7 +864,44 @@
             <iframe class="demo-embed" src="https://localhost:1234/has-primitive-zoom/index.html"></iframe>
             ---
 
-            ## Tic Tac Toe
+            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
+            <div class="code-column">
+              
+              ```css              
+              @property --inset-top {
+                syntax: '&lt;length-percentage&gt;',
+                inherits: true;
+                initial-value: 0%;
+              }
+
+              :root:has(#bus:checked) {
+                --inset-top: 58%;
+                /* styles obfuscated */
+              }
+
+              img {
+                object-view-box: inset(var(--inset-top), ...);
+                transition: --inset-top var(--zoom-speed);
+              }
+              ```
+
+              ```html
+              <img alt="Zoomer" src="https://zoom.png"/>
+              <div class="controls">
+                <fieldset>
+                  <legend>Zoom Spots</legend>
+                  <div class="controls__group">
+                    <label for="bus">Bus</label>
+                    <input type="radio" id="bus" name="zoomies" />
+                  </div>
+                </fieldset>
+              </div>
+              ```
+
+            </div>
+
+            <iframe class="demo-embed" src="https://localhost:1234/has-tic-tac-toe/index.html"></iframe>
             
             ---
 
