@@ -31,22 +31,61 @@ del {
 	opacity: 0.5;
 }
 
-.commit-graph {
+.scrapbook-image {
+	--x: 0;
+	--y: 0;
+	--r: 0;
+	--s: 1;
+	height:  10vmin;
 	position: absolute;
-	bottom: 100%;
-	transform: translate(30%, -50%) rotate(24deg) scale(1.2);
+	transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) translate3d(-50%, -50%, -1px) rotate(var(--r)) scale(var(--s));
 	opacity: 0.5;
 }
 
-.reveal a.demo-link {
-	display: block;
-	font-size: 1rem;
+.scrapbook-image.pxl {
+	--x: 100;
+	--r: 16deg;
+	--y: -50;
+}
+.scrapbook-image.commit {
+	--x: -110;
+	--r: -24deg;
+	--y: -50;
+}
+.scrapbook-image.tyto {
+	--x: 0;
+	--r: -3deg;
+	--y: -60;
+}
+.scrapbook-image.whirl {
+	--x: 0;
+	--r: 6deg;
+	--y: 220;
+}
+.scrapbook-image.blokky {
+	--x: 120;
+	--r: -10deg;
+	--y: 220;
 }
 
-.stacked {
-	display: inline-grid;
-	gap: 1rem;
+.scrapbook-image.focussed-twitter {
+	--x: -110;
+	--r: 12deg;
+	--y: 190;
 }
+
+.scrapbook-image.culr {
+	--x: -230;
+	--r: -12deg;
+	--y: 60;
+}
+
+.scrapbook-image.kody {
+	--x: 100;
+	--r: 8deg;
+	--y: 80;
+}
+
 
 .deck__logo {
 	--base-coat: hsl(0 0% 100%);

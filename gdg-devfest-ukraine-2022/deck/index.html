@@ -112,13 +112,21 @@
 
             ---
 
+            <img class="scrapbook-image commit" src="../../assets/commit-graph.png" width="300" />
+            <img class="scrapbook-image blokky" src="../../assets/blokky.png" width="300" />
+            <img class="scrapbook-image culr" src="../../assets/culr.png" width="100" />
+            <img class="scrapbook-image whirl" src="../../assets/whirl.png" width="300" />
+            <img class="scrapbook-image kody" src="../../assets/kody.png" width="300" />
+            <img class="scrapbook-image tyto" src="../../assets/tyto.png" width="300" />
+            <img class="scrapbook-image focussed-twitter" src="../../assets/focussed-twitter.png" width="300" />
+            <img class="scrapbook-image pxl" src="../../assets/pxl.png" width="300" />
+            
             ## <span class="puff">🐡</span>
             
             Make for yourself.
 
             <sub>You're much more than a TODO app! 💅</sub>
 
-            <img class="commit-graph" src="../../assets/commit-graph.png" width="300" />
 
             ---
 
@@ -674,7 +682,7 @@
 
             ---
 
-             <!-- .slide: class="shrink-code multi-column" -->
+             <!-- .slide: class="shrink-code multi-column" style="--code-size: 0.65rem;"-->
 
             <div class="code-column">
               
@@ -719,6 +727,7 @@
                 <p>Lorem...</p>
               </main>
               ```
+              <sub>Worth noting <code>popup</code> is gonna make this a breeze</sub>
 
             </div>
 
@@ -726,7 +735,7 @@
 
             ---
 
-            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- .slide: class="shrink-code multi-column" style="--code-size: 0.65rem;" -->
 
             <div class="code-column">
               
@@ -868,37 +877,36 @@
             <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
             <div class="code-column">
               
-              ```css              
-              @property --inset-top {
-                syntax: '&lt;length-percentage&gt;',
-                inherits: true;
-                initial-value: 0%;
+              ```css
+              /* show indicator */              
+              .board:has(#x-0:checked)
+              .board__cell:has([for="x-0"]) .board__x {
+                display: block;
               }
-
-              :root:has(#bus:checked) {
-                --inset-top: 58%;
-                /* styles obfuscated */
+              /* show controls with z-index flip */
+              [for*="x"] {
+                z-index: calc(1 + var(--turn));
               }
-
-              img {
-                object-view-box: inset(var(--inset-top), ...);
-                transition: --inset-top var(--zoom-speed);
+              /* calculate wins, sibling will remain prevalent */
+              :root:has(#o-2:checked ~ #o-4:checked ~ #o-6:checked) {
+                --show-naught: 1;
+                --show-draw: 0;
+              }
+              /* calculate turns */
+              .board:has(:checked ~ :checked ~ :checked) {
+                --turn: 1;
               }
               ```
 
               ```html
-              <img alt="Zoomer" src="https://zoom.png"/>
-              <div class="controls">
-                <fieldset>
-                  <legend>Zoom Spots</legend>
-                  <div class="controls__group">
-                    <label for="bus">Bus</label>
-                    <input type="radio" id="bus" name="zoomies" />
-                  </div>
-                </fieldset>
+              <div class="board__cell">
+                <label for="x-0">...</label>
+                <label for="o-0">...</label>
+                <svg class="x board__x">...</svg>
+                <svg class="o board__o">...</svg>
               </div>
               ```
-
+              <sub>You can't <code>:has</code> a <code>:has</code>!</sub>
             </div>
 
             <iframe class="demo-embed" src="https://localhost:1234/has-tic-tac-toe/index.html"></iframe>
