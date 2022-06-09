@@ -41,6 +41,7 @@
   },
   "workspaces": [
     "all-day-hey-2022",
-    "pixel-pioneers-2022"
+    "pixel-pioneers-2022",
+    "gdg-devfest-ukraine-2022"
   ]
 }

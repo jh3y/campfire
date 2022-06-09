@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Pixel Pioneers 2022 – Jhey Tompkins</title>
+    <title>GDG Devfest Ukraine 2022 – Jhey Tompkins</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="icon" type="image/x-icon" href="../../assets/favicon.png" />
   </head>
@@ -9,6 +9,23 @@
       <div class="slides">
         <section data-markdown data-separator-notes="Note:">
           <textarea data-template>
+
+            <div class="content-warning">
+              <div>Content</div>
+              <div>Advisory</div>
+              <div>Whimsical Content</div>
+            </div>
+
+            <sub>
+            
+              The following deck
+              - contains varying degrees of motion
+              - is built with the web platform
+              - may contain a slight dash of awesome ✨
+
+            </sub>
+
+            ---
 
             <h2>Supercharge your Skills with Creative Coding
               <span class="lightning">⚡️</span>
@@ -106,30 +123,6 @@
 
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/perspective-steps/index.html" -->
-
-            <h2 style="text-align: left; margin: 0 auto; width: 50%;"><span class="phone">📱</span></h2>
-
-            ---
-
-            <img class="scrapbook-image commit" src="../../assets/commit-graph.png" width="300" />
-            <img class="scrapbook-image blokky" src="../../assets/blokky.png" width="300" />
-            <img class="scrapbook-image culr" src="../../assets/culr.png" width="100" />
-            <img class="scrapbook-image whirl" src="../../assets/whirl.png" width="300" />
-            <img class="scrapbook-image kody" src="../../assets/kody.png" width="300" />
-            <img class="scrapbook-image tyto" src="../../assets/tyto.png" width="300" />
-            <img class="scrapbook-image focussed-twitter" src="../../assets/focussed-twitter.png" width="300" />
-            <img class="scrapbook-image pxl" src="../../assets/pxl.png" width="300" />
-            
-            ## <span class="puff">🐡</span>
-            
-            Make for yourself.
-
-            <sub>You're much more than a TODO app! 💅</sub>
-
-
-            ---
-
             ```zsh
             yarn add super-obscure-thing
             npm i awesome-library-with-slight-change-please
@@ -137,6 +130,25 @@
             ```
 
             <sub>Pssst. The web platform is awesome. Future proof yo'self!</sub>
+
+            ---
+
+            <!-- .slide: data-background-iframe="https://localhost:1234/perspective-steps/index.html" -->
+
+            <h2 style="text-align: left; margin: 0 auto; width: 50%;"><span class="phone">📱</span></h2>
+
+            ---
+
+            <!-- .slide: class="puffer" style="top: 50% !important;" -->
+            
+            <img class='fullscreen-image' src="../../assets/for-yourself.png"/>
+
+            ## <span class="puff">🐡</span>
+            
+            Make for yourself.
+
+            <sub>You're much more than a TODO app! 💅</sub>
+
 
             ---
             
@@ -244,7 +256,7 @@
 
             |Source | What? | How? |
             |---|---|---|
-            | Socials/Kent/React? | :has exploration. | Tinker! |
+            | Socials/Team Offsite/Arcade | :has exploration. | Tinker! |
 
 
             <sub>Absolute game changer! 💯</sub>
@@ -255,9 +267,9 @@
             <div class="collage-grid">
               <img src="../../assets/bramus-has.png" width="300" />
               <img src="../../assets/caniuse-has.png" width="300" />
-              <img src="../../assets/dark-side.gif" width="300" />
-              <img src="../../assets/kent-useforce-tweet.png" width="300" />
-              <img src="../../assets/usefull-tweet.png" width="500" />
+              <img src="../../assets/devrel-head-smash.gif" width="300" />
+              <img src="../../assets/team-awesome.png" width="120" />
+              <img src="../../assets/devrel-grooving.gif" width="100" />
             </div>
             ---
 
@@ -500,8 +512,12 @@
                 border-color: var(--color);
               }
 
-              .form-group:has(:valid) ~ [type="submit"] {
-                --color: var(--valid, green);
+              .form-group:has(:invalid:not(:focus)) label {
+                animation: shake 0.5s infinite;
+              }
+
+              .form-group:has(:valid) label span {
+                animation: twirl 1s calc(var(--index) * 0.1s);
               }
 
               ```
@@ -952,7 +968,7 @@
 
             ---
 
-            ## Dino Stan Game Bishi Bashi
+            <!-- .slide: data-background-iframe="https://localhost:1234/has-stan/index.html" -->
 
             ---
 

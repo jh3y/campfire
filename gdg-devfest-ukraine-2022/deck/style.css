@@ -22,68 +22,60 @@
   --code-size: 0.8rem;
 }
 
-section:first-of-type h2 {
+section:first-of-type h2,
+section:nth-of-type(2) h2 {
 	text-decoration: underline;
 	text-decoration-color: var(--r-link-color);
 }
+
+
 
 del {
 	opacity: 0.5;
 }
 
-.scrapbook-image {
-	--x: 0;
-	--y: 0;
-	--r: 0;
-	--s: 1;
-	height:  10vmin;
+.content-warning {
+	color: white;
+	display: inline-grid;
+	place-items: center;
+	font-family:  'Google Sans', sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.content-warning div {
+	font-size: var(--fs, 1rem);
+	background: black;
+	width: 100%;
+	padding: 1rem;
+	letter-spacing: var(--sp);
+}
+
+.content-warning div:nth-of-type(1) {
+	--fs: 4rem;
+	--sp: 1rem;
+}
+.content-warning div:nth-of-type(2) {
+	--fs: 7rem;
+	--sp: 0.2rem;
+	background: white;
+	color: black;	
+}
+.content-warning div:nth-of-type(3) {
+	--fs: 2.2rem;
+	--sp: 0.2rem;
+}
+
+.reveal .fullscreen-image {
+	height: 100vh;
+	width: 100vw;
+	object-fit: contain;
 	position: absolute;
-	transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) translate3d(-50%, -50%, -1px) rotate(var(--r)) scale(var(--s));
-	opacity: 0.5;
-}
-
-.scrapbook-image.pxl {
-	--x: 100;
-	--r: 16deg;
-	--y: -50;
-}
-.scrapbook-image.commit {
-	--x: -110;
-	--r: -24deg;
-	--y: -50;
-}
-.scrapbook-image.tyto {
-	--x: 0;
-	--r: -3deg;
-	--y: -60;
-}
-.scrapbook-image.whirl {
-	--x: 0;
-	--r: 6deg;
-	--y: 220;
-}
-.scrapbook-image.blokky {
-	--x: 120;
-	--r: -10deg;
-	--y: 220;
-}
-
-.scrapbook-image.focussed-twitter {
-	--x: -110;
-	--r: 12deg;
-	--y: 190;
-}
-
-.scrapbook-image.culr {
-	--x: -230;
-	--r: -12deg;
-	--y: 60;
-}
-
-.scrapbook-image.kody {
-	--x: 100;
-	--r: 8deg;
-	--y: 80;
+	max-width: 100vw;
+	max-height: 100vh;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
 }
 
 
@@ -155,6 +147,21 @@ del {
 
 .slide img {
 	margin: 0;
+}
+
+.reveal .slides {
+	display: grid;
+	place-items: center;
+}
+
+section.puffer {
+	top: 50%! important;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+section.puffer img {
+	opacity: 0.5;
 }
 
 .reveal iframe {
