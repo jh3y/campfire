@@ -4,149 +4,93 @@ const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
   return value => outputLower + (((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0)
 }
 
-
+// Use the rotation as the release point
 let currentRotation
+// Use the acceleration to gauge how much spin there is.
 let currentAcceleration
+let rollTimer
 
-const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
-const BETA_MAPPER = mapRange(-180, 180, 0, 100)
-const GAMMA_MAPPER = mapRange(-90, 90, 0, 100)
+const STATE = {
+  SLEEPING: false,
+  LIFTING: false,
+  ROLLING_OFF: false,
+}
 
-const ALPHA = document.querySelector('#alpha') // Z-axis (0deg - 360deg)
-const BETA = document.querySelector('#beta') // X-axis (-180deg - 180deg)
-const GAMMA = document.querySelector('#gamma') // Y-axis (-90deg - 90deg)
+const CLASSES = {
+  BASE: 'yoyo',
+  SLEEP: 'yoyo--sleeping',
+  ROLL: 'yoyo--off',
+  LIFT: 'yoyo--lifting',
 
+}
+
+const LIFT_THRESHOLD = 50
+const LIFT_ACCELERATION_THRESHOLD = 200
+const ACCELERATION_THRESHOLD = 500
+const SLEEP_THRESHOLD = 0
+
+const YOYO = document.querySelector('.yoyo')
 const BUTTON = document.querySelector('button')
 
-const LABEL_ROTATION_Z = document.querySelector('.rotation--z')
-const LABEL_CURRENT_Z = document.querySelector('.current--z')
-const LABEL_MIN_Z = document.querySelector('.min--z')
-const LABEL_MAX_Z = document.querySelector('.max--z')
-const LABEL_CURRENT_RATE_Z = document.querySelector('.current-rate--z')
-const LABEL_MIN_RATE_Z = document.querySelector('.min-rate--z')
-const LABEL_MAX_RATE_Z = document.querySelector('.max-rate--z')
 
-const LABEL_ROTATION_Y = document.querySelector('.rotation--y')
-const LABEL_CURRENT_Y = document.querySelector('.current--y')
-const LABEL_MIN_Y = document.querySelector('.min--y')
-const LABEL_MAX_Y = document.querySelector('.max--y')
-const LABEL_CURRENT_RATE_Y = document.querySelector('.current-rate--y')
-const LABEL_MIN_RATE_Y = document.querySelector('.min-rate--y')
-const LABEL_MAX_RATE_Y = document.querySelector('.max-rate--y')
+const SLEEP_MAPPER = mapRange(100, 1400, 1000, 10000)
 
-const LABEL_ROTATION_X = document.querySelector('.rotation--x')
-const LABEL_CURRENT_X = document.querySelector('.current--x')
-const LABEL_MIN_X = document.querySelector('.min--x')
-const LABEL_MAX_X = document.querySelector('.max--x')
-const LABEL_CURRENT_RATE_X = document.querySelector('.current-rate--x')
-const LABEL_MIN_RATE_X = document.querySelector('.min-rate--x')
-const LABEL_MAX_RATE_X = document.querySelector('.max-rate--x')
+const RESET = () => {
+  console.info('reset')
+  YOYO.className = CLASSES.BASE
+  STATE.SLEEPING = false
+  STATE.LIFTING = false
+  STATE.ROLLING_OFF = false
+  YOYO.removeEventListener('transitionend', RESET)
+  if (rollTimer) clearTimeout(rollTimer)
+}
 
-let minZ
-let maxZ
-let minRateZ
-let maxRateZ
+const ROLL_OUT = () => {
+  console.info('roll off')
+  YOYO.classList.remove(CLASSES.SLEEP)
+  YOYO.classList.add(CLASSES.ROLL)
+  STATE.ROLLING_OFF = true
+  if (rollTimer) clearTimeout(rollTimer)
+  // At the end of a die off, set sleeping to false and reset the yoyo.
+  YOYO.addEventListener('transitionend', RESET)
+}
 
-let minY
-let maxY
-let minRateY
-let maxRateY
-
-let minX
-let maxX
-let minRateX
-let maxRateX
-
-let flicked = false
-let flickTimer
-
-const detectFlick = () => {
-  if (flicked) return
-  if (currentRotation <= 0 && currentAcceleration <= -150 && !flicked) {
-    document.body.style.backgroundColor = 'hsl(140 80% 50% / 0.25)'
-    console.info('flick up')
-    flicked = true
+const detectSleep = () => {
+  console.info('sleep?')
+  if (Math.abs(currentAcceleration) > ACCELERATION_THRESHOLD) {
+    STATE.SLEEPING = true
+    YOYO.classList.add(CLASSES.SLEEP)
+    const SLEEP_RANGE = SLEEP_MAPPER(Math.abs(currentAcceleration))
+    rollTimer = setTimeout(ROLL_OUT, SLEEP_RANGE)
+    // Calculate the velocity for a timing range.
+    // At the end of the sleep, die off.
+    // Or... If we detect a current rotation that is greater than 50?
   }
-  if (currentRotation >= 60 && currentAcceleration >= 150 && !flicked) {
-    document.body.style.backgroundColor = 'hsl(210 80% 50% / 0.25)'
-    console.info('flick down')
-    flicked = true
-  }
-  if (flicked) {
-    flickTimer = setTimeout(() => {
-      document.body.removeAttribute('style')
-      flicked = false
-    }, 5000) 
+  
+}
+
+const detectUnsleep = () => {
+  console.info('unsleep?', currentAcceleration, LIFT_ACCELERATION_THRESHOLD)
+  // Add a class to unsleep
+  if (Math.abs(currentAcceleration) >= LIFT_ACCELERATION_THRESHOLD) {
+    console.info('lift it')
+    if (rollTimer) clearTimeout(rollTimer)
+    STATE.SLEEPING = false
+    STATE.LIFTING = true
+    YOYO.classList.remove(CLASSES.SLEEP)
+    YOYO.classList.add(CLASSES.LIFT)
+    YOYO.addEventListener('transitionend', RESET)
   }
 }
 
-const handleOrientation = ({ alpha, beta, gamma }) => {
-  // console.info({ alpha, beta, gamma })
-  BETA.value = BETA_MAPPER(beta)
-  ALPHA.value = ALPHA_MAPPER(alpha)
-  GAMMA.value = GAMMA_MAPPER(gamma)
-
-  LABEL_ROTATION_Z.innerText = `Current: ${Math.round(alpha)}`
-  LABEL_ROTATION_Y.innerText = `Current: ${Math.round(beta)}`
-  LABEL_ROTATION_X.innerText = `Current: ${Math.round(gamma)}`
-
-  // Wrist stuff
+const handleOrientation = ({ beta }) => {
   currentRotation = Math.round(beta)
+  if (!STATE.SLEEPING && !STATE.LIFTING && !STATE.ROLLING_OFF && (currentRotation <= SLEEP_THRESHOLD)) detectSleep()
+  if (STATE.SLEEPING && !STATE.ROLLING_OFF && (currentRotation >= LIFT_THRESHOLD)) detectUnsleep()
 }
 
-
-
-
-
-const handleMotion = ({ acceleration: { x, y, z }, rotationRate: { alpha, beta, gamma }}) => {
-  // console.info({ y })
-  
-  // Alpha + Z
-  if (minZ === undefined || z < minZ) minZ = Math.round(z)
-  if (maxZ === undefined || z > maxZ) maxZ = Math.round(z)
-  if (minRateZ === undefined || alpha < minRateZ) minRateZ = Math.round(alpha)
-  if (maxRateZ === undefined || alpha > maxRateZ) maxRateZ = Math.round(alpha)
-  
-  LABEL_MIN_Z.innerText = `Min: ${minZ}`
-  LABEL_MAX_Z.innerText = `Max: ${maxZ}`
-  LABEL_CURRENT_Z.innerText =`Current: ${Math.round(z)}`
-  
-  LABEL_MIN_RATE_Z.innerText = `Min: ${minRateZ}`
-  LABEL_MAX_RATE_Z.innerText = `Max: ${maxRateZ}`
-  LABEL_CURRENT_RATE_Z.innerText =`Current: ${Math.round(alpha)}`
-  
-  // Beta + Y
-  if (minY === undefined || y < minY) minY = Math.round(y)
-  if (maxY === undefined || y > maxY) maxY = Math.round(y)
-  if (minRateY === undefined || beta < minRateY) minRateY = Math.round(beta)
-  if (maxRateY === undefined || beta > maxRateY) maxRateY = Math.round(beta)
-  
-  LABEL_MIN_Y.innerText = `Min: ${minY}`
-  LABEL_MAX_Y.innerText = `Max: ${maxY}`
-  LABEL_CURRENT_Y.innerText =`Current: ${Math.round(y)}`
-  
-  LABEL_MIN_RATE_Y.innerText = `Min: ${minRateY}`
-  LABEL_MAX_RATE_Y.innerText = `Max: ${maxRateY}`
-  LABEL_CURRENT_RATE_Y.innerText =`Current: ${Math.round(beta)}`
-  
-  
-  // Gamma + X   
-  if (minX === undefined || x < minX) minX = Math.round(x)
-  if (maxX === undefined || x > maxX) maxX = Math.round(x)
-  if (minRateX === undefined || gamma < minRateX) minRateX = Math.round(gamma)
-  if (maxRateX === undefined || gamma > maxRateX) maxRateX = Math.round(gamma)
-  
-  LABEL_MIN_X.innerText = `Min: ${minX}`
-  LABEL_MAX_X.innerText = `Max: ${maxX}`
-  LABEL_CURRENT_X.innerText =`Current: ${Math.round(x)}`
-  
-  LABEL_MIN_RATE_X.innerText = `Min: ${minRateX}`
-  LABEL_MAX_RATE_X.innerText = `Max: ${maxRateX}`
-  LABEL_CURRENT_RATE_X.innerText =`Current: ${Math.round(gamma)}`
-
-  // Wrist detection stuff...
-  currentAcceleration = Math.round(beta) // Maybe it's better to use the Alpha Rotation actually? And use Y acceleration?
-  detectFlick()
+const handleMotion = ({ rotationRate: { alpha }}) => {
+  currentAcceleration = Math.round(alpha)
 }
 
 

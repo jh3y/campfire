@@ -130,6 +130,13 @@ p {
   --shadow: 0 0% 75%;
 }
 
+.peaking-phil {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%) rotate(-97deg) translate(0, 39%);
+}
+
 button svg {
   height: 75%;
   stroke: none;

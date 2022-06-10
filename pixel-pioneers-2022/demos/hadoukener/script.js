@@ -7,7 +7,6 @@ const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
 let currentRotation
 let currentRotationRateAlpha
 let currentRotationRateBeta
-let currentAcceleration
 
 const FIREBALL_MAP = mapRange(800, 1400, 1, 4)
 
@@ -35,7 +34,7 @@ const RESET = () => {
 
 
 const detectHadouken = () => {
-  console.info('Detecting..')
+  console.info('Detecting..', currentRotationRateAlpha, currentRotationRateBeta)
   if (currentRotationRateAlpha <= ROTATION_RATE_THRESHOLD_ALPHA &&
       currentRotationRateBeta <= ROTATION_RATE_THRESHOLD_BETA) {
     flicked = true
@@ -57,7 +56,6 @@ const handleOrientation = ({ beta }) => {
 const handleMotion = ({ acceleration: { y }, rotationRate: { alpha, beta }}) => {
   currentRotationRateAlpha = alpha
   currentRotationRateBeta = beta
-  currentAcceleration = y
 }
 
 

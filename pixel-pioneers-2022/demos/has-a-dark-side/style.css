@@ -47,6 +47,7 @@ body {
 
 h1 {
   margin: 0;
+  line-height: 1.1;
 }
 
 main {
@@ -56,6 +57,68 @@ main {
 }
 :where(main) {
   max-inline-size: var(--size-content-3);
+}
+:where(p) {
+  line-height: 1;
+}
+
+[for="toggle"] {
+  position: fixed;
+  height: 48px;
+  aspect-ratio: 1;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+[type="checkbox"] {
+  pointer-events: none;
+  opacity: 0;
+}
+
+label path {
+  display: none;
+}
+
+:has(:checked) label path:nth-of-type(1) {
+  display: block;
+}
+
+:has(:checked) label path:nth-of-type(2) {
+  display: none;
+}
+
+label path:nth-of-type(2) {
+  display: block;
+}
+
+
+
+header {
+  display: grid;
+  gap: 0.25rem;
+  grid-auto-flow: column;
+  margin-bottom: var(--size-4);
+}
+
+header img {
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) grayscale(0.6);
+}
+
+.biscuits {
+  position: fixed;
+  top: 55%;
+  left: 55%;
+  height: 55vmin;
+  aspect-ratio: 3 / 2;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+p + p {
+  margin-top: var(--size-4);
 }
 .deep-fake {
   transform: translateZ(calc(var(--visual-depth) * -1));
