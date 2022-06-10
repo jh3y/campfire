@@ -16,6 +16,12 @@ const STATE = {
   ROLLING_OFF: false,
 }
 
+const AUDIO = {
+  SIGH: new Audio(new URL('../../../assets/sigh.mp3', import.meta.url)),
+  FUN: new Audio(new URL('../../../assets/phil-fun.mp3', import.meta.url)),
+  DAM: new Audio(new URL('../../../assets/phil-dam.mp3', import.meta.url)),
+}
+
 const CLASSES = {
   BASE: 'yoyo',
   SLEEP: 'yoyo--sleeping',
@@ -47,6 +53,7 @@ const RESET = () => {
 
 const ROLL_OUT = () => {
   console.info('roll off')
+  AUDIO.SIGH.play()
   YOYO.classList.remove(CLASSES.SLEEP)
   YOYO.classList.add(CLASSES.ROLL)
   STATE.ROLLING_OFF = true
@@ -62,6 +69,7 @@ const detectSleep = () => {
     YOYO.classList.add(CLASSES.SLEEP)
     const SLEEP_RANGE = SLEEP_MAPPER(Math.abs(currentAcceleration))
     rollTimer = setTimeout(ROLL_OUT, SLEEP_RANGE)
+    AUDIO[Math.random() > 0.5 ? 'FUN' : 'DAM'].play()
     // Calculate the velocity for a timing range.
     // At the end of the sleep, die off.
     // Or... If we detect a current rotation that is greater than 50?
