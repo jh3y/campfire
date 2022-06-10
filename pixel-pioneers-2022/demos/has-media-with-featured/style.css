@@ -24,6 +24,11 @@ body {
   min-height: 100vh;
   color: var(--text-1);
   background: transparent;
+  overflow: hidden;
+}
+
+.card__blurb {
+  font-size: var(--font-size-fluid-0);
 }
 
 .card {
@@ -35,7 +40,7 @@ body {
   position: relative;
   font-size: var(--font-size-fluid-0);
   padding: var(--size-4);
-  width: var(--size-15);
+  width: var(--size-fluid-10);
   border-radius: var(--size-4);
   box-shadow: var(--shadow-3);
   grid-gap: var(--size-2) 0;
@@ -111,13 +116,12 @@ body {
   left: 100%;
   z-index: 2;
   width: 50%;
-  height: 25%;
   background: var(--gray-7);
   display: grid;
   place-items: center;
   padding: var(--size-2) 0;
   box-shadow: var(--shadow-2);
-  transform: translate(-50%, -50%) rotate(-45deg) translate(0, -100%);
+  transform: translate(-50%, -50%) rotate(-45deg) translate(0, -70%);
   color: var(--gray-1);
   font-size: var(--font-size-0);
   font-weight: bold;
@@ -125,7 +129,7 @@ body {
 }
 
 .card__featured svg {
-  height: 100%;
+  height: var(--size-3);
   aspect-ratio: 1;
   fill: var(--yellow-3);
 }

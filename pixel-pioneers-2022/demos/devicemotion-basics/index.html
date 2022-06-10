@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Basic Synthesis</title>
+    <link rel="stylesheet" href="../feature-detection/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+      <label>Axis</label>
+      <label>Rotation</label>
+      <label>Acceleration</label>
+      <label for="gamma" class="control__label">Gamma [x]</label>
+      <input id="gamma" type="range" name="gamma" class="control__input" min="0" max="100" step="1" value="50">
+      <label for="alpha" class="control__label">Alpha [z]</label>
+      <input id="alpha" type="range" name="alpha" class="control__input" min="0" max="100" step="1" value="50">
+      <label for="beta" class="control__label">Beta [y]</label>
+      <input id="beta" type="range" name="beta" class="control__input" min="0" max="100" step="1" value="50">
+      <label class="min min--x">Min: 0</label>
+      <label class="min min--y">Min: 0</label>
+      <label class="min min--z">Min: 0</label>
+      <label class="max max--x">Max: 0</label>
+      <label class="max max--y">Max: 0</label>
+      <label class="max max--z">Max: 0</label>
+      <button>Begin Orientation</button>
+    </main>
+    <script src="../feature-detection/script.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

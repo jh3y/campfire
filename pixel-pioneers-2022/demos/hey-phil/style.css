@@ -1,0 +1,156 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+
+:root {
+  --red: 18 100% 50%;
+  --green: 130 52% 46%;
+  --yellow: 44 83% 53%;
+  --blue: 212 90% 39%;
+  --recording: 0;
+  --bg: hsl(var(--hue, 0) calc(var(--saturation, 0) * 1%) calc(var(--lightness, 10) * 1%));
+  --adaptive: hsl(0 0% calc((100 - var(--lightness)) * 1%));
+  --shell: hsl(0 0% 20%);
+}
+
+.lights-on {
+  --lightness: 90;
+  --shell: hsl(0 0% 40%);
+}
+
+.lights-off {
+  --lightness: 10;
+  --shell: hsl(0 0% 20%);
+}
+
+body {
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  transition: background 0.5s, color 0.5s;
+}
+
+.phil {
+  --depth: 10vmin;
+  width: var(--depth);
+  aspect-ratio: 1 / 2;
+  color: var(--shell);
+  transition: transform 0.2s ease-out;
+  transform: translate3d(0, 0, 100vmin) rotateX(-24deg) rotateY(-32deg) translateX(calc(var(--slide, 0) * 100%));
+}
+
+.recording-status {
+  height: 3vmin;
+  aspect-ratio: 1;
+  position: fixed;
+  top: 2vmin;
+  right: 2vmin;
+  background: hsl(10 80% 50%);
+  border-radius: 50%;
+  animation: pulse calc(var(--recording, 0) * 1s) infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: var(--recording, 0);
+  }
+}
+
+.cuboid {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.cuboid__side {
+  background-color: currentColor;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.2s;
+  filter: brightness(var(--brightness, 1));
+  border-bottom: calc(var(--depth) * 0.1) solid hsl(var(--side-color) / 0.25);
+}
+
+.indicator {
+  display: inline-block;
+  position: absolute;
+  height: calc(var(--depth) * 0.1);
+  background: hsl(var(--side-color));
+  transform-origin: 0 50%;
+  transition: transform 0.2s ease-out;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  transform: translateY(calc(var(--depth) * 0.1)) scaleX(var(--active, 0));
+}
+.cuboid__side:nth-of-type(1) .indicator {
+  width: calc(var(--depth) * 0.9);
+  left: 50%;
+  top: 50%;
+  transform: translate(0, -50%) rotate(var(--r,0deg)) translate(-50%,0%) translateY(calc(var(--depth)*.45)) translateX(calc(var(--depth)*.05)) scaleX(var(--active, 0));
+}
+.cuboid__side:nth-of-type(1) .indicator:nth-of-type(1) {
+  --r: 0deg;
+  --side-color: var(--green);
+}
+.cuboid__side:nth-of-type(1) .indicator:nth-of-type(2) {
+  --r: 90deg;
+  --side-color: var(--blue);
+}
+.cuboid__side:nth-of-type(1) .indicator:nth-of-type(3) {
+  --r: 180deg;
+  --side-color: var(--red);
+}
+.cuboid__side:nth-of-type(1) .indicator:nth-of-type(4) {
+  --r: 270deg;
+  --side-color: var(--yellow);
+}
+
+
+/* T, R, B, L, F, B */
+.cuboid__side:nth-of-type(1) {
+  --brightness: 0.8;
+  top: 0;
+  height: var(--depth, 50vmin);
+  transform: translateY(-50%) rotateX(-90deg);
+}
+.cuboid__side:nth-of-type(2) {
+  --brightness: 0.6;
+  --side-color: var(--yellow);
+  top: 50%;
+  right: 0;
+  width: var(--depth, 50vmin);
+  transform: translate(50%, -50%) rotateY(-90deg);
+}
+.cuboid__side:nth-of-type(3) {
+  --brightness: 1.3;
+  bottom: 0;
+  height: var(--depth, 50vmin);
+  transform: translateY(50%) rotateX(90deg);
+}
+.cuboid__side:nth-of-type(4) {
+  --brightness: 0.6;
+  --side-color: var(--green);
+  top: 50%;
+  width: var(--depth, 50vmin);
+  transform: translate(-50%, -50%) rotateY(90deg);
+}
+.cuboid__side:nth-of-type(5) {
+  --brightness: 0.75;
+  --side-color: var(--blue);
+  transform: translateZ(calc(var(--depth, 50vmin) / -2));
+}
+.cuboid__side:nth-of-type(6) {
+  --side-color: var(--red);
+  --brightness: 1;
+  transform: translateZ(calc(var(--depth, 50vmin) / 2)) rotateY(180deg);
+}

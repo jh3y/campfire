@@ -1,3 +1,6 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +8,7 @@
 body {
   display: grid;
   place-items: center;
+  grid-auto-flow: column;
   min-height: 100vh;
   font-weight: 300;
   font-family: sans-serif;
@@ -12,6 +16,8 @@ body {
   background:  hsl(0 0% 98%);
   margin: 0;
   overflow: hidden;
+  justify-content: center;
+  gap: 1rem;
 }
 
 :root {
@@ -89,7 +95,7 @@ body {
 }
 
 img {
-  width: 50vmin;
+  width: 40vmin;
   aspect-ratio: 1920 / 2402;
   object-view-box: inset(var(--inset-top) var(--inset-right) var(--inset-bottom) var(--inset-left));
   transition: --inset-top var(--zoom-speed),
@@ -101,15 +107,10 @@ img {
 
 footer {
   position: fixed;
-  font-size: 0.875rem;
+  font-size: 0.675rem;
   padding: 2rem;
   bottom: 0;
   text-align: center;
-}
-
-.controls {
-  position: absolute;
-  left: calc(50% + 25vmin + 1rem);
 }
 
 .controls__group {
@@ -117,6 +118,7 @@ footer {
 }
 
 label {
+  font-size: var(--font-size-0);
   flex: 1;
   margin-right: 1.5rem;
   opacity: var(--opacity, 0.5);

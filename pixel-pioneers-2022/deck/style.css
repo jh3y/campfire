@@ -26,6 +26,20 @@ section:nth-of-type(2) h2 {
 	text-decoration-color: var(--r-link-color);
 }
 
+section:last-of-type .code-wrapper {
+	display: none;
+}
+
+.demo-link {
+	display: inline-block;
+	padding: 10vmin 20vmin;
+	border-radius: 5vmin;
+	position: fixed;
+	inset: 0;
+	background: hsl(0 0% 0% / 0.6);
+	backdrop-filter: blur(8px);
+}
+
 del {
 	opacity: 0.5;
 }
@@ -308,6 +322,8 @@ table.hljs-ln {
 .reveal iframe.demo-embed {
 	height: 100%;
 	width: 100%;
+	max-height: 100%;
+	max-width: 100%;
 	overflow: hidden;
 	min-height: 300px;
 	display: none;

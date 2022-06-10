@@ -22,6 +22,17 @@
   border-radius: 50%;
 }
 
+:where(h1) {
+  text-align: center;
+  width: 100%;
+  font-size: var(--font-size-6);
+}
+
+:where(p, ul) {
+  font-size: var(--font-size-0);
+  max-inline-size: var(--size-content-2);
+}
+
 [aria-pressed]:hover {
   background: var(--hover-action);
 }

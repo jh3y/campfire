@@ -34,10 +34,17 @@ body {
   color: var(--color);
   background: var(--bg);
   transition: background 0.2s;
+  font-size: 1rem;
 }
 
 :where(h1) {
   color: var(--color);
+  font-size: var(--font-size-6);
+  line-height: 1.1;
+}
+
+:where(p,ul,ol,dl,h6) {
+  font-size: var(--font-size-1);
 }
 
 .sr-only {
@@ -61,8 +68,8 @@ svg {
 
 .controls {
   position: fixed;
-  right: 1rem;
-  top: 1rem;
+  right: 10vmin;
+  top: 0.5rem;
 }
 
 fieldset {
@@ -87,15 +94,15 @@ p:nth-of-type(1) {
 }
 
 p:nth-of-type(3) {
-  --x: 25%;
+  --x: 50%;
   --y: 15%;
   --r: -15deg;
   --s: 1.5;
 }
 
-p:nth-of-type(5) {
-  --x: 55%;
-  --y: 15%;
+p:nth-of-type(2) {
+  --x: 15%;
+  --y: 5%;
   --r: -10deg;
   --s: 3;
 }
@@ -120,7 +127,7 @@ fieldset {
   color: var(--ultraviolet);
   top: var(--y);
   left: var(--x);
-  font-size: 3rem;
+  font-size: var(--font-size-6);
   transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s, 1));
   display: inline-block;
   font-family: 'Permanent Marker', cursive;

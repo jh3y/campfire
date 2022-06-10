@@ -3,6 +3,7 @@
     <title>Pixel Pioneers 2022 – Jhey Tompkins</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="icon" type="image/x-icon" href="../../assets/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1.0"/>
   </head>
   <body>
     <div class="reveal">
@@ -280,6 +281,15 @@
 
             ```
 
+            <sub>You're able to target an element based on a conditional environment</sub>
+
+            ```
+            body:has(#red:checked) {
+              background: red;
+            }
+            ```
+            <sub>Make the <code>body</code> red because somewhere it has a descendant with the ID "red", that is <code>:checked</code>.</sub>
+
             ---
             <!-- .slide: class="shrink-code" -->
 
@@ -304,7 +314,7 @@
 
             </div>
 
-            <sub>Grabbing a target based on its children, surroundings, etc. then setting a style on that or it's children, surroundings, etc.</sub>
+            <sub><strong>Repeat:</strong> Grabbing a target based on its children, surroundings, etc. then setting a style on that or it's children, surroundings, etc.</sub>
 
             ---
             <!-- .slide: class="multi-column" style="--code-size: 0.75em"-->
@@ -1002,296 +1012,212 @@
             ---
             <!-- Slide 2 -->
             ## Where to begin?
-            ```html[1-100]
-            <!--  The main element -->
-            <div class="captcha">
-              <!-- An element for layout -->
-              <div class="captcha__grid">
-                <!-- An element for displaying the image -->
-                <div class="captcha__img"></div>
-                <!-- Pieces && Slots would be added here? -->
-              </div>
-            </div>
+            ```js
+            window.SpeechRecognition =
+              window.SpeechRecognition || window.webkitSpeechRecognition
+
+            const BROTHER = new window.SpeechRecognition()
+
+            const STATE = {
+              RUNNING: false,
+            }
+
+            const START = () => {
+              if (!STATE.RUNNING) {
+                console.info("I'm listening 👀")
+                STATE.RUNNING = true
+                document.body.style.setProperty('--recording', 1)
+                BROTHER.start()
+              }
+            }
+
+            const PROCESS_AUDIO = e => {
+              const TRANSCRIPT = e.results[e.results.length - 1][0].transcript
+                .toLowerCase()
+                .trim()
+              document.querySelector('main').innerText = TRANSCRIPT
+            }
+
+            BROTHER.addEventListener('result', PROCESS_AUDIO)
+            
+            START()
             ```
+
+            <sub>We need to be online for Chrome services [server-based engine 🤖]</sub>
+            ---
+
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechrecognition-basics/index.html" -->
+
             ---
 
             <!-- Slide 3 -->
-            ## How about something reusable?
-            ```javascript[1-100|1,10|2-7|11,12]
-            class Captcha {
-              static defaults = {
-                gridSize: 5,
-                image: 'https://source.unsplash.com/random/720x720?moon',
-                pieces: 4,
-                onComplete: () => alert('You are not a robot?')
-              }
-
-              constructor(options) {...}
-            }
-            const element = document.querySelector('.captcha')
-            new Captcha({ element, gridSize: 4, pieces: 2 })
+            ## Yeah, but, how do I snoop?
+            ```js
+            const BROTHER = new window.SpeechRecognition()
+            BROTHER.continuous = true
+            BROTHER.lang = 'en-US'
+            BROTHER.interimResults = true
             ```
+            ---
+
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechrecognition-continuous/index.html" -->
+
             ---
             <!-- Slide 4 -->
-            ## Construction
-            ```javascript[1-100|2|12-13|14-15]
-            constructor(options) {
-              const opts = (this._options = { ...Captcha.defaults, ...options })
-              this._element = opts.element
-              this._progress = 0
-              this._grid = opts.element.querySelector('.captcha__grid')
-              this._img = opts.element.querySelector('.captcha__img')
-              if (!this._element || !this._img || !this._grid)
-                throw Error('Captcha: Required elements missing!')
-              if (opts.pieces > Math.pow(opts.gridSize, 2))
-                throw Error('Captcha: Can not have more pieces than available')
-              // Set CSS inline custom properties
-              this._element.style.setProperty('--captcha-image', `url(${opts.image})`)
-              this._element.style.setProperty('--captcha-grid-size', opts.gridSize)
-              // Now set up the moveable pieces
-              this.setup()
+            ## TEARDOWN && BUILD UP
+            ```js
+            // Start a new "processor"
+            let BROTHER
+            const genProcessor = (interim) => {
+              BROTHER = new window.SpeechRecognition()
+              BROTHER.continuous = true
+              BROTHER.interimResults = interim
+              BROTHER.addEventListener('start', INDICATE_START)
+              BROTHER.addEventListener('result', PROCESS_AUDIO)
+              BROTHER.start()
             }
-            ```
-            ---
-            <!-- Slide 5 -->
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
-            ```js[1-100|2|4,6,11|7-10|14]
-            generatePieces() {
-              const pieces = []
-              const generatePiece = () => {...}
-              while (pieces.length !== this._options.pieces) {
-                const pushPiece = () => {
-                  const newPiece = generatePiece()
-                  // Don't want duplicates
-                  const alreadyExists = pieces.filter(...).length
-                  if (alreadyExists) pushPiece()
-                  else pieces.push(newPiece)
-                }
-                pushPiece()
+
+            // When we want to change something, tear it down and start fresh
+            BUTTON.addEventListener('click', () => {
+              const PRESSED = BUTTON.matches('[aria-pressed="false"]') ? true : false
+              if (BROTHER) {
+                BROTHER.stop()
+                BROTHER.removeEventListener('start', INDICATE_START)
+                BROTHER.removeEventListener('result', PROCESS_AUDIO)
               }
-              this._pieces = pieces
+              BUTTON.setAttribute('aria-pressed', PRESSED)
+              genProcessor(PRESSED)
+            })
+            ```
+
+            ---
+
+            ## What If I want to turn it off?
+
+            ```js
+            const ON_END = () => {
+              // We may have ended on an error or unintentionally
+              if (STATE.RUNNING && BROTHER) BROTHER.start()
+            }
+
+            const CLEAN_UP = () => {
+              BROTHER.stop()
+              BROTHER.removeEventListener('start', INDICATE_START)
+              BROTHER.removeEventListener('result', PROCESS_AUDIO)
+              BROTHER.removeEventListener('end', ON_END)
+            }
+
+            MUTE_TOGGLE.addEventListener('click', () => {
+              const PRESSED = MUTE_TOGGLE.matches('[aria-pressed="false"]') ? true : false
+              if (BROTHER && PRESSED) {
+                STATE.RUNNING = false
+                CLEAN_UP()
+                document.documentElement.style.setProperty('--recording', 0)
+              } else genProcessor()
+              MUTE_TOGGLE.setAttribute('aria-pressed', PRESSED)
+            })
+
+            ```
+
+            ---
+
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechrecognition-stop-start/index.html" -->
+
+            ---
+
+            ## That's great... But what about the good stuff?
+
+            ```js
+            let deactiveTimer
+            const TIMER = 5000
+            const KEY_PHRASE = "Hey Bristol"
+
+            const DEACTIVATE = () => {
+              STATE.ACTIVE = false
+            }
+
+            const PHRASES = {
+              LIGHTS: 'turn the lights',
+            }
+
+            const ACTIONS = [
+              {
+                phrase: PHRASES.LIGHTS,
+                action: transcript => {
+                  const STATE_TRANSCRIPT = transcript.slice(transcript.indexOf(PHRASES.LIGHTS) + PHRASES.LIGHTS.length).trim()
+                  if (STATE_TRANSCRIPT.startsWith('on')) document.documentElement.className = 'lights-on'
+                  if (STATE_TRANSCRIPT.startsWith('off')) document.documentElement.className = 'lights-off'
+                }
+              },
+            ]
+            ```
+
+            ---
+
+            ## Processing 🤖
+
+
+            ```js
+            const PROCESS_AUDIO = e => {
+              const TRANSCRIPT = e.results[e.results.length - 1][0].transcript.toLowerCase().trim()
+              const IS_FINAL = e.results[e.results.length - 1].isFinal
+              // Active so check for action
+              if (STATE.ACTIVE && IS_FINAL) {
+                for (const ACTION of ACTIONS) {
+                  if (TRANSCRIPT.indexOf(ACTION.phrase.toLowerCase()) !== -1)
+                    ACTION.action(TRANSCRIPT)
+                }
+              // Active but not final keeps the state alive with interim
+              } else if (STATE.ACTIVE && !IS_FINAL) {
+                clearTimeout(deactivateTimer)
+                deactivateTimer = setTimeout(DEACTIVATE, TIMER)
+              // Check for activation
+              } else if (TRANSCRIPT === KEY_PHRASE) {
+                STATE.ACTIVE = true
+                deactivateTimer = setTimeout(DEACTIVATE, TIMER)
+              }
             }
             ```
-            <img src="../../assets/grid-inspection.png" width="300" />
+
             ---
-            <!-- Slide 6 -->
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
             
-            <img src="../../assets/dotted-inspection.png" width="300" />
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechrecognition-trigger-words/index.html" -->
 
+            ---
 
-            ```js[1-29|2-13|14-17|18-22|23-28]
-            const generatePiece = () => {
-              // Create an Array of two items
-              // One is 1 || -2 [CSS Grid]
-              // The other is the gap
-              // Flip a coin to reverse and return the Array.
-              const positions = [
-                // This can either be the start or the finish
-                Math.random() > 0.5 ? -2 : 1,
-                // This can be 3, 4, 5, or 6. Gutter is 2
-                Math.floor(
-                  Math.random() * (this._options.gridSize - 1)
-                ) + 3,
-              ]
-              // Which cell is it?
-              const slot = Math.floor(
-                Math.random() * Math.pow(this._options.gridSize, 2)
-              )
-              // What are the coordinates?
-              const slotPositions = [
-                slot % this._options.gridSize,
-                Math.floor(slot / this._options.gridSize),
-              ]
-              return {
-                // Flip positions?
-                positions: Math.random() > 0.5 ?
-                  positions.reverse() : positions,
-                slots: slotPositions,
-              }
+            ## Where's the feedback?
+
+            ```js
+            const {
+              speechSynthesis: synth,
+            } = window
+
+            const speak = text => {
+              if (synth.speaking) synth.cancel()
+              const utter = new SpeechSynthesisUtterance(text)
+              utter.voice = synth.getVoices()[0]
+              synth.speak(utter)
             }
+
+            // Whack in a String
+            speak('Milk was a bad choice...')
+
             ```
-            ---
-            <!-- .slide: class="multi-column" style="--split-one: 1fr; --split-two: 1fr;" -->
-            <!-- Slide 7 -->
-            ```js[1-25|2-5|6-11|12-20|21-23]
-            createPieces() {
-              for (const {
-                positions: [px, py],
-                segments: [sx, sy],
-              } of this._pieces) {
-                const piece = document.createElement('div')
-                piece.className = 'captcha__piece'
-                // Position the piece and make it draggable
-                piece.setAttribute('draggable', true)
-                piece.style.setProperty('--captcha-x', px)
-                piece.style.setProperty('--captcha-y', py)
-                const slot = document.createElement('div')
-                slot.className = 'captcha__slot'
-                // Account for the gutter
-                slot.style.setProperty('--slot-x', sx + 3)
-                slot.style.setProperty('--slot-y', sy + 3)
-                // Needs to be able to show the correct image
-                // Negate for background-position
-                piece.style.setProperty('--slot-x', -sx)
-                piece.style.setProperty('--slot-y', -sy)
-                // Throw in the grid
-                this._grid.appendChild(piece)
-                this._grid.appendChild(slot)
-              }
-            }
-            ```
-            <img src="../../assets/dotted-grid-tool.png" width="300" />
-            ---
-            <!-- Slide 8 -->
-            ```css[1-13|15-21|23-31]
-            :root {
-              --size: 50vmin;
-            }
 
-            .captcha {
-              /* "4" is "2*" the gutter which is "2" */
-              --grid-size: calc(var(--captcha-grid-size) + 4);
-              --cell-size: calc(var(--size) / var(--grid-size));
-              --image-size: calc(var(--cell-size) * var(--captcha-grid-size));
-              height: var(--size);
-              aspect-ratio: 1 / 1;
-              position: relative;
-            }
-
-            .captcha__grid {
-              height: 100%;
-              width: 100%;
-              display: grid;
-              grid-template-columns: repeat(var(--grid-size), 1fr);
-              grid-template-rows: repeat(var(--grid-size), 1fr);
-            }
-
-            .captcha__img {
-              position: relative;
-              object-fit: cover;
-              background-color: hsl(0 0% 75%);
-              background-image: var(--captcha-image);
-              background-size: var(--image-size);
-              grid-row:  3 / -3;
-              grid-column: 3 / -3;
-            }
-            ```
-            ---
-            <!-- Slide 9 -->
-            <img src="../../assets/moon-grid.png" width="300" />
-            ---
-            <!-- Slide 10 -->
-            ```css[1-16|7,8,13,14|2,3,4,5,6]
-            .captcha__piece {
-              background-image: var(--captcha-image);
-              background-size: var(--image-size);
-              background-position: calc(
-                var(--segment-x) * var(--cell-size)) calc(var(--segment-y) * var(--cell-size)
-              );
-              grid-column: var(--captcha-x);
-              grid-row: var(--captcha-y);
-              z-index:  2;
-            }
-            .captcha__slot {
-              background: blue;
-              grid-column: var(--segment-x);
-              grid-row: var(--segment-y);
-              z-index:  2;
-            }
-            ```
-            ---
-
-            ## Draggable Captcha Step One
+            <sub>Please leave your feedback slips on the way out... 🙏</sub>
 
             ---
 
-            <!-- Slide 12 -->
-            ## HANDLING DRAG
-            ```js[]
-            piece.addEventListener('dragstart',handleDragStart({ piece, px, py, sx, sy }))
-            piece.addEventListener('dragend', handleDragEnd(piece))
-            slot.addEventListener('drop', handleDrop({ piece, slot, px, py, sx, sy }))
-            slot.addEventListener('dragover', doNothing)
-            ```
-            <sub>The business end 💼</sub>
-            ---
-            ## Start && End
-            ```js[1-10|2,3|4|5|8-10]
-            const handleDragStart =
-              ({ piece, px, py, sx, sy }) =>
-              (e) => {
-                piece.style.opacity = 0.25
-                e.dataTransfer.setData('text/json', JSON.stringify({ px, py, sx, sy }))
-              }
-
-            const handleDragEnd = piece => () => {
-              piece.style.opacity = 1
-            }
-            ```
-            ---
-
-            ## Draggable Captcha Step 2
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechsynthesis-basics/index.html" -->
 
             ---
 
-            <!-- Slide 14 -->
-            ## The Drop
-            ```js[1-22|4-10|11-13|14|15-18|19-20]
-            const handleDrop =
-              ({ piece, slot, px, py, sx, sy }) =>
-              (e) => {
-                const transferred = JSON.parse(e.dataTransfer.getData('text/json'))
-                if (
-                  transferred.sx === sx &&
-                  transferred.sy === sy &&
-                  transferred.px === px &&
-                  transferred.py === py
-                ) {
-                  // It's a match!
-                  piece.remove()
-                  slot.remove()
-                  this._progress++
-                  this._element.style.setProperty(
-                    '--progress',
-                    (this._progress / this._options.pieces) * 100
-                  )
-                  if (this._progress === this._options.pieces && this._options.onComplete)
-                    this._options.onComplete() 
-                }
-              }
-            ```
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechsynthesis-options/index.html" -->
+            
             ---
 
-            ## Draggable Captcha Step 3
-
-            ---
-
-            ## Remember this?
-            ```css[1-18|1-5|7,18,9,10|7,18,11-15,16]
-            @property --progress {
-              syntax: '&lt;number&gt;';
-              inherits: true;
-              initial-value: 0;
-            } 
-
-            .captcha__img:before {
-              content: "";
-              position: absolute;
-              inset: -1vmin;
-              background: conic-gradient(
-                from 315deg,
-                hsl(130 80% 50%) calc(var(--progress) * 1%),
-                transparent calc(var(--progress) * 1%)
-              );
-              transition: --progress 0.5s;
-              z-index: -1;
-            }
-            ```
-            ---
-
-            ## Draggable Captcha Step 4
-
+            <!-- .slide: data-background-iframe="https://localhost:1234/speechrecognition-functional/index.html" -->
+            
             ---
 
             <!-- Slide 13 -->
@@ -1302,39 +1228,39 @@
               <div>
 
               ### Learned
-              - Math
-              - Reusable Classes
-              - CSS Grid
-              - HTML Drag and Drop
-              - Applied @property
+              - SpeechSynthesis
+              - SpeechRecognition
+              - String manipulation
               - CSS Custom Properties
+              - Keeping things DRY
 
               </div>
               
               <div>
               
               ### Next
-              - A11y?
-              - Sounds
-              - FLIP
+              - More commands
+              - 3D 😎
               - Whimsy?
-              - Masking/Clipping Shapes
+              - What else could we do with it?
+              - APIs?
+              - Sat Nav for your site?
 
               </div>
 
               <div class="practical-post-it">
               
               ### Practical Corner
-              - Create components
-              - Layout with CSS Grid
-              - Drag and Drop interactions (Reordering, etc.)
+              - Voice activated controls
+              - Provide user feedback
+              - Audio assistance
 
               </div>
 
             </div>
             ---
 
-            ## iPhil demo where he can change background-color etc. Include Speech Synthesis etc.
+            <!-- .slide: data-background-iframe="https://localhost:1234/hey-phil/index.html" -->
 
             ---
 
@@ -1359,28 +1285,11 @@
             </div>
             ---
             <!-- Slide 3 -->
-            <!-- .slide: class="multi-column" -->
-            ```html[]
-            <label
-              for="alpha"
-              class="control__label"
-            >
-              Alpha
-            </label>
-            &lt;input
-              id="alpha"
-              name="alpha"
-              class="control__input"
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-            /&gt;
-            ```
+            
             <img src="../../assets/petes-diagram.png" width="300" />
             ---
             <!-- Slide 4 -->
-            ```js[1-15|1-8|10-15|10,11|12,13|14,15]
+            ```js
             // Given two ranges, return a function to map a value
             const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
               const INPUT_RANGE = inputUpper - inputLower
@@ -1400,7 +1309,7 @@
             ---
             <!-- Slide 5 -->
             
-            ```js[1-11|1-3|11|5-9]
+            ```js
             const ALPHA = document.querySelector('#alpha')
             const BETA = document.querySelector('#beta')
             const GAMMA = document.querySelector('#gamma')
@@ -1415,174 +1324,89 @@
             ```
             ---
 
-            ## DETECTING DEVICE ORIENTATION DEMO FROM ALL DAY HEY!
+            <!-- .slide: data-background-iframe="https://localhost:1234/cube-mapping/index.html" -->
+
+            <a class="demo-link" href="https://localhost:1234/cube-mapping/index.html" target="_blank">Check the demo out!</a>
 
             ---
 
-            <!-- Slide 7 -->
-            ## That's it? 🍏
-           
-            ```js[1-15|2,15|3,10-12|4-11]
-            const START = () => {
-              BUTTON.remove()
-              if (DeviceOrientationEvent?.requestPermission) {
-                DeviceOrientationEvent
-                  .requestPermission()
-                  .then(permission => {
-                    if (permission === 'granted')
-                      window.addEventListener('deviceorientation', handleOrientation)
-                    else
-                      alert('You denied permission to play!')
-                  })
-              } else {
-                window.addEventListener('deviceorientation', handleOrientation)
-              }
-            }
+            <!-- .slide: data-background-iframe="https://localhost:1234/deviceorientation-safe/index.html" -->
 
-            BUTTON.addEventListener('click', START)
-            ```
+            <a class="demo-link" href="https://localhost:1234/deviceorientation-safe/index.html" target="_blank">Check the demo out!</a>            
 
-            <sub>h/t to `@Vanaf1979` for pinging me about this one</sub>
             ---
 
-            <!-- Slide 8 -->
-            ## Setting a combo
+            ### web.dev/generic-sensor
             
-            ```js[1-13|1|4,13|5-11]
-            const GET_RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-            const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
-
-            const COMBINATIONS = [
-              {
-                id: 'alpha',
-                unlock: GET_RANDOM(0, 100),
-                input: ALPHA,
-                label: ALPHA_LABEL,
-                mapper: ALPHA_MAPPER,
-              },
-              ...otherCombinations
-            ]
-
-            ```
+            - Accelerometer
+            - Gyroscope
+            - LinearAccelerationSensor
+            - AbsoluteOrientationSensor
+            - RelativeOrientationSensor
+            - GravitySensor
 
             ---
-            <!-- Slide 9 -->
-            ## Get things rolling
 
-            ```js[1-27|1-8,12|18,23]
-            let step = 0
+            ## Enter USB Debugging 🐞
 
-            const showCombination = step => {
-              COMBINATIONS.forEach((combo, index) => {
-                combo.input.style.display =
-                combo.label.style.display = index === step ? 'block' : 'none'
-              })
-            }
-
-            const START = () => {
-              BUTTON.remove()
-              showCombination(step)
-              if (DeviceOrientationEvent?.requestPermission) {
-                DeviceOrientationEvent
-                  .requestPermission()
-                  .then(permission => {
-                    if (permission === 'granted')
-                      window.addEventListener('deviceorientation', handleOrientation)
-                    else
-                      alert('You denied permission to play!')
-                  })
-              } else {
-                window.addEventListener('deviceorientation', handleOrientation)
-              }
-            }
-
-            BUTTON.addEventListener('click', START)
-            ```
             ---
-            <!-- Slide 10 -->
-            ## Cracking Logic 👴🏼
 
-            ```js[1-32|30-32|23-28|27,31|11-21|13,14|15-19|1-9]
-            const complete = () => {
-              TITLE.innerText = 'You cracked the code!'
-              TITLE.style.display = 'block'
-              window.removeEventListener('deviceorientation', handleOrientation)
-              COMBINATIONS.forEach(({ input }) => {
-                input.removeEventListener('input', handleUpdate)
+            ## <a href="https://localhost:1234/accelerometer-demo/index.html" target="_blank">Accelerometer Demo</a>
+
+            ```js
+            const ACCEL = new Accelerometer({
+              frequency: 10
+            })
+            navigator.permissions.query({ name: 'accelerometer' })
+              .then(permission => {
+                if (permission.state === 'granted')
+                  ACCEL.addEventListener('reading', handleForce)
               })
-            }
+            ```
 
-            const handleUpdate = () => {
-              const { input, label, unlock } = COMBINATIONS[step]
-              if (parseInt(input.value, 10) === unlock) {
-                step += 1
-                if (step === COMBINATIONS.length) {
-                  input.style.display = label.style.display = 'none'
-                  complete()
-                } else {
-                  showCombination(step)
-                }
+
+            ---
+
+            ## <a href="https://localhost:1234/devicemotion-basics/index.html" target="_blank">DeviceMotion Dip</a>
+
+            ```js
+            const handleMotion = ({ acceleration: { x, y, z }}) => {...}
+            const handleOrientation = ({ alpha, beta, gamma }) => {...}
+
+
+            Promise.all([
+              DeviceOrientationEvent.requestPermission(),
+              DeviceMotionEvent.requestPermission(),
+            ]).then(results => {
+              if (results.every(result => result === 'granted')) {
+                window.addEventListener('deviceorientation', handleOrientation) 
+                window.addEventListener('devicemotion', handleMotion, true) 
               }
-            }
-
-            const handleOrientation = e => {
-              // Set the value of the step input
-              const { input, id, label, mapper, unlock } = COMBINATIONS[step]
-              input.value = mapper(e[id])
-              handleUpdate()
-            }
-
-            COMBINATIONS.forEach(({ input }) => {
-              input.addEventListener('input', handleUpdate)
             })
             ```
-            
-            ---
-
-            ## DEVICEORIENTATION NO INDICATION
 
             ---
 
-            <!-- Slide 12 -->
-            ## There's no indication
-            <div class="stacked">
+            <!-- .slide: style="--code-size: 0.9m;" -->
 
-            ```css[1-14|1-5|7-14|14]
-            [type="range"] {
-              --rotation: 20deg;
-              --proximity-hue: calc(130 - ((130 / 100) * var(--proximity, 0)));
-              accent-color:  hsl(var(--proximity-hue) 80% 50%);
-              /* Animation speed will be 1 to 0.1 */
-              animation: shake calc((1 - ((var(--proximity, 0) / 100) * 0.9)) * 1s) infinite;
-            }
+            ## <a href="https://localhost:1234/devicemotion-full-picture/index.html" target="_blank">DeviceMotion Full Picture</a>
 
-            @keyframes shake {
-              25% {
-                transform: rotate(calc((var(--proximity, 0) / 100) * var(--rotation)));
-              }
-              75% {
-                transform: rotate(calc((var(--proximity, 0) / -100) * var(--rotation)));
-              }
-            }
+            ```js[3]
+            const handleMotion = ({
+              acceleration: { x, y, z },
+              rotationRate: { alpha, beta, gamma }}
+            ) => {...}
             ```
 
-            ```js[1-10|1-2|9-10]
-            const PROXIMITY_THRESHOLD = 15
-            const PROXIMITY_MAPPER = mapRange(0, PROXIMITY_THRESHOLD, 100, 0)
-            
-            // Inside the updater
-            const CLAMPED = Math.min(
-              Math.max(0, Math.abs(input.value - unlock)),
-              PROXIMITY_THRESHOLD
-            )
-            const proximity = PROXIMITY_MAPPER(CLAMPED)
-            input.style.setProperty('--proximity', proximity)
-            ```
+            <sub>Give it a flick!</sub>
 
-            </div>
             ---
 
-            ## Deviceorientation with indication
+            ## <a href="https://localhost:1234/avadekedavra/index.html" target="_blank">Harry Spotter and the Half Rep Prince?</a>
+
+            ---
+
+            ## <a href="https://localhost:1234/hadoukener/index.html" target="_blank">A lil Nostalgia?</a>
 
             ---
 
@@ -1595,18 +1419,16 @@
 
               ### Learned
               - DeviceOrientation Event
-              - Cross Browser DeviceOrientation
-              - Mapping values
-              - Dynamic Animations w/ CSS Custom Properties
+              - DeviceMotion Event
+              - Sensor types
               
               </div>
 
               <div>
 
               ### Next
-              - A11y?
-              - Sounds
-              - Turn it into a safe!
+              - More sounds
+              - PWA
               - Whimsy?
               - Web Vibration API (Yep, that's a thing!)
 
@@ -1615,9 +1437,9 @@
               <div class="practical-post-it">
               
               ### Practical Corner
-              - New APIs!
-              - Interesting Utilities (Map)
-              - Custom Property Magic
+              - Make cool interactions!
+              - Gesture based device actions
+              - Shake to bake! (Not wake)
 
               </div>
 
@@ -1625,7 +1447,7 @@
 
             ---
 
-            ## FINISHER – HADOUKENER - PHIL YOYO - Avadekedavra
+            ## <a href="https://localhost:1234/phil-yo/index.html" target="_blank">What happened to that hobby?</a>
 
             ---
 
@@ -1647,6 +1469,10 @@
             ## What next? 🤔
             <del>"Homework"</del>
             <sub style="display: block;">Psssst, it's just pixels...</sub>
+
+            ---
+
+            <!-- .slide: data-background-iframe="https://localhost:1234/hey-phil/index.html" -->
 
             ---
 

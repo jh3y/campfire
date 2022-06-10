@@ -1,0 +1,28 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+main {
+  display: grid;
+  gap: var(--size-4);
+  align-content: center;
+}
+
+
+button {
+  color: var(--gray-0);
+  padding: var(--size-2) var(--size-4);
+}
+
+button:hover {
+  background: var(--gray-7);
+}

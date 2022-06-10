@@ -59,9 +59,15 @@ header {
   place-items: center;
 }
 
-h1 {
+:where(h1) {
   text-align: center;
   width: 100%;
+  font-size: var(--font-size-6);
+}
+
+:where(p, ul) {
+  font-size: var(--font-size-0);
+  max-inline-size: var(--size-content-2);
 }
 
 nav ul {

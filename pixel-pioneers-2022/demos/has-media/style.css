@@ -20,10 +20,10 @@ body {
   display: grid;
   place-items: center;
   align-content: center;
-  grid-gap: var(--size-8);
   min-height: 100vh;
   color: var(--text-1);
   background: transparent;
+  overflow: hidden;
 }
 
 .card {
@@ -35,13 +35,17 @@ body {
   position: relative;
   font-size: var(--font-size-fluid-0);
   padding: var(--size-4);
-  width: var(--size-15);
+  width: var(--size-fluid-10);
   border-radius: var(--size-4);
   box-shadow: var(--shadow-3);
   grid-gap: var(--size-2) 0;
   border-top: var(--size-2) solid var(--card-border);
   border-left: var(--size-2) solid var(--card-border);
   transition: background 0.2s var(--ease-1);
+}
+
+.card__blurb {
+  font-size: var(--font-size-fluid-0);
 }
 
 .card:hover {

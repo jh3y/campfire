@@ -24,6 +24,11 @@ body {
   min-height: 100vh;
   color: var(--text-1);
   background: transparent;
+  overflow: hidden;
+}
+
+.card__blurb {
+  font-size: var(--font-size-fluid-0);
 }
 
 .card {
@@ -35,7 +40,7 @@ body {
   position: relative;
   font-size: var(--font-size-fluid-0);
   padding: var(--size-4);
-  width: var(--size-15);
+  width: var(--size-fluid-10);
   border-radius: var(--size-4);
   box-shadow: var(--shadow-3);
   grid-gap: var(--size-2) 0;

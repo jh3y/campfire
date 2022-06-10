@@ -26,6 +26,17 @@
   background: var(--hover-action);
 }
 
+:where(h1) {
+  text-align: center;
+  width: 100%;
+  font-size: var(--font-size-6);
+}
+
+:where(p, ul) {
+  font-size: var(--font-size-0);
+  max-inline-size: var(--size-content-2);
+}
+
 body {
   background: var(--bg);
   display: grid;

@@ -32,7 +32,7 @@ body {
   overflow:  hidden;
   margin: 0;
   background-color: transparent;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 form {
@@ -67,6 +67,7 @@ label {
   transform-style: preserve-3d;
   transition: color var(--transition);
   color: var(--color);
+  font-size: 1.25rem;
 }
 
 button {
