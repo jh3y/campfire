@@ -1,0 +1,49 @@
+<html class='has-support'>
+  <head>
+    <title>Basic Input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../feature-detection/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <img alt="Cityscape photo from Max Bender" src="../../../assets/max-bender-city-scape.jpeg" />
+    <div class="controls">
+      <fieldset>
+        <legend>Zoom Spots</legend>
+        <div class="controls__group">
+          <label for="default">Default</label>
+          <input checked type="radio" id="default" name="zoomies" value="default"/>
+        </div>
+        <div class="controls__group">
+          <label for="bus">Bus</label>
+          <input type="radio" id="bus" name="zoomies" value="bus"/>
+        </div>
+        <div class="controls__group">
+          <label for="car">Car</label>
+          <input type="radio" id="car" name="zoomies" value="car"/>
+        </div>
+        <div class="controls__group">
+          <label for="walk">Walk Sign</label>
+          <input type="radio" id="walk" name="zoomies" value="walk"/>
+        </div>
+        <div class="controls__group">
+          <label for="mail">Mail Truck</label>
+          <input type="radio" id="mail" name="zoomies" value="mail"/>
+        </div>
+        <div class="controls__group">
+          <label for="stop">Bus Stop</label>
+          <input type="radio" id="stop" name="zoomies" value="stop"/>
+        </div>
+        <div class="controls__group">
+          <label for="peak">Peak</label>
+          <input type="radio" id="peak" name="zoomies" value="peak"/>
+        </div>
+      </fieldset>
+    </div>
+    <footer>Photo by Max Bender on Unsplash</footer>
+    <script src="../feature-detection/script.js"></script>
+  </body>
+</html>

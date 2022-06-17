@@ -1,0 +1,46 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --recording: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+main {
+  max-inline-size: var(--size-content-1);
+  font-family: 'Google Sans', sans-serif;
+  font-size: var(--font-size-fluid-1);
+}
+
+.recording-status {
+  height: 5vmin;
+  aspect-ratio: 1;
+  position: fixed;
+  top: 2vmin;
+  right: 2vmin;
+  background: hsl(10 80% 50%);
+  border-radius: 50%;
+  animation: pulse calc(var(--recording, 0) * 1s) infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.instruction {
+  opacity: 0.6;
+}

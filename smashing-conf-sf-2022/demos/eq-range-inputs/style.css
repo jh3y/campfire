@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  overflow: hidden;
+}
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(var(--input-count, 16), 10px);
+  justify-content: center;
+  gap: 0.1rem;
+  transform: scale(2);
+  opacity: 0.6;
+}
+input {
+  pointer-events: none;
+  accent-color: hsl(var(--accent, 130), 100%, 60%);
+  transform: rotate(-90deg);
+  width: 120px;
+}
+::-webkit-slider-thumb {
+  opacity: 0;
+}
+::-moz-range-thumb {
+  opacity: 0;
+}

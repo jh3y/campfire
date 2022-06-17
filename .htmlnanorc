@@ -1,3 +1,4 @@
 {
-  "minifySvg": false
+  "minifySvg": false,
+  "removeComments": false
 }

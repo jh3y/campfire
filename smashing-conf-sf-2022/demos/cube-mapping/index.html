@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Basic Synthesis</title>
+    <link rel="stylesheet" href="../feature-detection/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+      <div class="result">
+        <div class="cube">
+          <div class="cuboid">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>    
+        </div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label for="gamma" class="control__label">Gamma</label>
+          <input id="gamma" type="range" name="gamma" class="control__input" min="0" max="100" step="1">
+          <p id="gamma-map"> Mapping to:</p>  
+        </div>
+        <div class="control-group">
+          <label for="alpha" class="control__label">Alpha</label>
+          <input id="alpha" type="range" name="alpha" class="control__input" min="0" max="100" step="1">
+          <p id="alpha-map"> Mapping to:</p>  
+        </div>
+        <div class="control-group">
+          <label for="beta" class="control__label">Beta</label>
+          <input id="beta" type="range" name="beta" class="control__input" min="0" max="100" step="1">
+          <p id="beta-map"> Mapping to:</p>  
+        </div>    
+      </div>
+    </main>
+    <script src="../feature-detection/script.js"></script>
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

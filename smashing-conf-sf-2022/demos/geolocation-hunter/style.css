@@ -1,0 +1,59 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+
+:root {
+  --hunting: 1;
+  --show-unlock: 0;
+  --proximity: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--gradient-6);
+}
+
+.unlock {
+  font-size: 2rem;
+  font-family: sans-serif;
+  padding: 1rem 2rem;
+  transition: transform 0.2s;
+  transform: translate(-50%, 0) scale(var(--show-unlock));
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 30vmin);
+}
+
+.chest {
+  --rotation: 20deg;
+  height: 25vmin;
+  aspect-ratio: 1;
+  background: var(--red-5);
+  animation: shake calc(((1 - ((var(--proximity) / 100) * 0.9)) * var(--hunting)) * 1s) infinite ease;
+}
+
+@keyframes shake {
+  25% {
+    transform: rotate(calc((var(--proximity) / 100) * var(--rotation)));
+  }
+  75% {
+    transform: rotate(calc((var(--proximity) / -100) * var(--rotation)));
+  }
+}
+
+.debug-label {
+  font-size: 0.875rem;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  font-weight: bold;
+  font-family: sans-serif;
+  color: var(--gray-9);
+}

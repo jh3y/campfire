@@ -53,7 +53,7 @@ build-conf: checkForConf ## Runs conference deck including demos
 	$(PARCEL) build $(CONF)/deck/**/*.html
 
 build-demos: checkForConf ## Runs conference deck including demos
-	$(PARCEL) build $(CONF)/demos/**/*.html
+	$(PARCEL) build $(CONF)/demos/**/*.html --no-cache --no-source-maps
 
 dev-pixel-pioneers:
 	$(VITE) pixel-pioneers-2022/deck/ --port 1234

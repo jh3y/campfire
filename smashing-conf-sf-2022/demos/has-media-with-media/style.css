@@ -1,0 +1,136 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --text-1: var(--gray-8);
+}
+
+html {
+  color-scheme: none;
+  background: transparent;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  grid-gap: var(--size-8);
+  min-height: 100vh;
+  color: var(--text-1);
+  background: transparent;
+  overflow: hidden;
+}
+
+.card__blurb {
+  font-size: var(--font-size-fluid-0);
+}
+
+.card {
+  --card-border: var(--blue-2);
+  --bg: var(--gray-2);
+  display: grid;
+  align-items: center;
+  background: var(--bg);
+  position: relative;
+  font-size: var(--font-size-fluid-0);
+  padding: var(--size-4);
+  width: var(--size-fluid-10);
+  border-radius: var(--size-4);
+  box-shadow: var(--shadow-3);
+  grid-gap: var(--size-2) 0;
+  border-top: var(--size-2) solid var(--card-border);
+  border-left: var(--size-2) solid var(--card-border);
+  transition: background 0.2s var(--ease-1);
+}
+
+.card:hover {
+  --bg: var(--gray-0);
+}
+
+.card:hover .card__title {
+  text-decoration: underline var(--size-2) var(--card-border);
+}
+
+.card__title {
+  font-size: var(--font-size-fluid-1);
+}
+
+:is(.card__title, .card__blurb) {
+  margin: 0;
+}
+
+.card:has(img) {
+  --card-border: var(--green-3);
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+  overflow: hidden;
+  grid-gap: 0;
+}
+
+.card:has(img) :is(.card__title, .card__blurb) {
+  grid-column: 1;
+  padding: var(--size-2) var(--size-4);
+}
+
+.card:has(img) .card__title {
+  align-self: end;
+}
+
+.card:has(img) .card__blurb {
+  align-self: start;
+}
+
+.card__media {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: calc(100% + var(--size-2));
+  aspect-ratio: 1;
+}
+
+.card:has(.card__featured) {
+  --card-border: var(--red-3);
+  animation: wiggle 6s infinite;
+}
+
+@keyframes wiggle {
+  0%, 75%, 80%, 100% {
+    transform: rotate(0deg);
+  }
+  76%, 78% {
+    transform: rotate(-4deg);
+  }
+  77%, 79% {
+    transform: rotate(4deg);
+  }
+}
+
+.card__featured {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  z-index: 2;
+  width: 50%;
+  height: 25%;
+  background: var(--gray-7);
+  display: grid;
+  place-items: center;
+  padding: var(--size-2) 0;
+  box-shadow: var(--shadow-2);
+  transform: translate(-50%, -50%) rotate(-45deg) translate(0, -100%);
+  color: var(--gray-1);
+  font-size: var(--font-size-0);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card__featured svg {
+  height: 100%;
+  aspect-ratio: 1;
+  fill: var(--yellow-3);
+}

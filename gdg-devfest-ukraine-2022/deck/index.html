@@ -58,18 +58,18 @@
             
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/input-intro/basic/index.html" data-background-interactive -->
+            <!-- .slide: data-background-iframe="/input-intro/basic/index.html" data-background-interactive -->
             
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/input-intro/accent-color/index.html" data-background-interactive -->
+            <!-- .slide: data-background-iframe="/input-intro/accent-color/index.html" data-background-interactive -->
             
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/input-intro/changing-accent-color/index.html" data-background-interactive -->
+            <!-- .slide: data-background-iframe="/input-intro/changing-accent-color/index.html" data-background-interactive -->
 
             ---            
-            <!-- .slide: data-auto-animate data-background-iframe="https://localhost:1234/eq-range-inputs/index.html" -->
+            <!-- .slide: data-auto-animate data-background-iframe="/eq-range-inputs/index.html" -->
             
             <div class="fader-block" style="opacity: 0;">
             
@@ -81,7 +81,7 @@
             
             ---
             
-            <!-- .slide: data-auto-animate data-background-iframe="https://localhost:1234/eq-range-inputs/index.html"-->
+            <!-- .slide: data-auto-animate data-background-iframe="/eq-range-inputs/index.html"-->
             <div class="fader-block" style="opacity: 1;">
               
               <del data-id="cross">Creative over function</del>
@@ -100,7 +100,7 @@
             <sub>It's not for everyone. And that's fine. It wasn't for me once.</sub>
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/hmmm/index.html" -->
+            <!-- .slide: data-background-iframe="/hmmm/index.html" -->
 
             ## What?
             ## How?
@@ -133,7 +133,7 @@
 
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/perspective-steps/index.html" -->
+            <!-- .slide: data-background-iframe="/perspective-steps/index.html" -->
 
             <h2 style="text-align: left; margin: 0 auto; width: 50%;"><span class="phone">📱</span></h2>
 
@@ -246,7 +246,7 @@
             ---
 
             <!-- .slide: data-auto-animate -->
-            # <span>CSS</span><span style="opacity: 0.2;">, UI, && DevTools</span>
+            # <span>CSS</span><del style="opacity: 0.2;">, UI, && DevTools</del>
 
             ---
 
@@ -273,12 +273,21 @@
             </div>
             ---
 
-            ```css
+             ```css
             &lt;element_we_want_to_target&gt;:has(&lt;some_selector_combo_list_etc.&gt;) {
               /* Awesome styles to apply */
             }
 
             ```
+
+            <sub>You're able to target an element based on it's environment</sub>
+
+            ```
+            body:has(#red:checked) {
+              background: red;
+            }
+            ```
+            <sub>Make the <code>body</code> red because somewhere it has a descendant with the ID "red", that is <code>:checked</code>.</sub>
 
             ---
             <!-- .slide: class="shrink-code" -->
@@ -302,6 +311,8 @@
               <div class="everyone"></div>
               ```
 
+              <sub><strong>Repeat:</strong> Grabbing a target based on its children, surroundings, etc.<br/>then setting a style on that or it's children, surroundings, etc.</sub>
+
             </div>
 
             ---
@@ -323,7 +334,7 @@
             </div>
 
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-primer/has-no/index.html" ></iframe>
+            <iframe class="demo-embed" src="../demos/has-primer/has-no/index.html" ></iframe>
 
             ---
             <!-- .slide: class="multi-column"-->
@@ -342,11 +353,11 @@
               <div></div>
               <div class="🍔"></div>
               ```
-              <sub>📝 We are selecting the :pseudo of the parent<br>that :has a thing. That's like selecting a child.</sub>
+              <sub>📝 We are selecting the :pseudo of the parent<br>that :has a thing. That's almost like selecting a child.</sub>
             </div>
 
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-primer/has-distant/index.html" ></iframe>
+            <iframe class="demo-embed" src="../demos/has-primer/has-distant/index.html" ></iframe>
 
             ---
 
@@ -370,7 +381,7 @@
             </div>
 
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-primer/has-sibling/index.html" ></iframe>
+            <iframe class="demo-embed" src="../demos/has-primer/has-sibling/index.html" ></iframe>
 
             ---
 
@@ -401,7 +412,7 @@
             </div>
 
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-primer/has-it/index.html" ></iframe>
+            <iframe class="demo-embed" src="../demos/has-primer/has-it/index.html" ></iframe>
 
             ---
             
@@ -445,7 +456,7 @@
 
             </div>
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-forms/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-forms/index.html"></iframe>
 
             ---
 
@@ -490,7 +501,7 @@
 
             </div>
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-forms-submit/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-forms-submit/index.html"></iframe>
 
             ---
 
@@ -534,7 +545,7 @@
 
             </div>
             
-            <iframe class="demo-embed" src="https://localhost:1234/has-forms-whimsical/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-forms-whimsical/index.html"></iframe>
 
             ---
 
@@ -574,7 +585,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-hunt/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-hunt/index.html"></iframe>
 
             ---
 
@@ -604,7 +615,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-media/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-media/index.html"></iframe>
 
             ---
 
@@ -636,7 +647,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-media-with-media/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-media-with-media/index.html"></iframe>
 
             ---
 
@@ -667,7 +678,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-media-with-featured/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-media-with-featured/index.html"></iframe>
 
             ---
 
@@ -690,7 +701,7 @@
 
             <!-- .slide: data-auto-animate -->
 
-            <h2 data-id="goodbye" style="opacity: 0.25;">Goodbye "Checkbox Hack" 🥲</h2>
+            <h2 data-id="goodbye" style="opacity: 0.2;">Goodbye "Checkbox Hack" 🥲</h2>
 
             ## Hello Semantic Markup && "Magic" CSS Tricks/Powers ✨
 
@@ -747,7 +758,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-nav/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-nav/index.html"></iframe>
 
             ---
 
@@ -800,7 +811,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-darkmode/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-darkmode/index.html"></iframe>
 
             ---
 
@@ -845,7 +856,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-nav-darkmode/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-nav-darkmode/index.html"></iframe>
 
             ---
 
@@ -886,7 +897,7 @@
 
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-primitive-zoom/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-primitive-zoom/index.html"></iframe>
             ---
 
             <!-- .slide: class="shrink-code multi-column" -->
@@ -912,6 +923,8 @@
               .board:has(:checked ~ :checked ~ :checked) {
                 --turn: 1;
               }
+              /* Wouldn't work! */
+              .board:has(.board__cell:has(:checked)) { ... }
               ```
 
               ```html
@@ -925,7 +938,7 @@
               <sub>You can't <code>:has</code> a <code>:has</code>!</sub>
             </div>
 
-            <iframe class="demo-embed" src="https://localhost:1234/has-tic-tac-toe/index.html"></iframe>
+            <iframe class="demo-embed" src="../demos/has-tic-tac-toe/index.html"></iframe>
             
             ---
 
@@ -968,7 +981,11 @@
 
             ---
 
-            <!-- .slide: data-background-iframe="https://localhost:1234/has-stan/index.html" -->
+            <!-- .slide: data-background-iframe="/has-a-dark-side/index.html" -->
+
+            ---
+
+            <!-- .slide: data-background-iframe="/has-stan/index.html" -->
 
             ---
 

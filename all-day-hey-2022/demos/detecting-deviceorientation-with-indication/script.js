@@ -4,7 +4,6 @@ const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
   return value => outputLower + (((value - inputLower) / INPUT_RANGE) * OUTPUT_RANGE || 0)
 }
 
-
 const PROXIMITY_THRESHOLD = 20
 const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
 const BETA_MAPPER = mapRange(-180, 180, 0, 100)
