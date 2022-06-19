@@ -43,5 +43,8 @@
     "all-day-hey-2022",
     "pixel-pioneers-2022",
     "gdg-devfest-ukraine-2022"
-  ]
+  ],
+  "devDependencies": {
+    "@parcel/transformer-pug": "2.5.0"
+  }
 }

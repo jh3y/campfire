@@ -1,0 +1,617 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+/* Property stuff for nice dialogs... */
+@property --screen-hide {
+  initial-value: 0;
+  inherits: true;
+  syntax: '<number>';
+}
+
+@property --intro-screen-hide {
+  initial-value: 0;
+  inherits: true;
+  syntax: '<number>';
+}
+
+@property --screen-y {
+  initial-value: 0;
+  inherits: true;
+  syntax: '<length>';
+}
+
+@property --screen-scale {
+  initial-value: 1;
+  inherits: true;
+  syntax: '<number>';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[type="checkbox"]:not(.board__controls [type="checkbox"]) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:root {
+  --cell-size: 6vmin;
+  --primary-hue: 280;
+  --secondary-hue: 320;
+  --base-drop: 0.05;
+  --red: hsl(18, 100%, 50%);
+  --yellow: hsl(44, 83%, 53%);
+  --green: hsl(130, 52%, 46%);
+  --blue: hsl(215, 100%, 53%);
+  --screen-hide: 1;
+  --intro-screen-hide: 0;
+  --screen-delay: 0;
+  --show-results: 0;
+  --show-win: 0;
+  --show-draw: 0;
+  --show-primary-win: 0;
+  --show-secondary-win: 0;
+  --column-padding: 0.2;
+  --gap-coefficient: 0.1;
+  --column-height: calc(var(--cell-size) * (-1 - var(--column-padding)));
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+svg {
+  fill: currentColor;
+}
+
+form {
+  display: grid;
+  place-items: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, var(--cell-size));
+  grid-auto-flow: column;
+  grid-gap: 0 calc(var(--cell-size) * var(--gap-coefficient));
+  position: relative;
+}
+
+.board__column {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), var(--cell-size));
+  aspect-ratio: 1 / var(--rows);
+  grid-gap: calc(var(--cell-size) * var(--gap-coefficient)) 0;
+  position: relative;
+  clip-path: inset(var(--column-height) 0 0 0);
+}
+
+.board__controls {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  opacity: var(--debug, 0);
+  z-index: calc(-1 + (var(--debug, 0) * 1000));
+}
+
+.controls {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), auto);
+  grid-template-columns: repeat(calc(var(--columns) * 2), auto);
+}
+
+.board__controls [type="reset"] {
+  display: block;
+  width: 100%;
+}
+
+.board__move:hover {
+  --show-ghost: 1;
+}
+
+.board__move[for*="s"] {
+  --disc-hue: var(--secondary-hue);
+}
+.board__move[for*="p"] {
+  --disc-hue: var(--primary-hue);
+}
+
+.ghost__disc {
+  width: 100%;
+  aspect-ratio: 1;
+  background: hsl(var(--disc-hue, 0) 80% 50%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: var(--show-ghost, 0);
+}
+
+.board__cell {
+  background: hsl(10 80% 50% / 0.1);
+  aspect-ratio: 1;
+}
+
+.board__labels {
+  position: absolute;
+  top: var(--column-height);
+  left: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.board__move {
+  height: 100%;
+  width: var(--cell-size);
+  position: absolute;
+}
+
+.board__discs {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.board__disc--primary {
+  --disc-hue: var(--primary-hue);
+}
+
+.board__disc--secondary {
+  --disc-hue: var(--secondary-hue);
+}
+
+.board__disc {
+  background: hsl(var(--disc-hue) 80% 50%);
+  position: absolute;
+  inset: 0;
+  display: none;
+  animation: drop calc((var(--base-drop) * var(--row)) * 1s);
+}
+
+@keyframes drop {
+  from {
+    transform: translateY(calc(((var(--row) + 0.5) * (var(--cell-size) * -1)) - (var(--cell-size) * var(--column-padding))));
+  }
+}
+
+
+/* Generic reusable game UI stuff */
+
+/* Dialog and screen */
+
+:root:has(#dismiss:checked) {
+  --intro-screen-hide: 1;
+}
+
+.screen {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(calc(var(--screen-y, 0))) scale(var(--screen-scale, 0)) translateY(calc(var(--screen-hide, 0) * 100vh));
+  transition: --screen-hide 0.2s calc(var(--info-delay, 0) * 0.5s);
+  z-index: 5;
+  display: grid;
+  place-items: center;
+}
+
+.screen--intro {
+  transform: translate(-50%, -50%) translateY(calc(var(--screen-y, 0))) scale(var(--screen-scale, 0)) translateY(calc(var(--intro-screen-hide, 0) * 100vh));
+  transition: --intro-screen-hide 0.2s;
+}
+
+.dialog {
+  font-family: 'Google Sans', sans-serif;
+  font-size: clamp(1rem, 2vmin, 2rem);
+  backdrop-filter: blur(10px) saturate(0.75);
+  color: var(--gray-0);
+  background: hsl(210 29% 20% / 0.8);
+  position: absolute;
+  box-shadow: var(--shadow-6);
+  text-align: center;
+  border-style: solid;
+  border-top-color: var(--red);
+  border-right-color: var(--green);
+  border-bottom-color: var(--yellow);
+  border-left-color: var(--blue);
+  border-width: var(--size-2);
+  display: grid;
+}
+
+.dialog * + * {
+  margin-top: 2rem;
+}
+
+.dialog__content {
+  padding: var(--size-4);
+  display: grid;
+  place-items: center;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.dialog__content {
+  opacity: var(--opacity, 1);
+  z-index: var(--z, 2);
+}
+
+.dialog__content--intro {
+  --opacity: calc(1 - var(--show-win, 0));
+  --z: calc(1 - (2 * var(--show-win, 0)));
+}
+
+.dialog__content--win {
+  --z: calc(-1 + (var(--show-win) * 2));
+  --opacity: var(--show-win);
+}
+
+.dialog__content--draw {
+  --z: calc(-1 + (var(--show-draw) * 2));
+  --opacity: var(--show-draw);
+}
+
+/* Transition buttons */
+.faux-button {
+  --bg: var(--gray-9);
+  box-sizing: border-box;
+  font-size: var(--font-size-fluid-1);
+  padding: var(--size-4) var(--size-6);
+  background: var(--bg);
+  color: var(--gray-0);
+  font-weight: bold;
+  font-family: 'Google Sans', sans-serif;
+  border: var(--size-2) solid var(--gray-0);
+  display: inline-block;
+  transform: translateY(calc(var(--y, 0) * 1%)) scale(var(--s));
+  transition: transform 0.1s, background 0.1s;
+}
+
+.faux-button:hover {
+  --bg: black;
+  --y: -5;
+  --s: 1.1;
+}
+
+.faux-button:active {
+  --bg: black;
+  --y: 5;
+  --s: 0.9;
+}
+
+/* Reset button */
+.game-reset {
+  background: none;
+  color: var(--gray-0);
+  height: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+
+/* NO */
+/* .board:has(:checked)
+.board:has(:checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)  
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)  
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)  
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)  
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)  
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+.board:has(:checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked)
+  --turn 1
+ */
+
+
+
+/* Logic Demons live down here.... */
+
+/* The "Magic" bullet for turn switching */
+
+.board__labels:after {
+  content: counter(turn, lower-roman);
+  font-size: 1px;
+  letter-spacing: var(--cell-size);
+}
+
+.board__move[for*="s"] {
+  left: 0;
+}
+
+.board__move[for*="p"] {
+  right: 0;
+}
+
+body {
+  counter-reset: turn 1;
+}
+
+[id*="p"]:checked {
+  counter-increment: turn 2;
+}
+
+[id*="s"]:checked {
+  counter-increment: turn -2;
+}
+
+/* Lengthy way to show/hide moves... */
+/* 
+Two choices here... .cell:has(:checked) label { display: none; }
+Or...  This....
+
+But, with the former, how do you detect a win. You can't do .board:has(.move-1:has(:checked) ~ .move-2:has(:checked)) for performance reasons. I don't want to break the markup either. This seems like the most verbose way of doing it with retaining the markup.
+*/
+:has(#s-1:checked) .move-1 .board__disc--secondary,
+:has(#p-1:checked) .move-1 .board__disc--primary,
+:has(#s-2:checked) .move-2 .board__disc--secondary,
+:has(#p-2:checked) .move-2 .board__disc--primary,
+:has(#s-3:checked) .move-3 .board__disc--secondary,
+:has(#p-3:checked) .move-3 .board__disc--primary,
+:has(#s-4:checked) .move-4 .board__disc--secondary,
+:has(#p-4:checked) .move-4 .board__disc--primary,
+:has(#s-5:checked) .move-5 .board__disc--secondary,
+:has(#p-5:checked) .move-5 .board__disc--primary,
+:has(#s-6:checked) .move-6 .board__disc--secondary,
+:has(#p-6:checked) .move-6 .board__disc--primary,
+:has(#s-7:checked) .move-7 .board__disc--secondary,
+:has(#p-7:checked) .move-7 .board__disc--primary,
+:has(#s-8:checked) .move-8 .board__disc--secondary,
+:has(#p-8:checked) .move-8 .board__disc--primary,
+:has(#s-9:checked) .move-9 .board__disc--secondary,
+:has(#p-9:checked) .move-9 .board__disc--primary,
+:has(#s-10:checked) .move-10 .board__disc--secondary,
+:has(#p-10:checked) .move-10 .board__disc--primary,
+:has(#s-11:checked) .move-11 .board__disc--secondary,
+:has(#p-11:checked) .move-11 .board__disc--primary,
+:has(#s-12:checked) .move-12 .board__disc--secondary,
+:has(#p-12:checked) .move-12 .board__disc--primary,
+:has(#s-13:checked) .move-13 .board__disc--secondary,
+:has(#p-13:checked) .move-13 .board__disc--primary,
+:has(#s-14:checked) .move-14 .board__disc--secondary,
+:has(#p-14:checked) .move-14 .board__disc--primary,
+:has(#s-15:checked) .move-15 .board__disc--secondary,
+:has(#p-15:checked) .move-15 .board__disc--primary,
+:has(#s-16:checked) .move-16 .board__disc--secondary,
+:has(#p-16:checked) .move-16 .board__disc--primary,
+:has(#s-17:checked) .move-17 .board__disc--secondary,
+:has(#p-17:checked) .move-17 .board__disc--primary,
+:has(#s-18:checked) .move-18 .board__disc--secondary,
+:has(#p-18:checked) .move-18 .board__disc--primary,
+:has(#s-19:checked) .move-19 .board__disc--secondary,
+:has(#p-19:checked) .move-19 .board__disc--primary,
+:has(#s-20:checked) .move-20 .board__disc--secondary,
+:has(#p-20:checked) .move-20 .board__disc--primary,
+:has(#s-21:checked) .move-21 .board__disc--secondary,
+:has(#p-21:checked) .move-21 .board__disc--primary,
+:has(#s-22:checked) .move-22 .board__disc--secondary,
+:has(#p-22:checked) .move-22 .board__disc--primary,
+:has(#s-23:checked) .move-23 .board__disc--secondary,
+:has(#p-23:checked) .move-23 .board__disc--primary,
+:has(#s-24:checked) .move-24 .board__disc--secondary,
+:has(#p-24:checked) .move-24 .board__disc--primary,
+:has(#s-25:checked) .move-25 .board__disc--secondary,
+:has(#p-25:checked) .move-25 .board__disc--primary,
+:has(#s-26:checked) .move-26 .board__disc--secondary,
+:has(#p-26:checked) .move-26 .board__disc--primary,
+:has(#s-27:checked) .move-27 .board__disc--secondary,
+:has(#p-27:checked) .move-27 .board__disc--primary,
+:has(#s-28:checked) .move-28 .board__disc--secondary,
+:has(#p-28:checked) .move-28 .board__disc--primary,
+:has(#s-29:checked) .move-29 .board__disc--secondary,
+:has(#p-29:checked) .move-29 .board__disc--primary,
+:has(#s-30:checked) .move-30 .board__disc--secondary,
+:has(#p-30:checked) .move-30 .board__disc--primary,
+:has(#s-31:checked) .move-31 .board__disc--secondary,
+:has(#p-31:checked) .move-31 .board__disc--primary,
+:has(#s-32:checked) .move-32 .board__disc--secondary,
+:has(#p-32:checked) .move-32 .board__disc--primary,
+:has(#s-33:checked) .move-33 .board__disc--secondary,
+:has(#p-33:checked) .move-33 .board__disc--primary,
+:has(#s-34:checked) .move-34 .board__disc--secondary,
+:has(#p-34:checked) .move-34 .board__disc--primary,
+:has(#s-35:checked) .move-35 .board__disc--secondary,
+:has(#p-35:checked) .move-35 .board__disc--primary,
+:has(#s-36:checked) .move-36 .board__disc--secondary,
+:has(#p-36:checked) .move-36 .board__disc--primary,
+:has(#s-37:checked) .move-37 .board__disc--secondary,
+:has(#p-37:checked) .move-37 .board__disc--primary,
+:has(#s-38:checked) .move-38 .board__disc--secondary,
+:has(#p-38:checked) .move-38 .board__disc--primary,
+:has(#s-39:checked) .move-39 .board__disc--secondary,
+:has(#p-39:checked) .move-39 .board__disc--primary,
+:has(#s-40:checked) .move-40 .board__disc--secondary,
+:has(#p-40:checked) .move-40 .board__disc--primary,
+:has(#s-41:checked) .move-41 .board__disc--secondary,
+:has(#p-41:checked) .move-41 .board__disc--primary,
+:has(#s-42:checked) .move-42 .board__disc--secondary,
+:has(#p-42:checked) .move-42 .board__disc--primary {
+  display: block;
+}
+:has(#s-1:checked, #p-1:checked) .move-1 .board__labels,
+:has(#s-2:checked, #p-2:checked) .move-2 .board__labels,
+:has(#s-3:checked, #p-3:checked) .move-3 .board__labels,
+:has(#s-4:checked, #p-4:checked) .move-4 .board__labels,
+:has(#s-5:checked, #p-5:checked) .move-5 .board__labels,
+:has(#s-6:checked, #p-6:checked) .move-6 .board__labels,
+:has(#s-7:checked, #p-7:checked) .move-7 .board__labels,
+:has(#s-8:checked, #p-8:checked) .move-8 .board__labels,
+:has(#s-9:checked, #p-9:checked) .move-9 .board__labels,
+:has(#s-10:checked, #p-10:checked) .move-10 .board__labels,
+:has(#s-11:checked, #p-11:checked) .move-11 .board__labels,
+:has(#s-12:checked, #p-12:checked) .move-12 .board__labels,
+:has(#s-13:checked, #p-13:checked) .move-13 .board__labels,
+:has(#s-14:checked, #p-14:checked) .move-14 .board__labels,
+:has(#s-15:checked, #p-15:checked) .move-15 .board__labels,
+:has(#s-16:checked, #p-16:checked) .move-16 .board__labels,
+:has(#s-17:checked, #p-17:checked) .move-17 .board__labels,
+:has(#s-18:checked, #p-18:checked) .move-18 .board__labels,
+:has(#s-19:checked, #p-19:checked) .move-19 .board__labels,
+:has(#s-20:checked, #p-20:checked) .move-20 .board__labels,
+:has(#s-21:checked, #p-21:checked) .move-21 .board__labels,
+:has(#s-22:checked, #p-22:checked) .move-22 .board__labels,
+:has(#s-23:checked, #p-23:checked) .move-23 .board__labels,
+:has(#s-24:checked, #p-24:checked) .move-24 .board__labels,
+:has(#s-25:checked, #p-25:checked) .move-25 .board__labels,
+:has(#s-26:checked, #p-26:checked) .move-26 .board__labels,
+:has(#s-27:checked, #p-27:checked) .move-27 .board__labels,
+:has(#s-28:checked, #p-28:checked) .move-28 .board__labels,
+:has(#s-29:checked, #p-29:checked) .move-29 .board__labels,
+:has(#s-30:checked, #p-30:checked) .move-30 .board__labels,
+:has(#s-31:checked, #p-31:checked) .move-31 .board__labels,
+:has(#s-32:checked, #p-32:checked) .move-32 .board__labels,
+:has(#s-33:checked, #p-33:checked) .move-33 .board__labels,
+:has(#s-34:checked, #p-34:checked) .move-34 .board__labels,
+:has(#s-35:checked, #p-35:checked) .move-35 .board__labels,
+:has(#s-36:checked, #p-36:checked) .move-36 .board__labels,
+:has(#s-37:checked, #p-37:checked) .move-37 .board__labels,
+:has(#s-38:checked, #p-38:checked) .move-38 .board__labels,
+:has(#s-39:checked, #p-39:checked) .move-39 .board__labels,
+:has(#s-40:checked, #p-40:checked) .move-40 .board__labels,
+:has(#s-41:checked, #p-41:checked) .move-41 .board__labels,
+:has(#s-42:checked, #p-42:checked) .move-42 .board__labels {
+  display: none;
+}
+
+/* Detecting winners */
+:root:has(
+  .controls
+  [id*="p"]:checked
+  + input +
+  [id*="p"]:checked
+  + input +
+  [id*="p"]:checked
+  + input +
+  [id*="p"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +     
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="p"]:checked
+) body {
+  --screen-hide: 0;
+  --show-win: 1;
+  --show-primary-win: 1;
+  --info-delay: 1;
+}
+
+
+:root:has(
+  .controls
+  [id*="s"]:checked
+  + input +
+  [id*="s"]:checked
+  + input +
+  [id*="s"]:checked
+  + input +
+  [id*="s"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +     
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +  
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+) body,
+:root:has(
+  .controls
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+  + input + input + input + input + input + input + input + input + input +
+  [id*="s"]:checked
+) body {
+  --screen-hide: 0;
+  --show-win: 1;
+  --show-secondary-win: 1;
+  --info-delay: 1;
+}
+
+/* A draw is 46 consecutive moves in .controls */
+:root:has(
+  .controls
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~
+  :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked ~ :checked
+) {
+  --screen-hide: 0;
+  --show-draw: 1;
+  --info-delay: 1;
+}
+
+
+
+/* input:nth-of-type(2):checked ~ .column > input:nth-of-type(2):checked ~ .column > input:nth-of-type(2):checked ~ .column > input:nth-of-type(2):checked ~ .column::after,
+input:nth-of-type(4):checked ~ .column > input:nth-of-type(4):checked ~ .column > input:nth-of-type(4):checked ~ .column > input:nth-of-type(4):checked ~ .column::after,
+input:nth-of-type(6):checked ~ .column > input:nth-of-type(6):checked ~ .column > input:nth-of-type(6):checked ~ .column > input:nth-of-type(6):checked ~ .column::after,
+input:nth-of-type(8):checked ~ .column > input:nth-of-type(8):checked ~ .column > input:nth-of-type(8):checked ~ .column > input:nth-of-type(8):checked ~ .column::after,
+input:nth-of-type(10):checked ~ .column > input:nth-of-type(10):checked ~ .column > input:nth-of-type(10):checked ~ .column > input:nth-of-type(10):checked ~ .column::after,
+input:nth-of-type(12):checked ~ .column > input:nth-of-type(12):checked ~ .column > input:nth-of-type(12):checked ~ .column > input:nth-of-type(12):checked ~ .column::after, */
