@@ -1,0 +1,121 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+@property --spin {
+	initial-value: 0deg;
+	syntax: '<angle>';
+	inherits: true;
+}
+
+* {
+  box-sizing: border-box;
+  /*transform-style: preserve-3d;*/
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--gradient-23);
+  overflow: hidden;
+  font-family: 'Google Sans', sans-serif;
+}
+
+.controls {
+	transform-style: flat;
+}
+
+.intro {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	gap: 1rem;
+	animation: drop 0.5s forwards ease-in;
+	text-align: center;
+	background: var(--gray-9);
+	display: grid;
+	padding: var(--size-6);
+}
+
+.intro-container {
+	position: fixed;
+	inset: 0;
+}
+
+@keyframes drop {
+	from {
+		transform: translate(-50%, calc(-50% - 100vh));
+	}
+}
+
+.intro-container:before {
+	content: "";
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+	transform: translate(-50%, -50%);
+	background: hsl(0 0% 10% / 0.4);
+	backdrop-filter: blur(14px);
+}
+
+.box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 25vmin;
+	aspect-ratio: 1;
+	transform: translate(-50%, -50%);
+	background: var(--gradient-11);
+	border-radius: 50%;
+}
+
+.audio-toggle {
+	--muted: 0;
+	color: var(--gray-0);
+	padding: 0;
+	height: 48px;
+	aspect-ratio: 1;
+	position: fixed;
+	bottom: 2rem;
+	right: 2rem;
+	transform-style: flat;
+	transition: transform 0.2s, background 0.2s;
+	background: var(--bg, var(--gray-7));
+	transform: scale(var(--scale, 1)) translateY(var(--y));
+}
+
+.audio-toggle:hover {
+	--bg: var(--gray-5);
+	--scale: 1.1;
+	--y: -5%;
+}
+
+.audio-toggle:active {
+	--bg: var(--gray-9);
+	--scale: 0.9;
+	--y: 5%;
+}
+
+.audio-toggle svg {
+	fill: var(--color, var(--gray-0));
+	opacity: var(--muted);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	stroke: none;
+}
+
+.audio-toggle svg:nth-of-type(1) {
+	opacity: calc(1 - var(--muted));
+}
+
+.audio-toggle[aria-pressed="true"] {
+	--muted: 1;
+	--color: var(--red-7);
+}

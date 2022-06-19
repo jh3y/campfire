@@ -123,7 +123,6 @@ const ON_UPDATE = (angle, valid) => {
     // Update the opacity of the image. Pass in a normalized angle
     const NORMALIZED_ANGLE = clockwise ? angle : 360 - angle
     if (NORMALIZED_ANGLE > 30) {
-      document.body.style.setProperty('--selection', 'none')
       if (!CONTAINER.matches(":top-layer")) CONTAINER.showPopup()
       const IMG_OPACITY = IMG_OPACITY_MAPPER(NORMALIZED_ANGLE)
       RING.style.setProperty('--img-opacity', clockwise !== undefined ? IMG_OPACITY : 0)
@@ -240,6 +239,7 @@ const CLEAN_GESTURE = () => {
 
 const START_GESTURE = ({ x, y }) => {
   console.clear()
+  document.body.style.setProperty('--selection', 'none')
   startPoint = { x, y }
   centerPoint = { x, y: y + (Math.min(window.innerHeight, window.innerWidth) * 0.09) }
   RING.style.setProperty('--x', centerPoint.x)

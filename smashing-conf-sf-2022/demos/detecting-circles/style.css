@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.points {
+  position: relative;
+}
+
+.indicator {
+  --complete: 100;
+  --mask-one: transparent;
+  --mask-two: white;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  background: hsl(var(--hue, 10) 80% 50% / var(--alpha, 0.1));
+  height: 10vmin;
+  aspect-ratio: 1;
+}
+
+.indicator:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1vmin solid hsl(var(--hue, 10) 80% 50%);
+  border-radius: 50%;
+  mask: conic-gradient(var(--mask-one) calc(var(--complete) * 1%), var(--mask-two) calc(var(--complete, 0) * 1%));
+}
+
+.point {
+  height: 4px;
+  aspect-ratio: 1;
+  position: fixed;
+  background: hsl(var(--hue, 10) 80% 50%);
+  left: calc(var(--x, 0) * 1px);
+  top: calc(var(--y, 0) * 1px);
+  transform: translate(-50%, -50%);
+}
