@@ -3,15 +3,15 @@
 @import '../../node_modules/reveal.js/plugin/highlight/monokai.css';
 
 :root {
-	--conference-hue: 286;
+	--conference-hue: 5;
 	--r-heading-font: 'Google Sans', sans-serif;
 	--r-main-font: 'Google Sans', sans-serif;
 	--r-main-font-size: 36px;
 	--r-code-font: 'JetBrains Mono', monospace;
-	--r-link-color: hsl(var(--conference-hue) 50% 50%);
-	--r-link-color-dark: hsl(var(--conference-hue) 50% 50%);
-	--r-link-color-hover: hsl(var(--conference-hue) 50% 83%);
-	--r-selection-background-color: hsl(var(--conference-hue) 50% 40%);
+	--r-link-color: hsl(var(--conference-hue) 66% 50%);
+	--r-link-color-dark: hsl(var(--conference-hue) 66% 50%);
+	--r-link-color-hover: hsl(var(--conference-hue) 66% 83%);
+	--r-selection-background-color: hsl(var(--conference-hue) 66% 40%);
 	--color-one: #ea4335;
   --color-two: #4285f4;
   --color-three: #34a853;
@@ -46,7 +46,7 @@ del {
 
 .talk-take {
 	position: absolute;
-	bottom: 30%;
+	bottom: 110%;
 	right: 6%;
 	transform: rotate(-20deg) translateX(0%);
 	display: inline-block;
@@ -666,6 +666,34 @@ h4 del {
 	}
 	30%, 100% {
 		transform:  skew(0deg);
+	}
+}
+
+.skateboard {
+	display: inline-block;
+	animation: flip 2s infinite;
+}
+
+@keyframes flip {
+	0%, 50% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.skateboard-wrapper {
+	display: inline-block;
+	animation: ollie 2s infinite;
+}
+
+@keyframes ollie {
+	0%, 50%, 100% {
+		transform: translateY(0);
+	}
+	75% {
+		transform: translateY(-100%);
 	}
 }
 

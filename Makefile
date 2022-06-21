@@ -56,4 +56,4 @@ build-conf: checkForConf ## Runs conference deck including demos
 	$(PARCEL) build $(CONF)/deck/**/*.html
 
 build-demos: checkForConf ## Runs conference deck including demos
-	$(PARCEL) build $(CONF)/demos/**/*.html --no-cache --no-source-maps
+	$(PARCEL) build $(CONF)/demos/**/*.html $(CONF)/demos/**/*.pug --no-cache --no-source-maps

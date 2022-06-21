@@ -1,0 +1,102 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --hue: 210;
+}
+
+form {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  grid-auto-flow: column;
+  background: hsl(var(--hue) 80% 80%);
+}
+
+.turn {
+  height: 10vmin;
+  position: relative;
+  aspect-ratio: 1;
+  background: hsl(var(--hue, 10) 80% 50% / 0.25);
+/*   position: absolute;
+  top: calc(var(--y, 50) * 1%);
+  left: calc(var(--x, 50) * 1%); */
+}
+
+[for] {
+  background: gray;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 4vmin;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+[for]:hover {
+  background: lightgray;
+  color: hsl(0 0% 15%);
+}
+
+
+/* Chromium Bug */
+/* :is(.turn) {
+  display: none;
+}
+
+:is(.turn:first-of-type) {
+  display: block;
+}
+
+:is(.turn:has(:checked), .turn:first-of-type:has(:checked)) {
+  display: none;
+}
+
+:is(.turn:has(:checked) + .turn:not(.turn:has(:checked))) {
+  display: block;
+} */
+
+:is(.turn) {
+  --hue: 10;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+:is(.turn:first-of-type) {
+  --hue: 210;
+  pointer-events: all;
+  z-index: 2;
+  opacity: 1;
+}
+
+:is(.turn:has(:checked), .turn:first-of-type:has(:checked)) {
+  --hue: 10;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+:is(.turn:has(:checked) + .turn:not(.turn:has(:checked))) {
+  --hue: 210;
+  pointer-events: all;
+  z-index: 2;
+  opacity: 1;
+}
+
+
+
+:root:has(#turn--4:checked) {
+  --hue: 130;
+}

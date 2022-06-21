@@ -13,8 +13,8 @@
   --piece-size: calc(var(--size) / 3);
   --line: #e6e6e6;
   --bg: #060d13;
-  --naught: #fed401;
-  --naught-alpha: rgba(254,212,1,0.5);
+  --naught: hsl(5 66% 50%);
+  --naught-alpha: hsl(5 66% 50% / 0.5);
   --cross: #3890f5;
   --cross-alpha: rgba(56,144,245,0.5);
   --draw-speed: 0.15;

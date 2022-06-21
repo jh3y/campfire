@@ -8,16 +8,18 @@
   <body>
     <form>
       <div class="form-group">
-        <label for="formInput" class="form-label">
-          <span class="label__letter" style="--index: 0;">E</span>
-          <span class="label__letter" style="--index: 1;">m</span>
-          <span class="label__letter" style="--index: 2;">a</span>
-          <span class="label__letter" style="--index: 3;">i</span>
-          <span class="label__letter" style="--index: 4;">l</span>
+        <label for="email" class="form-label">
+          Email
         </label>
-        <input required type="email" id="formInput" class="form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter valid email address" placeholder="Enter valid email address"/>   
+        <input required type="email" id="email" class="form-input" placeholder="Email"/>   
       </div>
-      <button type="submit">Submit</button>
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Password
+        </label>
+        <input required type="password" id="password" class="form-input" placeholder="Password" pattern=".{8,}"/>   
+      </div>
+      <button type="submit">Sign In</button>
     </form>
 
     <script src="../feature-detection/script.js"></script>

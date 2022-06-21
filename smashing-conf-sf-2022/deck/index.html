@@ -27,12 +27,12 @@
 
             ---
 
-            <h2>Supercharge your Skills with Creative Coding
+            <h2>Supercharge those Skills with Creative Coding
               <span class="lightning">⚡️</span>
               <span class="talk-take">Take III</span>
             </h2>
-            
-            <h4 class="">Smashing Conf SF 2022</h4>
+            <h5>Create your web platform showcase</h3>
+            <h6 class="">Smashing Conf SF 2022</h4>
 
             ---
             <!-- .slide: class="multi-column" -->
@@ -45,7 +45,7 @@
 
             </div>
           
-            <img class="polaroid" src="../../assets/bear-baby-chilling.jpg" width="300" />
+            <img class="polaroid" src="../../assets/baby-photo--resized.jpeg" width="300" />
 
             ---
 
@@ -70,17 +70,6 @@
             <!-- .slide: data-background-iframe="/input-intro/changing-accent-color/index.html" data-background-interactive -->
 
             ---
-            <!-- .slide: data-auto-animate data-background-iframe="/eq-range-inputs/index.html" -->
-            
-            <div class="fader-block" style="opacity: 0;">
-            
-              <del data-id="cross">Creative over function</del>
-            
-              <h2>Expression through the "Impractically Practical"</h2>
-            
-            </div>
-            
-            ---
             
             <!-- .slide: data-auto-animate data-background-iframe="/eq-range-inputs/index.html"-->
             <div class="fader-block" style="opacity: 1;">
@@ -98,23 +87,7 @@
                 <span class="flight">✈️</span>
               </span>
             </h2>
-            <sub>It's not for everyone. And that's fine. It wasn't for me once.</sub>
-            ---
-
-            <!-- .slide: data-background-iframe="/hmmm/index.html" -->
-
-            ## What?
-            ## How?
-            ## Why?
-
-            <sub>Let's deviate from the usual thinking...</sub>
-            
-            ---
-
-            <!--- Slide of creative demos videos -->
-
-            <img class="fullscreen" src="../../assets/creative-wall.gif" />
-
+            <sub>Let's not get personal, but, it is...</sub>
             ---
 
             - Supercharge your learning <span class="lightning">⚡️</span>
@@ -152,10 +125,6 @@
 
 
             ---
-            
-            # How?
-
-            ---
 
             - BB8 Gyroscope 🕹
             - Pinata ⭐️
@@ -163,7 +132,7 @@
             - CSS Bomb Defusal 🔥
             - Infini-Phil 🤖
 
-            <sub>Remember `you !== me`?</sub>
+            <sub>Remember `you !== me`? It's all about perspective</sub>
 
             <sub>The limit is __your__ `imagination` ✨</sub>
 
@@ -174,21 +143,14 @@
 
               ## Train It 👟
 
-              1. Start your list 📝 (Notion, Trello, ~~Post-It~~, Keep, Analog 🤯)
+              1. Start a list 📝
               2. Document all the thingz!!11! ʕ·ᴥ·　ʔ
               3. No idea is a bad idea
               4. __No idea is a bad idea__
 
-              <sub>Heck! You can even make a demo of your notebook</sub>
-
             </div>
 
             <img src="../../assets/notebook.jpeg" width="300">
-
-            ---
-            <!-- .slide: class="multi-col" -->
-            
-            > __"Plucking ideas out of nothing is something you can train your mind to do over time"__ – <cite>Me; new Date().toDateString()</cite>
 
             ---
 
@@ -251,13 +213,215 @@
 
             ---
 
+            ## @Property Primer 🙏
+
+            <sub>Close to my heart</sub>
+
+            ---
+
+            <!-- .slide: class="multi-column"-->
+            <!-- Slide 3 -->
+            ```css
+            :root {
+              --my-untyped-color: red;
+            }
+
+            .untyped {
+              --my-untyped-color: url('bear.png');
+              background: var(--my-untyped-color);
+            }
+            
+            @property --my-color {
+              syntax: '<color>';
+              initial-value: red;
+              inherits: false;
+            }
+            
+            .typed {
+              --my-color: url('bear.png');
+              background: var(--my-color);
+            }
+
+            ```
+            
+            <iframe class="demo-embed" src="../demos/typestyle/index.html" ></iframe>
+
+            ---
+
+            <!-- .slide: data-auto-animate -->
+            <!-- Slide 4 -->
+            ## Type~~Script~~Style 👀
+            <sub>Context ➡️ Interpolation ➡️ Motion</sub>
+
+
+            ---
+            <!-- .slide: class="multi-column" -->
+            <!-- Slide 7 -->
+
+            ```css
+            @property --wave {
+              inherits: false;
+              initial-value: 0%;
+              syntax: '<percentage>';
+            }
+            body {
+              --half-wave: calc(var(--wave) * 0.5);
+              background: linear-gradient(
+                transparent 0 calc(35% + var(--half-wave)),
+                var(--wave-four) calc(75% + var(--wave)) 100%
+              ), var(--sand);
+              animation: waves 5s infinite ease-in-out;
+            }
+            @keyframes waves {
+              50% {
+                --wave: 25%;
+              }
+            }
+            ```
+            <iframe class="demo-embed" src="../demos/waves/index.html" ></iframe>
+
+            ---
+
+            <!-- .slide: class="multi-column" style="--split-one: 0.5fr; --split-two: 0.5fr;" -->
+
+            ```css
+            @property --nose {
+              syntax: '<percentage>';
+              initial-value: 0%;
+              inherits: false;
+            }
+            @property --tail {
+              syntax: '<percentage>';
+              initial-value: 0%;
+              inherits: false;
+            }
+            .loader {
+              mask: conic-gradient(
+                from 45deg,
+                transparent 0 var(--tail),
+                #000 0 var(--nose),
+                transparent 0 var(--nose)
+              );
+              animation: load 2.5s both infinite ease-in-out,
+                      spin 3.25s infinite linear;
+            }
+
+            @keyframes spin {
+              to {
+                transform: rotate(360deg);
+              }
+            }
+
+            @keyframes load {
+              0% {
+                --tail: 0%;
+                --nose: 0%;
+              }
+              40%,
+              60% {
+                --nose: 100%;
+                --tail: 0%;
+              }
+              100% {
+                --nose: 100%;
+                --tail: 100%;
+              }
+            }
+            ```
+
+            <iframe class="demo-embed" src="../demos/that-loader/index.html" ></iframe>
+
+            ---
+            <!-- .slide: class="multi-column" -->
+
+            ```css
+
+            .car {
+              animation: journey 5s infinite linear;
+              transform: translate(
+                      calc(var(--x) * 1vmin),
+                      calc(var(--y) * 1vmin)
+                    )
+                    rotate(var(--r));
+            }
+            @keyframes journey {
+              0% {
+                --x: -22.5;
+                --y: 0;
+                --r: 0deg;
+              }
+              10% {
+                --r: 0deg;
+              }
+              12.5% {
+                --x: -22.5;
+                --y: -22.5;
+              }
+              15% {
+                --r: 90deg;
+              }
+              25% {
+                --x: 0;
+                --y: -22.5;
+              }
+              /* Obfuscated keyframes */
+            }
+
+            ```
+
+            <iframe class="demo-embed" src="../demos/track-race/index.html" ></iframe> 
+
+            ---
+
+             <!-- .slide: class="multi-column" -->
+
+            ```css
+            @property --count {
+              inherits: false;
+              initial-value: 0;
+              syntax: '<integer>';
+            }
+
+            .counter {
+              counter-reset: count var(--count);
+              animation: count 1s steps(100) infinite;
+            }
+
+            .counter:nth-of-type(2) {
+              animation-duration: 5s;
+            }
+
+            .counter:after {
+              font-variant: tabular-nums;
+              content: counter(ms);
+            }
+
+            @keyframes count {
+              to {
+                --count: 100;
+              }
+            }
+            ```
+
+            <iframe class="demo-embed" src="../demos/animating-numbers/index.html" ></iframe>
+
+            <sub>Note the `tabular-nums` usage</sub>
+
+            ---
+
+            <!-- .slide: data-background-color="#ead9f2" data-background-iframe="/css-stopwatch/index.html" data-background-interactive -->
+
+            ---
+
             <!-- .slide: class="table-shot" -->
             <!-- Try and limit each demo to 10 slides. That's a minute a slideish. -->
             <!-- Slide 1 -->
 
-            |Source | What? | How? |
+<!--             |Source | What? | How? |
             |---|---|---|
-            | Kent/Socials/Star Wars | :has exploration. | Tinker! |
+            | Kent/Socials/Star Wars | :has exploration. | Tinker! | -->
+
+            ## :has
 
 
             <sub>Absolute game changer! 💯</sub>
@@ -265,329 +429,57 @@
             ---
             <!-- Slide 2 -->
             
-            <div class="collage-grid">
+            <!-- <div class="collage-grid">
               <img src="../../assets/bramus-has.png" width="300" />
               <img src="../../assets/caniuse-has.png" width="300" />
               <img src="../../assets/dark-side.gif" width="300" />
               <img src="../../assets/kent-useforce-tweet.png" width="300" />
               <img src="../../assets/devrel-grooving.gif" width="100" />
             </div>
-            ---
+            --- -->
+
+            ## Conditional environment selector
+
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 2vmin; margin-bottom: 2vmin;">
+
 
             ```css
-            &lt;element_we_want_to_target&gt;:has(&lt;some_selector_combo_list_etc.&gt;) {
-              /* Awesome styles to apply */
+            .everyone:has(.a-good-time) {
+              animation: party 21600s forwards;
             }
 
-            ```
-
-            <sub>You're able to target an element based on a conditional environment</sub>
-
-            ```
-            body:has(#red:checked) {
-              background: red;
+            .jeff:has(~ .aunt) {
+              animation: go-see-her 10000s forwards;
             }
             ```
-            <sub>Make the <code>body</code> red because somewhere it has a descendant with the ID "red", that is <code>:checked</code>.</sub>
 
-            ---
-            <!-- .slide: class="shrink-code" -->
-
-            <div class="code-column">
-              
-              ```css
-              .everyone:has(.a-good-time) {
-                animation: party 21600s forwards;
-              }
-              ```
-
-
-              ```html
+            ```html
               <!-- Selected! ✅-->
-              <div class="everyone">
-                <div class="a-good-time"></div>
+              <div class="everybody">
+                <div class="body body--at-smashing-sf">
+                  <div class="a-good-time"></div>
+                </div>
               </div>
 
               <!-- Not Selected ❌-->
-              <div class="everyone"></div>
-              ```
+              <div class="everybody"></div>
+
+              <!-- Selected! ✅-->
+              <div class="jeff"></div>
+              <div class="some-distance"></div>
+              <div class="aunt"></div>
+            ```
 
             </div>
 
-            <sub><strong>Repeat:</strong> Grabbing a target based on its children, surroundings, etc. then setting a style on that or it's children, surroundings, etc.</sub>
-
-            ---
-            <!-- .slide: class="multi-column" style="--code-size: 0.75em"-->
-            <!-- Slide 3 -->
-
-            <div class="code-column">
-              
-              ```css
-              .🐱:before {
-                content: "😿";
-              }
-              ```
-
-              ```html
-              <div class="🐱"></div>
-              ```
-
-            </div>
-
-            
-            <iframe class="demo-embed" src="../demos/has-primer/has-no/index.html" ></iframe>
-
-            ---
-            <!-- .slide: class="multi-column" style="--code-size: 0.75em;"-->
-            <!-- Slide 3 -->
-
-            <div class="code-column">
-              
-              ```css
-              .🐱:has(~ .🍔):before {
-                content: "😾";
-              }
-              ```
-
-              ```html
-              <div class="🐱"></div>
-              <div></div>
-              <div class="🍔"></div>
-              ```
-              <sub>📝 We are selecting the :pseudo of the parent<br>that :has a thing. That's like selecting a child.</sub>
-            </div>
-
-            
-            <iframe class="demo-embed" src="../demos/has-primer/has-distant/index.html" ></iframe>
-
-            ---
-
-            <!-- .slide: class="multi-column" style="--code-size: 0.55em" -->
-            <!-- Slide 3 -->
-
-            <div class="code-column">
-              
-              ```css
-              .🐱:has(+ .🍔):before {
-                content: "🙀";
-                animation: anticipate 0.1s infinite;
-              }
-              ```
-
-              ```html
-              <div class="🐱"></div>
-              <div class="🍔"></div>
-              ```
-
-            </div>
-
-            
-            <iframe class="demo-embed" src="../demos/has-primer/has-sibling/index.html" ></iframe>
-
-            ---
-
-            <!-- .slide: class="multi-column" style="--code-size: 0.55em" -->
-            <!-- Slide 3 -->
-
-            <div class="code-column">
-              
-              ```css
-              .🐱:has(.🍔):before {
-                content: "😻";
-                animation:
-                  satisfied steps(1, end) 2s both,
-                  gobble 0.2s 10 linear both,
-                  full 6s 2s linear;
-              }
-              .🐱 .🍔:before {
-                animation: eat 1s steps(4) forwards;
-              }
-              ```
-
-              ```html
-              <div class="🐱">
-                <div class="🍔"></div>
-              </div>
-              ```
-
-            </div>
-
-            
-            <iframe class="demo-embed" src="../demos/has-primer/has-it/index.html" ></iframe>
+            <h4><strong>Not</strong> just a parent selector! <span class="wag">☝️</span></h4>
 
             ---
             
             ## Break the mental model ⬆️
-            <sub>Flip it 🛹</sub>
+            <h4>Do a flip! <span class="skateboard-wrapper"><span class="skateboard">🛹</span></span></h4>
             
-            ---
-            
-            <!-- .slide: class="shrink-code multi-column" data-auto-animate -->
-            <!-- Forms and Labels? -->
-            <div class="code-column">
-              
-              ```css
-              label:has(+ :invalid) {
-                color: red;
-              }
-
-              label:has(+ :valid) {
-                color: green;
-              }
-
-              input:valid {
-                border-color: green;
-              }
-
-              ```
-
-              ```html
-              <label for="formInput" class="form-label">Email</label>
-
-              <input
-                required
-                type="email"
-                id="formInput"
-                class="form-input"
-                title="Enter valid email address"
-                placeholder="Enter valid email address"
-              />
-              ```
-
-
-            </div>
-            
-            <iframe class="demo-embed" src="../demos/has-forms/index.html"></iframe>
-
-            ---
-
-            <!-- .slide: class="shrink-code multi-column" -->
-            <!-- Forms and Labels? -->
-            <div class="code-column">
-              
-              ```css
-              .form-group:has(:valid) {
-                --color: var(--valid, green);
-              }
-              
-              label {
-                color: var(--color);
-              }
-              
-              input {
-                outline-color: var(--color);
-                border-color: var(--color);
-              }
-
-              .form-group:has(:valid) ~ [type="submit"] {
-                --color: var(--valid, green);
-              }
-
-              ```
-
-              ```html
-              <form>
-                <div class="form-group">
-                  <label for="formInput">Email</label>
-                  <input
-                    required
-                    type="email"
-                    id="formInput"
-                  />
-                </div>
-                <input type="submit" value="Submit"/>
-              </form>
-              ```
-
-
-            </div>
-            
-            <iframe class="demo-embed" src="../demos/has-forms-submit/index.html"></iframe>
-
-            ---
-
-            <!-- .slide: class="shrink-code multi-column" -->
-            <!-- Forms and Labels? -->
-            <div class="code-column">
-              
-              ```css
-              .form-group:has(:valid) {
-                --color: var(--valid, green);
-              }
-              
-              label {
-                color: var(--color);
-              }
-              
-              input {
-                outline-color: var(--color);
-                border-color: var(--color);
-              }
-
-              .form-group:has(:invalid:not(:focus)) label {
-                animation: shake 0.5s infinite;
-              }
-
-              .form-group:has(:valid) label span {
-                animation: twirl 1s calc(var(--index) * 0.1s);
-              }
-
-              ```
-
-              ```html
-              <label for="formInput">
-                <span class="label__letter" style="--index: 0;">E</span>
-                <span class="label__letter" style="--index: 1;">m</span>
-                <span class="label__letter" style="--index: 2;">a</span>
-                <span class="label__letter" style="--index: 3;">i</span>
-                <span class="label__letter" style="--index: 4;">l</span>
-              </label>
-              ```
-
-            </div>
-            
-            <iframe class="demo-embed" src="../demos/has-forms-whimsical/index.html"></iframe>
-
-            ---
-
-            <!-- .slide: class="shrink-code multi-column" -->
-            <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
-
-            <div class="code-column">
-              
-              ```css
-              :root {
-                --reveal: 0;
-              }
-              :root:has(.revealer:active) {
-                --reveal: 1;
-              }
-              .secret-message {
-                opacity: var(--reveal, 0);
-                transition: opacity 0.2s;
-              }
-              ```
-
-              ```html
-              <body>
-                <fieldset class="controls">
-                  <legend>Controls</legend>
-                  <button class="revealer">Reveal</button>
-                </fieldset>
-                <main>
-                  <h1>Amazing Article</h1>
-                  <p>
-                    <span class="secret-message">Whoah!</span>
-                    Lorem ipsum...
-                  </p>
-                </main>
-              </body>
-              ```
-
-            </div>
-
-            <iframe class="demo-embed" src="../demos/has-hunt/index.html"></iframe>
-
             ---
 
             <!-- .slide: class="shrink-code multi-column" -->
@@ -597,10 +489,8 @@
               ```css
               .card {
                 --card-border: var(--blue-2);
-                --bg: var(--gray-2);
-                align-items: center;
                 display: grid;
-                background: var(--bg);
+                align-items: center;
                 grid-gap: var(--size-2) 0;
                 border-top: var(--size-2) solid var(--card-border);
                 border-left: var(--size-2) solid var(--card-border);
@@ -682,200 +572,103 @@
             <iframe class="demo-embed" src="../demos/has-media-with-featured/index.html"></iframe>
 
             ---
-
-            ## 🎻 Mitigate User Error 😎
-            <sub>If naming things is hard, then remembering them is... 🤔</sub>
-
-            ---
-
-            <!-- .slide: data-auto-animate -->
-            <!-- Slide 4 -->
-            <h2 data-id="goodbye" style="opacity: 1;">Goodbye "Checkbox Hack" 🥲</h2>
-
-            ```css
-            :checked ~ .👋 {
-              display: block;
-            }
-            ```
-
-            ---
-
-            <!-- .slide: data-auto-animate -->
-
-            <h2 data-id="goodbye" style="opacity: 0.25;">Goodbye "Checkbox Hack" 🥲</h2>
-
-            ## Hello Semantic Markup && "Magic" CSS Tricks/Powers ✨
-
-            <sub>Honestly. So many possibilities. Please try it out! 🙏</sub>
-
-            ---
-
-            ## Connect 4 && Minesweeper observations
-            - What was the trick for Connect 4? Actually :has the flags and use the counter to move the turns.
-
-            ---
-
-            ## TALK ABOUT :HAS GOTCHAS
-            - Can't :has a :has - How do you know if the form has everything :valid if they're wrapped in Divs for form groups
-            - Layout helps but what if you don't want to do it that way. You could grid it. But, that's not always best.
-            - What about a compound selector :has(#one:checked && #two:checked)
-            - Interpolating a counter for funsies
-            - Do you choose the markup trick or lots of :has'ing (Connect 4 example would be massive if it wasn't for counter hack)
-
-            ---
-
-            # :has Game mechanics before Hishi Hashi
-
-            ---
-
-             <!-- .slide: class="shrink-code multi-column" style="--code-size: 0.65rem;"-->
+            
+            <!-- .slide: class="shrink-code multi-column" -->
 
             <div class="code-column">
-              
+
               ```css
-              body {
-                transform: translateX(calc(var(--open, 0) * -200px));
-                transition: transform 0.2s var(--ease-1);
-              }
-              :root:has([aria-expanded="true"]) {
-                --open: 1;
-              }
-              ```
+                .form-group:has(:valid) {
+                  --color: var(--valid, green);
+                }
+                
+                label {
+                  color: var(--color);
+                }
+                
+                input {
+                  outline-color: var(--color);
+                  border-color: var(--color);
+                }
 
-              ```js
-              const BUTTON = document.querySelector('button')
 
-              const TOGGLE_NAV = () =>
-                BUTTON.setAttribute('aria-expanded',
-                  BUTTON.matches('[aria-expanded="false"]')
-                    ? true : false
-                )
+                <!-- Two ways -->
 
-              BUTTON.addEventListener('click', TOGGLE_NAV)
+                .form-group:has(:valid) ~
+                .form-group:has(:valid) ~ [type="submit"] {
+                  --color: var(--valid, green);
+                }
+
+                form:has(#email:valid):has(#password:valid)
+                [type="submit"] {
+                  --color: var(--valid, green);
+                }
+
               ```
 
               ```html
-              <nav>
-                <ul>
-                  <li>Home</li>
-                  <li>About</li>
-                  <li>Writing</li>
-                  <button class="mode-toggle" aria-expanded="false">
-                    <span title="Toggle Nav">Toggle Nav</span>
-                    <svg>...</svg>
-                  </button>
-                </ul>
-              </nav>
-              <header>
-                <h1>Some Awesome Site</h1>
-              </header>
-              <main>
-                <p>Lorem...</p>
-              </main>
+              <form>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    required
+                    type="email"
+                    id="email"
+                  />
+                </div>
+                <input type="submit" value="Submit"/>
+              </form>
               ```
-              <sub>Worth noting <code>popup</code> is gonna make this a breeze</sub>
+
+              <sub>What about a "Compound" && selector?</sub>
 
             </div>
-
-            <iframe class="demo-embed" src="../demos/has-nav/index.html"></iframe>
-
-            ---
-
-            <!-- .slide: class="shrink-code multi-column" style="--code-size: 0.65rem;" -->
-
-            <div class="code-column">
-              
-              ```css
-              :root:has([aria-pressed="true"]) {
-                --bg: var(--gray-1);
-                --color: var(--gray-9);
-                --nav-color: var(--gray-2);
-                --hover-action: var(--gray-3);
-                --header-gradient: var(--gradient-6);
-              }
-              ```
-
-              ```js
-              const BUTTON = document.querySelector('button')
-
-              const TOGGLE_MODE = () =>
-                BUTTON.setAttribute('aria-pressed',
-                  BUTTON.matches('[aria-pressed="false"]')
-                    ? true : false
-                )
-
-              BUTTON.addEventListener('click', TOGGLE_MODE)
-              ```
-
-              ```html
-              <nav>
-                <ul>
-                  <li>Home</li>
-                  <li>About</li>
-                  <li>Writing</li>
-                  <button class="mode-toggle" aria-pressed="false">
-                    <span title="Light theme">Light theme</span>
-                    <span title="Dark theme">Dark theme</span>
-                    <svg>...</svg>
-                  </button>
-                </ul>
-              </nav>
-              <header>
-                <h1>Some Awesome Site</h1>
-              </header>
-              <main>
-                <p>Lorem...</p>
-              </main>
-              ```
-
-            </div>
-
-            <iframe class="demo-embed" src="../demos/has-darkmode/index.html"></iframe>
+            
+            <iframe class="demo-embed" src="../demos/has-forms-submit/index.html"></iframe>
 
             ---
 
             <!-- .slide: class="shrink-code multi-column" -->
-
+            <!-- Forms and Labels? -->
             <div class="code-column">
               
               ```css
-              :root:has([aria-expanded="true"]) {
-                --open: 1;
+              .form-group:has(:valid) {
+                --color: var(--valid, green);
               }
-              :root:has([aria-pressed="true"]) {
-                --bg: var(--gray-1);
-                --color: var(--gray-9);
-                --nav-color: var(--gray-2);
-                --hover-action: var(--gray-3);
-                --header-gradient: var(--gradient-6);
+              
+              label {
+                color: var(--color);
               }
+              
+              input {
+                outline-color: var(--color);
+                border-color: var(--color);
+              }
+
+              .form-group:has(:invalid:not(:focus)) label {
+                animation: shake 0.5s infinite;
+              }
+
+              .form-group:has(:valid) label span {
+                animation: twirl 1s calc(var(--index) * 0.1s);
+              }
+
               ```
 
               ```html
-              <nav>
-                <button class="nav-toggle" aria-expanded="false">
-                  <!-- Obfuscated elements -->
-                </button>
-                <ul>
-                  <li>Home</li>
-                  <li>About</li>
-                  <li>Writing</li>
-                  <button class="mode-toggle" aria-pressed="false">
-                    <!-- Obfuscated elements -->
-                  </button>
-                </ul>
-              </nav>
-              <header>
-                <h1>Some Awesome Site</h1>
-              </header>
-              <main>
-                <p>Lorem...</p>
-              </main>
+              <label for="formInput">
+                <span class="label__letter" style="--index: 0;">E</span>
+                <span class="label__letter" style="--index: 1;">m</span>
+                <span class="label__letter" style="--index: 2;">a</span>
+                <span class="label__letter" style="--index: 3;">i</span>
+                <span class="label__letter" style="--index: 4;">l</span>
+              </label>
               ```
 
             </div>
-
-            <iframe class="demo-embed" src="../demos/has-nav-darkmode/index.html"></iframe>
+            
+            <iframe class="demo-embed" src="../demos/has-forms-whimsical/index.html"></iframe>
 
             ---
 
@@ -917,12 +710,60 @@
             </div>
 
             <iframe class="demo-embed" src="../demos/has-primitive-zoom/index.html"></iframe>
+            
+            ---
+
+            <h2 data-id="goodbye">Goodbye "Checkbox Hack"? 🥲</h2>
+
+            <sub>Honestly. So many possibilities. Please try it out! 🙏</sub>
+
+            
+            ---
+
+            #### Better Make some Games then...
+
             ---
 
             <!-- .slide: class="shrink-code multi-column" -->
             <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
             <div class="code-column">
+
+              ```css
+              :is(.turn:has(:checked), .turn:first-of-type:has(:checked)) {
+                z-index: -1;
+                opacity: 0.2;
+              }
+
+              :is(.turn:has(:checked) + .turn:not(.turn:has(:checked))) {
+                z-index: 2;
+                opacity: 1;
+              }
               
+              ```
+
+              ```html
+              <form>
+                <div class="turn">
+                  <label for="turn--0">0</label>
+                  <input type="checkbox" id="turn--0"/>
+                </div>
+                <div class="turn">
+                  <label for="turn--1">1</label>
+                  <input type="checkbox" id="turn--1"/>
+                </div>
+              </form>
+              ```
+              
+            </div>
+
+            <iframe class="demo-embed" src="../demos/has-mechanics/index.html"></iframe>
+            
+            ---
+
+            <!-- .slide: class="shrink-code multi-column" -->
+            <!-- :hover to reveal elements across a screen. You don't need JS to do these things or "hacks" -->
+            <div class="code-column">
+
               ```css
               /* show indicator */              
               .board:has(#x-0:checked)
@@ -952,16 +793,11 @@
                 <svg class="o board__o">...</svg>
               </div>
               ```
-              <sub>You can't <code>:has</code> a <code>:has</code>!</sub>
+              
+              <sub>You can't <code>:has(:has())</code>! But you can <code>:has():has()</code> duh 👀</sub>
             </div>
 
             <iframe class="demo-embed" src="../demos/has-tic-tac-toe/index.html"></iframe>
-            
-            ---
-
-            Mention Bence and Connect 4 && Minesweeper because of Nicole Sullivan
-
-            https://css-tricks.com/roman-empire-made-pure-css-connect-4-possible/
 
             ---
 
@@ -971,11 +807,13 @@
               <div>
               
               ### Learned
+              - Animated custom properties FTW!
               - What :has can do
+              - Drawbacks of JavaScript timers
               - Bye "Checkbox Hack"?
               - More opportunites for less JavaScript
-              - Mitigate user error with DOM stuff
-              - Less classes && cleaner markup
+              - Mitigate user error w/ less classes
+              - Cleaner markup?
               
               </div>
               
@@ -985,7 +823,7 @@
               - Make it pretty?
               - More awesome?
               - 3D 🤯
-              - Pure CSS all the way? (Houdini 🥲)
+              - Pure CSS all the things?
               - This talk!
 
               </div>
@@ -995,7 +833,7 @@
               ### Practical Corner
               - Awesome use cases
               - Less HTML/CSS hacks!
-              - Less user error?
+              - Learn the specs
               - Many other things!
 
               </div>
@@ -1004,11 +842,37 @@
 
             ---
 
+            <img src="../../assets/dark-side.gif" width="400" />
+
+            ---
+
             <!-- .slide: data-background-iframe="/has-a-dark-side/index.html" -->
+
+            ---
+            
+            #### In fact, you can learn a lot of CSS from making games...
+
+            ---
+
+            <img src="../../assets/devrel-head-smash.gif" width="400"/>
 
             ---
 
             <!-- .slide: data-background-iframe="/has-stan/index.html" -->
+
+            ---
+
+            ## @Stubbornella
+            <sub>Cheers! 😅 (That + Finding out I'm last)</sub>
+
+            ---
+
+
+            <!-- .slide: data-background-iframe="/has-connections/index.html" -->
+
+            ---
+
+            <!-- .slide: data-background-iframe="/minecssweeper/index.html" -->
 
             ---
 

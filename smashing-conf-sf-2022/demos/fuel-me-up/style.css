@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: hsl(0 0% 15%);
+  display: grid;
+  color: hsl(0 0% 100%);
+  font-family: 'Google Sans', sans-serif;
+  place-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  font-size: 10vmin;
+  color: hsl(0 0% 100% / 0.2);
+}
+
+h1:after {
+  content: attr(data-word);
+}

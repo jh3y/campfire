@@ -50,6 +50,30 @@ h1 {
   line-height: 1.1;
 }
 
+.boujee-text {
+  --bg-size: 400%;
+  --color-one: hsl(215 90% 55%);
+  --color-two: hsl(280 95% 55%);
+  font-size: clamp(3rem, 10vmin, 5rem);
+  background: linear-gradient(
+                90deg,
+                var(--color-one),
+                var(--color-two),
+                var(--color-one)
+              ) 0 0 / var(--bg-size) 100%;
+  animation: move-bg 8s infinite linear;
+  color: transparent;
+  background-clip: text;
+  line-height: 0.9;
+  margin-bottom: 3rem;
+}
+
+@keyframes move-bg {
+  to {
+    background-position: var(--bg-size) 0;
+  }
+}
+
 main {
   margin: 0 auto;
   opacity: calc(var(--content-appear) + var(--content));
@@ -107,16 +131,6 @@ header img {
   filter: saturate(0.8) grayscale(0.6);
 }
 
-.biscuits {
-  position: fixed;
-  top: 55%;
-  left: 55%;
-  height: 55vmin;
-  aspect-ratio: 3 / 2;
-  opacity: 0.15;
-  z-index: -1;
-}
-
 p + p {
   margin-top: var(--size-4);
 }
@@ -130,6 +144,8 @@ p + p {
   width: 100vw;
   height: 100vh;
   position: relative;
+  display: grid;
+  place-items: center;
 }
 .content-wrapper:not(.fixed) {
   overflow: auto;

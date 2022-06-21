@@ -46,6 +46,9 @@ input {
   padding: 1rem 2rem;
   font-weight: 400;
   transition: border-color var(--transition);
+}
+
+input:focus-visible {
   outline-color: var(--color);
 }
 

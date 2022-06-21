@@ -46,6 +46,9 @@ input {
   padding: 1rem 2rem;
   font-weight: 400;
   transition: border-color var(--transition);
+}
+
+input:focus-visible {
   outline-color: var(--color);
 }
 
@@ -113,7 +116,12 @@ label span {
   display: inline-block;
 }
 
-.form-group:has(:valid) ~ [type="submit"] {
+/*.form-group:has(:valid) ~ .form-group:has(:valid) ~ [type="submit"] {
+  background: var(--valid);
+  color: var(--gray-1);
+}*/
+
+form:has(#email:valid):has(#password:valid) [type="submit"] {
   background: var(--valid);
   color: var(--gray-1);
 }
