@@ -5,6 +5,7 @@ const ADD_PAGE_TRANSITION_SPEED = (id, speed) => {
   PAGE_TRANSITION_STUFF.setAttribute('type', 'text/css')
   PAGE_TRANSITION_STUFF.innerText = `::page-transition-container(${id}),::page-transition-outgoing-image(${id}),::page-transition-incoming-image(${id}) {animation-duration: ${speed};}`
   PAGE_TRANSITION_STUFF.innerText += `::page-transition-image-wrapper(${id}) {mix-blend-mode: normal;}`
+  PAGE_TRANSITION_STUFF.innerText += `::page-transition-incoming-image(${id}),:page-transition-outgoing-image(${id}) {height: 100%;}`
   HEAD.appendChild(PAGE_TRANSITION_STUFF)
 }
 

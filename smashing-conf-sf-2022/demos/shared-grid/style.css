@@ -1,4 +1,12 @@
-@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/sizes.min.css";
+@import "npm:open-props/colors.min.css";
+@import "npm:open-props/fonts.min.css";
+@import "npm:open-props/zindex.min.css";
+@import "npm:open-props/shadows.min.css";
+@import "npm:open-props/borders.min.css";
+@import "npm:open-props/gradients.min.css";
+@import "npm:open-props/easings.min.css";
+@import "npm:open-props/aspects.min.css";
 @import "npm:open-props/normalize.min.css";
 
 * {

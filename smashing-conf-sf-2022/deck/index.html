@@ -81,14 +81,6 @@
             </div>
             
             ---
-            ## You !== Me
-            <h2>
-              <span class="runway">
-                <span class="flight">✈️</span>
-              </span>
-            </h2>
-            <sub>Let's not get personal, but, it is...</sub>
-            ---
 
             - Supercharge your learning <span class="lightning">⚡️</span>
             - Go beyond the docs <span class="rocket">🚀</span>
@@ -97,32 +89,9 @@
 
             ---
 
-            ```zsh
-            yarn add super-obscure-thing
-            npm i awesome-library-with-slight-change-please
-            yarn add this-but-for-react
-            ```
-
-            <sub>Pssst. The web platform is awesome. Future proof yo'self!</sub>
-
-            ---
-
             <!-- .slide: data-background-iframe="/perspective-steps/index.html" -->
 
             <h2 style="text-align: left; margin: 0 auto; width: 50%;"><span class="phone">📱</span></h2>
-
-            ---
-
-            <!-- .slide: class="puffer" style="top: 50% !important;" -->
-            
-            <img class='fullscreen-image' src="../../assets/for-yourself.png"/>
-
-            ## <span class="puff">🐡</span>
-            
-            Make for yourself.
-
-            <sub>You're much more than a TODO app! 💅</sub>
-
 
             ---
 
@@ -1142,29 +1111,32 @@
             # <span style="opacity: 0.2;">CSS, UI, && </span><span style="opacity: 1;">DevTools</span>
 
             ---
-            <!-- .slide: class="table-shot" -->
-            <!-- Slide 1 -->
-            |Source | What? | How? |
-            |---|---|---|
-            | Harry Spotter 😅/Old hobby resurgence | Hadoukener!!! | DeviceOrientation, DeviceMotion, DeviceOrientation Simulator, USB Debugging 👀 |
+
+            ### web.dev/generic-sensor
+            
+            - Accelerometer
+            - Gyroscope
+            - LinearAccelerationSensor
+            - AbsoluteOrientationSensor
+            - RelativeOrientationSensor
+            - GravitySensor
+            - DeviceMotion
+            - DeviceOrientation
+            - GeoLocation
+            
+            ---
+
+            ## DeviceOrientation ✨
+
+            <img src="../../assets/petes-diagram.png" width="300" />
+
+            <sub>You likely spend more time with the computer in your pocket</sub>
 
             ---
-            <!-- Slide 2 -->
-            <div class="collage-grid safe-collage">
-              <img src="../../assets/yoyo-shot.jpeg" width="300">
-              <img src="../../assets/sensors.png" width="300">
-              <img src="../../assets/voldemort.gif" width="300">
-              <img src="../../assets/pete-motion.png" width="300">
-              <img src="../../assets/woman-hadouks.gif" width="300">
-            </div>
-            ---
-            <!-- Slide 3 -->
             
-            <img src="../../assets/petes-diagram.png" width="300" />
-            ---
-            <!-- Slide 4 -->
+            <!-- Slide 5 -->
+            
             ```js
-            // Given two ranges, return a function to map a value
             const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
               const INPUT_RANGE = inputUpper - inputLower
               const OUTPUT_RANGE = outputUpper - outputLower
@@ -1175,33 +1147,15 @@
 
             // Z-axis (0deg - 360deg)
             const ALPHA_MAPPER = mapRange(0, 360, 0, 100)
-            // X-axis (-180deg - 180deg)
-            const BETA_MAPPER = mapRange(-180, 180, 0, 100)
-            // Y-axis (-90deg - 90deg)
-            const GAMMA_MAPPER = mapRange(-90, 90, 0, 100)
-            ```
-            ---
-            <!-- Slide 5 -->
-            
-            ```js
-            const ALPHA = document.querySelector('#alpha')
-            const BETA = document.querySelector('#beta')
-            const GAMMA = document.querySelector('#gamma')
 
-            const handleOrientation = ({ alpha, beta, gamma }) => {
+            const ALPHA = document.querySelector('#alpha')
+
+            const handleOrientation = ({ alpha }) => {
               ALPHA.value = ALPHA_MAPPER(alpha)
-              BETA.value = BETA_MAPPER(beta)
-              GAMMA.value = GAMMA_MAPPER(gamma)
             }
 
             window.addEventListener('deviceorientation', handleOrientation)
             ```
-            ---
-
-            <!-- .slide: data-background-iframe="/cube-mapping/index.html" -->
-
-            <a class="demo-link" href="../demos/cube-mapping/index.html" target="_blank">Check the demo out!</a>
-
             ---
 
             <!-- .slide: data-background-iframe="/deviceorientation-safe/index.html" -->
@@ -1210,41 +1164,16 @@
 
             ---
 
-            ### web.dev/generic-sensor
-            
-            - Accelerometer
-            - Gyroscope
-            - LinearAccelerationSensor
-            - AbsoluteOrientationSensor
-            - RelativeOrientationSensor
-            - GravitySensor
+            ## devicemotion 👟
+            <sub>What about the rate of movement? 🧐</sub>
 
             ---
 
-            ## Enter USB Debugging 🐞
-
-            ---
-
-            ## <a href="../demos/accelerometer-demo/index.html" target="_blank">Accelerometer Demo</a>
-
-            ```js
-            const ACCEL = new Accelerometer({
-              frequency: 10
-            })
-            navigator.permissions.query({ name: 'accelerometer' })
-              .then(permission => {
-                if (permission.state === 'granted')
-                  ACCEL.addEventListener('reading', handleForce)
-              })
-            ```
-
-
-            ---
 
             ## <a href="../demos/devicemotion-basics/index.html" target="_blank">DeviceMotion Dip</a>
 
             ```js
-            const handleMotion = ({ acceleration: { x, y, z }}) => {...}
+            const handleMotion = ({ rotationRate: { x, y, z }}) => {...}
             const handleOrientation = ({ alpha, beta, gamma }) => {...}
 
 
@@ -1261,18 +1190,19 @@
 
             ---
 
+            ## Enter USB Debugging 🐞
+
+            ---
+
             <!-- .slide: style="--code-size: 0.9m;" -->
 
-            ## <a href="../demos/devicemotion-full-picture/index.html" target="_blank">DeviceMotion Full Picture</a>
+            ## <a href="../demos/devicemotion-full-picture/index.html" target="_blank">Get the Full Picture</a>
 
-            ```js[3]
-            const handleMotion = ({
-              acceleration: { x, y, z },
-              rotationRate: { alpha, beta, gamma }}
-            ) => {...}
-            ```
+            <sub>Give it a flick! 🤙</sub>
 
-            <sub>Give it a flick!</sub>
+            ---
+            
+            <img src="../../assets/voldemort.gif" width="300">
 
             ---
 
@@ -1280,7 +1210,37 @@
 
             ---
 
+            ## What's your patronus? 
+
+            ---
+
+            <img src="../../assets/woman-hadouks.gif" width="300">
+
+            ---
+
             ## <a href="../demos/rage/index.html" target="_blank">A lil Nostalgia?</a>
+
+            ---
+
+            <img src="../../assets/yoyo-shot.jpeg" width="300">
+
+            ---
+
+            ## <a href="../demos/toy-phil/index.html" target="_blank">Talking of Nostalgia</a>
+
+            ---
+
+            ## Geolocation 🌎
+
+            <sub>Geotracking? Or ridiculous scale "Hide && Seek"?</sub> 
+
+            ---
+
+            ## Code snip
+
+            ---
+
+            ## Hot/Cold Emoji Demo
 
             ---
 
@@ -1295,6 +1255,8 @@
               - DeviceOrientation Event
               - DeviceMotion Event
               - Sensor types
+              - Geolocation Mapping
+              - Creating Gesture Detection
               
               </div>
 
@@ -1303,8 +1265,8 @@
               ### Next
               - More sounds
               - PWA
-              - Whimsy?
               - Web Vibration API (Yep, that's a thing!)
+              - Different gestures? Shake, etc.
 
               </div>
 
@@ -1312,6 +1274,7 @@
               
               ### Practical Corner
               - Make cool interactions!
+              - Large scale hide and seek
               - Gesture based device actions
               - Shake to bake! (Not wake)
 
@@ -1321,14 +1284,28 @@
 
             ---
 
-            ## <a href="../demos/toy-phil/index.html" target="_blank">What happened to that hobby?</a>
+            ## DJ Motivation
+            
+            ---
+
+            ## Device Orientation DJ
 
             ---
 
-             # That's It! <span class="raise-hands">🙌</span>
+            ## Phil treasure hunt
+
+            ---
+
+            ## Get Phil to walk off
+
+            ---
+
+            # That's It! <span class="raise-hands">🙌</span>
             <sub>Almost...</sub>
 
             ---
+
+            ## What next? 🤔
 
             1. Explore 🧐
             2. Hoard 📝
@@ -1336,16 +1313,6 @@
             4. Make 🤓
             5. Profit 💰
 
-            <sub>Curiosity may have killed the cat, but it built the bear ʕง•ᴥ•ʔง</sub>
-
-            ---
-
-            ## What if you combined speech and motion? C'mon Harry!
-
-            ---
-
-            ## What next? 🤔
-            <del>"Homework"</del>
             <sub style="display: block;">Psssst, it's just pixels...</sub>
 
             ---
@@ -1355,8 +1322,11 @@
             ---
 
             # Thank you! <div class="perspective"><span class="pray-hands">🙏</span></div>
+
+            <video src="../../assets/jhey-card-sunglasses.mp4" autoplay loop controls></video>
             
-            <sub>Grab me `@jh3yy` || `jhey.dev/links`</sub>
+            
+            <sub>Grab me <code>@jh3yy</code> || <code>jhey.dev/links</code></sub>
 
           </textarea>
         </section>
