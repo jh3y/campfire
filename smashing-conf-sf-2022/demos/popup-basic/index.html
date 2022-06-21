@@ -1,0 +1,23 @@
+<html class='popup-support'>
+  <head>
+    <title>Basic Popup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="../feature-detection/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <button togglepopup="pop">Open Popup</button>
+    <div id="pop" popup>
+      <h2>Whoah! Slick</h2>
+      <ul>
+        <li>Accessible light dismiss with <key>esc</key> or outside click</li>
+        <li>Programmatic show/hide with <code>showPopup</code> and <code>hidePopup</code></li>
+        <li>Capture <code>show</code> and <code>hide</code> like any other event.</li>
+        <li>Neat optional <code>:backdrop</code>! Blur also optional</li>
+        <li>Native CSS Anchoring on the way</li>
+        <li>That sweet <code>:top-layer</code>. No <code>z-index: Date.now()</code></li>
+      </ul>
+    </div>
+    <script src="../feature-detection/script.js"></script>
+  </body>
+</html>

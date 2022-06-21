@@ -30,7 +30,7 @@ const INDICATE_START = () => {
 
 let deactiveTimer
 const TIMER = 5000
-const KEY_PHRASE = "Hey Bristol"
+const KEY_PHRASE = "Hey Smashing"
 
 const DEACTIVATE = () => {
   STATE.ACTIVE = false

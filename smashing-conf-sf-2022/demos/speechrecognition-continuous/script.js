@@ -40,7 +40,7 @@ const PROCESS_AUDIO = e => {
 //   if (STATE.RUNNING) RECOG.start()
 // }
 
-genProcessor()
+genProcessor(true)
 
 BUTTON.addEventListener('click', () => {
   const PRESSED = BUTTON.matches('[aria-pressed="false"]') ? true : false

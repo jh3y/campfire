@@ -1,0 +1,31 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+body {
+  background: #f9f0e6;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.box {
+  page-transition-tag: box;
+  contain: paint;
+  background: var(--gradient-3);
+  grid-row: var(--row, 1 / -1);
+  grid-column: var(--col, 1 / -1);
+}
+
+.grid {
+  grid-template-columns: repeat(10, 5vmin);
+  grid-template-rows: repeat(10, 5vmin);
+  grid-gap: 1vmin;
+  display: grid;
+  background-image: repeating-linear-gradient(transparent 0 5vmin, hsl(0 0% 25% / 0.5) 5vmin 6vmin),
+    repeating-linear-gradient(90deg, transparent 0 5vmin, hsl(0 0% 25% / 0.5) 5vmin 6vmin);
+}

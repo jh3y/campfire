@@ -129,49 +129,12 @@
             - BB8 Gyroscope 🕹
             - Pinata ⭐️
             - Pump up the Volume 💪
-            - CSS Bomb Defusal 🔥
+            - Mixing Paint 🎨
             - Infini-Phil 🤖
 
             <sub>Remember `you !== me`? It's all about perspective</sub>
 
             <sub>The limit is __your__ `imagination` ✨</sub>
-
-            ---
-            <!-- .slide: class="multi-column" -->
-
-            <div>
-
-              ## Train It 👟
-
-              1. Start a list 📝
-              2. Document all the thingz!!11! ʕ·ᴥ·　ʔ
-              3. No idea is a bad idea
-              4. __No idea is a bad idea__
-
-            </div>
-
-            <img src="../../assets/notebook.jpeg" width="300">
-
-            ---
-
-            <!-- .slide: class="multi-col" -->
-            
-            - CodePen ✨
-            - TV 📺
-            - Outside 👀 (_I know_)
-            - Books 📚
-            - Newsletters 📰
-            - Events 😉
-            - Film 🎬
-            - News 🗞
-            - Muzli ⚙️
-            - Seasonal 🎅🏻
-            - Dribbble 🎨
-            - Reddit 🧐
-            - Social Media 🤝
-            - etc. etc. 🚀
-
-            <sub>I can provide a story for the majority of my `1400+` CodePen demos</sub>
 
             ---
 
@@ -182,19 +145,9 @@
 
             <!-- .slide: data-auto-animate -->
 
-            ## What? ➡️ How? ➡️ Why?
-
-            ---
-            <!-- .slide: data-auto-animate -->
-
             <!-- Can we back drop impossible bear smashing "Why?" out of the way? -->
             ## What? ➡️ How? ~~➡️ Why?~~
             <sub>Banish the thought of "Why?"... in this context.</sub>
-
-            ---
-            <!-- .slide: data-auto-animate -->
-
-            ## What? ➡️ ~~How?~~ ~~➡️ Why?~~
             <sub>Don't dwell on "How?"</sub>
 
             ---
@@ -880,24 +833,13 @@
             # <span style="opacity: 0.2;">CSS, </span><span style="opacity: 1;">UI<span style="opacity: 0.2;">, && DevTools</span>
 
             ---
-            <!-- .slide: class="table-shot" -->
-            <!-- Slide 1 -->
-            
-            |Source | What? | How? |
-            |---|---|---|
-            | Movies/LWJ/Illness 😅 | Voice-activated browser assistant | SpeechRecognition, SpeechSynthesis, 3D, Houdini, 🎉 |
+
+            ## Speechrecognition 💬
+
+            <sub>Have a conversation with your computer, like we are!</sub>
 
             ---
 
-            <div class="collage-grid capy-collage">
-              <img src="../../assets/can-i-speech-recognition.png" width="300">
-              <img src="../../assets/lwj-shot.png" width="300">
-              <img src="../../assets/alexa-top.gif" width="300">
-              <img src="../../assets/mdn-speech-recognition.png" width="300">
-              <img src="../../assets/kimi-peaking.gif" width="300">
-            </div>
-
-            ---
             <!-- Slide 2 -->
             ## Where to begin?
             ```js
@@ -905,6 +847,8 @@
               window.SpeechRecognition || window.webkitSpeechRecognition
 
             const BROTHER = new window.SpeechRecognition()
+            BROTHER.continuous = true
+            BROTHER.interimResults = true
 
             const STATE = {
               RUNNING: false,
@@ -932,84 +876,10 @@
             ```
 
             <sub>We need to be online for Chrome services [server-based engine 🤖]</sub>
-            ---
 
-            <!-- .slide: data-background-iframe="/speechrecognition-basics/index.html" -->
-
-            ---
-
-            <!-- Slide 3 -->
-            ## Yeah, but, how do I snoop?
-            ```js
-            const BROTHER = new window.SpeechRecognition()
-            BROTHER.continuous = true
-            BROTHER.lang = 'en-US'
-            BROTHER.interimResults = true
-            ```
             ---
 
             <!-- .slide: data-background-iframe="/speechrecognition-continuous/index.html" -->
-
-            ---
-            <!-- Slide 4 -->
-            ## TEARDOWN && BUILD UP
-            ```js
-            // Start a new "processor"
-            let BROTHER
-            const genProcessor = (interim) => {
-              BROTHER = new window.SpeechRecognition()
-              BROTHER.continuous = true
-              BROTHER.interimResults = interim
-              BROTHER.addEventListener('start', INDICATE_START)
-              BROTHER.addEventListener('result', PROCESS_AUDIO)
-              BROTHER.start()
-            }
-
-            // When we want to change something, tear it down and start fresh
-            BUTTON.addEventListener('click', () => {
-              const PRESSED = BUTTON.matches('[aria-pressed="false"]') ? true : false
-              if (BROTHER) {
-                BROTHER.stop()
-                BROTHER.removeEventListener('start', INDICATE_START)
-                BROTHER.removeEventListener('result', PROCESS_AUDIO)
-              }
-              BUTTON.setAttribute('aria-pressed', PRESSED)
-              genProcessor(PRESSED)
-            })
-            ```
-
-            ---
-
-            ## What If I want to turn it off?
-
-            ```js
-            const ON_END = () => {
-              // We may have ended on an error or unintentionally
-              if (STATE.RUNNING && BROTHER) BROTHER.start()
-            }
-
-            const CLEAN_UP = () => {
-              BROTHER.stop()
-              BROTHER.removeEventListener('start', INDICATE_START)
-              BROTHER.removeEventListener('result', PROCESS_AUDIO)
-              BROTHER.removeEventListener('end', ON_END)
-            }
-
-            MUTE_TOGGLE.addEventListener('click', () => {
-              const PRESSED = MUTE_TOGGLE.matches('[aria-pressed="false"]') ? true : false
-              if (BROTHER && PRESSED) {
-                STATE.RUNNING = false
-                CLEAN_UP()
-                document.documentElement.style.setProperty('--recording', 0)
-              } else genProcessor()
-              MUTE_TOGGLE.setAttribute('aria-pressed', PRESSED)
-            })
-
-            ```
-
-            ---
-
-            <!-- .slide: data-background-iframe="/speechrecognition-stop-start/index.html" -->
 
             ---
 
@@ -1041,39 +911,12 @@
             ```
 
             ---
-
-            ## Processing 🤖
-
-
-            ```js
-            const PROCESS_AUDIO = e => {
-              const TRANSCRIPT = e.results[e.results.length - 1][0].transcript.toLowerCase().trim()
-              const IS_FINAL = e.results[e.results.length - 1].isFinal
-              // Active so check for action
-              if (STATE.ACTIVE && IS_FINAL) {
-                for (const ACTION of ACTIONS) {
-                  if (TRANSCRIPT.indexOf(ACTION.phrase.toLowerCase()) !== -1)
-                    ACTION.action(TRANSCRIPT)
-                }
-              // Active but not final keeps the state alive with interim
-              } else if (STATE.ACTIVE && !IS_FINAL) {
-                clearTimeout(deactivateTimer)
-                deactivateTimer = setTimeout(DEACTIVATE, TIMER)
-              // Check for activation
-              } else if (TRANSCRIPT === KEY_PHRASE) {
-                STATE.ACTIVE = true
-                deactivateTimer = setTimeout(DEACTIVATE, TIMER)
-              }
-            }
-            ```
-
-            ---
             
             <!-- .slide: data-background-iframe="/speechrecognition-trigger-words/index.html" -->
 
             ---
 
-            ## Where's the feedback?
+            ## SpeechSynthesis
 
             ```js
             const {
@@ -1096,16 +939,134 @@
 
             ---
 
-            <!-- .slide: data-background-iframe="/speechsynthesis-basics/index.html" -->
-
-            ---
-
             <!-- .slide: data-background-iframe="/speechsynthesis-options/index.html" -->
             
             ---
-
-            <!-- .slide: data-background-iframe="/speechrecognition-functional/index.html" -->
             
+            ## Thar be experimental stuff ahead 👀
+
+            <sub>
+              <ul>
+                <li><code>chrome://flags/#enable-experimental-web-platform-features</code></li>
+                <li><code>chrome://flags/#document-transition</code> 👀</li>
+              </ul>
+            </sub>
+
+            ---
+
+            ## Popup
+            <sub>Accessible <span class="raise-hands">🙌</span></sub>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/popup-basic/index.html" -->
+
+            ---
+
+            ## How much JavaScript? 👀
+
+            ```html
+            <button togglepopup="pop">Open Popup</button>
+            <div id="pop" popup>
+              Popup Content
+            </div>
+            ```
+
+            ### Worth adding some CSS though 😅
+
+            <sub>From JavaScript, detect if open with <code>popupElement.matches(':top-layer')</code></sub>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/popup-nav-drawer/index.html" -->
+
+            ---
+
+            <!-- .slide: data-background-iframe="/popup-screensaver/index.html" -->
+
+            ---
+
+            ## New life into old friends
+
+            - Notifications <span class="lightning">✨</span>
+            - Toasts <span class="raise-hands">🥂</span>
+            - Tooltips 🎩
+            - Anchoring ⚓️
+            - What else could you make?
+
+            Tell us <span class="pray-hands">🙏</span>
+
+            ---
+
+            ## SHARED TRANSITIONS 👀🤯
+
+            ---
+
+            <video autoplay loop src="../../assets/star-wars.mp4" />
+
+            ---
+
+            ## LOADS OF CODE?
+          
+
+            <div style="margin-bottom: 2rem;">
+
+            ```js
+            BUTTON.addEventListener('click', async () => {
+              const transition = document.createDocumentTransition()
+              await transition.start(() => {
+                // Browser takes care of everything
+                doSomeDOMStuff()
+              })
+            })
+            ```
+
+            </div>
+            <div>
+
+            
+            ```css
+            .flippy-element {
+              page-transition-tag: some-tag;
+              contain: paint;
+            }
+
+            ::page-transition-container(some-tag),
+            ::page-transition-outgoing-image(some-tag),
+            ::page-transition-incoming-image(some-tag) {
+              animation-duration: 0.5s;
+            }
+            ```
+
+            </div>
+
+            ---
+
+            ### You don't have to change the URL...
+            <sub>Flippin' 'ell <span class="skateboard-wrapper"><span class="skateboard">🍳</span></span></sub>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/shared-avatar/index.html" -->
+
+            <a class="demo-link" href="../demos/shared-avatar/index.html" target="_blank">Check the demo out!</a>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/shared-grid/index.html" -->
+
+            <a class="demo-link" href="../demos/shared-grid/index.html" target="_blank">Check the demo out!</a>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/shared-avatar-popup/index.html" -->
+
+            <a class="demo-link" href="../demos/shared-avatar-popup/index.html" target="_blank">Check the demo out!</a>
+
+            ---
+
+            <video src="../../assets/star.mp4" autoplay loop />
+
             ---
 
             <!-- Slide 13 -->
@@ -1118,20 +1079,20 @@
               ### Learned
               - SpeechSynthesis
               - SpeechRecognition
-              - String manipulation
-              - CSS Custom Properties
+              - FLIP with Shared Transitions API
+              - Shared Transition API is "Magic"
+              - Popup 🙌
               - Keeping things DRY
+              - Build your own friends...
 
               </div>
               
               <div>
               
               ### Next
-              - More commands
-              - 3D 😎
-              - Whimsy?
-              - What else could we do with it?
-              - APIs?
+              - More commands for your bud
+              - FLIP all the thingz
+              - Good Popups!
               - Sat Nav for your site?
 
               </div>
@@ -1140,15 +1101,40 @@
               
               ### Practical Corner
               - Voice activated controls
-              - Provide user feedback
-              - Audio assistance
+              - Provide audio assistance
+              - Accessible Popups
+              - Better UX transitions
 
               </div>
 
             </div>
+            
+
+            ---
+
+            <img src="../../assets/alexa-top.gif" width="400"/>
+
             ---
 
             <!-- .slide: data-background-iframe="/hey-phil/index.html" -->
+
+            ---
+
+            <img src="../../assets/dr-strange.gif" width="400"/>
+
+            ---
+
+            <!-- .slide: data-background-iframe="/input-cyclical/index.html" -->
+
+            ---
+
+            <!-- .slide: data-background-iframe="/detect-a-circle/index.html" -->
+
+            ---
+
+            <!-- .slide: data-background-iframe="/dr-creative/index.html" -->
+
+            <a class="demo-link" href="../demos/dr-creative/index.html" target="_blank">Check the demo out!</a>
 
             ---
 

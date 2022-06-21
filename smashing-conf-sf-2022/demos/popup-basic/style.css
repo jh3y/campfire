@@ -1,0 +1,59 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+p code,
+p key {
+  color: hsl(0 80% 80%);
+  background: hsl(0 0% 5%);
+  padding: 0.25ch;
+}
+
+:root {
+  --red: hsla(18 100% 50% / 0.25);
+  --green: hsl(130 52% 46% / 0.25);
+  --yellow: hsl(44 83% 53% / 0.25);
+  --blue: hsl(215 100% 53% / 0.25);
+  --speed: 0.35s;
+}
+  
+[popup] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pop-in var(--speed) forwards cubic-bezier(.65, 1.25, .9, 1.25);
+}
+
+@keyframes pop-in {
+  from {
+    transform: translate(-50%, 100vmax);
+  }
+}
+
+[togglepopup] {
+  transform: translate(-50vmin, 0);
+}
+
+[popup]::backdrop {
+  background: hsl(0 0% 15% / 0.5);
+  backdrop-filter: blur(10px);
+  animation: fade-in var(--speed) forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

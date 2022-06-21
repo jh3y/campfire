@@ -288,6 +288,7 @@ cite {
 
 .reveal pre.code-wrapper code {
 	white-space:  pre-wrap;
+	height: 100%;
 }
 
 .reveal pre {
