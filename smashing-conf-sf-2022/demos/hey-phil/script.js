@@ -62,6 +62,7 @@ const PHRASES = {
   SLIDE: 'slide to the',
   TIME: 'what time is it',
   DONE: 'we did it',
+  SAY: 'say',
 }
 
 const ACTIONS = [
@@ -88,6 +89,23 @@ const ACTIONS = [
       if (deactivateTimer !== undefined) clearTimeout(deactivateTimer)
       DEACTIVATE()
       SPEAK(`Sure! Changing hue to ${HUE}`)
+    }
+  },
+  {
+    phrase: PHRASES.SAY,
+    action: transcript => {
+      if (deactivateTimer !== undefined) clearTimeout(deactivateTimer)
+      if (transcript.startsWith("say")) {
+        const MSG = transcript.slice(transcript.indexOf(PHRASES.SAY) + PHRASES.SAY.length).trim()
+        SPEAK(MSG)
+        if (MSG.toLowerCase().indexOf('bye phil') !== -1) {
+          setTimeout(() => {
+            DEACTIVATE()
+            confetti()
+            AUDIO.POP.play()
+          }, 2000)
+        }
+      }
     }
   },
   {

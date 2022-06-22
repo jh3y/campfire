@@ -27,6 +27,10 @@
 
             ---
 
+            <!-- .slide: data-background-iframe="/zero-pencils/index.html" data-background-interactive -->
+
+            ---
+
             <h2>Supercharge those Skills with Creative Coding
               <span class="lightning">⚡️</span>
               <span class="talk-take">Take III</span>
@@ -82,6 +86,10 @@
             
             ---
 
+            <img src="../../assets/bring-it-to-life.jpeg" width="400">
+
+            ---
+
             - Supercharge your learning <span class="lightning">⚡️</span>
             - Go beyond the docs <span class="rocket">🚀</span>
             - Become a problem solver or a challenge crusher! <span class="muscle">💪</span>
@@ -95,8 +103,8 @@
 
             ---
 
-            - BB8 Gyroscope 🕹
-            - Pinata ⭐️
+            - Flick to dismiss 🕹
+            - Be an architect 🏛
             - Pump up the Volume 💪
             - Mixing Paint 🎨
             - Infini-Phil 🤖
@@ -339,7 +347,7 @@
             <!-- Try and limit each demo to 10 slides. That's a minute a slideish. -->
             <!-- Slide 1 -->
 
-<!--             |Source | What? | How? |
+            <!--             |Source | What? | How? |
             |---|---|---|
             | Kent/Socials/Star Wars | :has exploration. | Tinker! | -->
 
@@ -396,6 +404,21 @@
             </div>
 
             <h4><strong>Not</strong> just a parent selector! <span class="wag">☝️</span></h4>
+
+            ---
+
+            ## Pre Style Queries 🧐
+
+            ```css
+            .element:has([style*="--some-custom-property: 1"]) {
+              /* Do something based on the inline style of a child ✨*/
+            }
+
+            /* Or maybe a sibling */
+            .element:has(+ [style*="--next-door-neighbor: 1"]) {
+              /* Do something based on the inline style of a neighbor ✨*/
+            }
+            ```
 
             ---
             
@@ -629,6 +652,8 @@
               </div>
               ```
 
+              <sub>Don't put this in <code>prod</code>. But, isn't it cool?</sub>
+
             </div>
 
             <iframe class="demo-embed" src="../demos/has-primitive-zoom/index.html"></iframe>
@@ -857,7 +882,7 @@
             ```js
             let deactiveTimer
             const TIMER = 5000
-            const KEY_PHRASE = "Hey Bristol"
+            const KEY_PHRASE = "Hey Smashing"
 
             const DEACTIVATE = () => {
               STATE.ACTIVE = false
@@ -967,7 +992,7 @@
 
             ---
 
-            ## SHARED TRANSITIONS 👀🤯
+            ## SHARED element TRANSITIONS 👀🤯
 
             ---
 
@@ -1048,8 +1073,8 @@
               ### Learned
               - SpeechSynthesis
               - SpeechRecognition
-              - FLIP with Shared Transitions API
-              - Shared Transition API is "Magic"
+              - FLIP with Shared Element Transition(SET) API
+              - SET API is "Magic"
               - Popup 🙌
               - Keeping things DRY
               - Build your own friends...
@@ -1170,8 +1195,6 @@
             ---
 
 
-            ## <a href="../demos/devicemotion-basics/index.html" target="_blank">DeviceMotion Dip</a>
-
             ```js
             const handleMotion = ({ rotationRate: { x, y, z }}) => {...}
             const handleOrientation = ({ alpha, beta, gamma }) => {...}
@@ -1210,7 +1233,7 @@
 
             ---
 
-            ## What's your patronus? 
+            ## <a href="../demos/harry-combo/index.html" target="_blank">What's your patronus?</a>
 
             ---
 
@@ -1236,7 +1259,45 @@
 
             ---
 
-            ## Code snip
+            ```js
+            const LOG = [
+              {
+                lat: 62.1539492,
+                long: 9.4564003
+              },
+              ...
+            ]
+            const PRIZE = {
+              lat: 62.1539311,
+              long: 9.4563863
+            }
+
+            const UPDATE = position => {
+              const {
+                accuracy,
+                latitude,
+                longitude,
+                altitude,
+                altitudeAccuracy,
+                heading,
+                speed,
+              } = position.coords;
+              
+              // Do something to map the range to the prize
+            }
+
+            let watcherID
+            if ("geolocation" in navigator) {
+              navigator.geolocation.getCurrentPosition(UPDATE, () => {}, {
+                enableHighAccuracy: true,
+              });
+              watcherID = navigator.geolocation.watchPosition(UPDATE, () => {}, {
+                enableHighAccuracy: true,
+              })
+            }
+
+
+            ```
 
             ---
 
@@ -1273,10 +1334,9 @@
               <div class="practical-post-it">
               
               ### Practical Corner
-              - Make cool interactions!
-              - Large scale hide and seek
-              - Gesture based device actions
-              - Shake to bake! (Not wake)
+              - Be adventurous!
+              - Location specific content
+              - Gestures (Shake, etc.)
 
               </div>
 
@@ -1284,7 +1344,7 @@
 
             ---
 
-            ## DJ Motivation
+            <img src="../../assets/toby.jpeg" width="400">
             
             ---
 
@@ -1292,7 +1352,7 @@
 
             ---
 
-            ## Phil treasure hunt
+            <img src="../../assets/adam-is-so-happy.jpg" width="400">
 
             ---
 

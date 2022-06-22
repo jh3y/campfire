@@ -23,7 +23,7 @@ const INDICATE_START = () => {
     console.info('starting recording neat...')
     STATE.RUNNING = true
     document.documentElement.style.setProperty('--text', 'var(--gray-0)')
-    document.querySelector('main').innerHTML = '<span class="instruction">Say "Hey Bristol!"</span>'
+    document.querySelector('main').innerHTML = '<span class="instruction">Say "Hey Smashing"!</span>'
     document.documentElement.style.setProperty('--recording', 1)
   } 
 }
@@ -94,10 +94,10 @@ const PROCESS_AUDIO = e => {
     deactivateTimer = setTimeout(DEACTIVATE, TIMER)
   } else if (TRANSCRIPT.toLowerCase().trim() === KEY_PHRASE.toLowerCase().trim()) {
     STATE.ACTIVE = true
-    document.body.style.setProperty('--text', 'var(--blue-4)')
+    document.body.style.setProperty('--text', 'var(--green-4)')
     deactivateTimer = setTimeout(DEACTIVATE, TIMER)
   }
-  document.documentElement.style.setProperty('--text', IS_FINAL ? 'var(--green-4)' : 'var(--adaptive)')
+  document.documentElement.style.setProperty('--text', IS_FINAL ? 'var(--blue-4)' : 'var(--adaptive)')
   document.querySelector('main').innerText = TRANSCRIPT.toLowerCase().trim()
 }
 
@@ -141,4 +141,4 @@ BUTTON.addEventListener('click', () => {
 })
 
 
-genProcessor()
+genProcessor(true)

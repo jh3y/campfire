@@ -1,3 +1,7 @@
+const {
+  speechSynthesis: synth,
+} = window
+
 const mapRange = (inputLower, inputUpper, outputLower, outputUpper) => {
   const INPUT_RANGE = inputUpper - inputLower
   const OUTPUT_RANGE = outputUpper - outputLower
@@ -60,16 +64,25 @@ let maxRateX
 let flicked = false
 let flickTimer
 
+const SPEAK = text => {
+  if (synth.speaking) synth.cancel()
+  const utter = new SpeechSynthesisUtterance(text)
+  // utter.voice = synth.getVoices().filter(v => v.name === 'Google UK English Male')[0]
+  synth.speak(utter)
+}
+
 const detectFlick = () => {
   if (flicked) return
   if (currentRotation <= 0 && currentAcceleration <= -150 && !flicked) {
     document.body.style.backgroundColor = 'hsl(140 80% 50% / 0.25)'
     console.info('flick up')
+    SPEAK('Flicked up')
     flicked = true
   }
   if (currentRotation >= 60 && currentAcceleration >= 150 && !flicked) {
     document.body.style.backgroundColor = 'hsl(210 80% 50% / 0.25)'
     console.info('flick down')
+    SPEAK('Flicked down')
     flicked = true
   }
   if (flicked) {

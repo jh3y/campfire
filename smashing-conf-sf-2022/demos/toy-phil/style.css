@@ -10,10 +10,7 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: sans-serif;
-}
-
-main {
-  
+  background: hsl(0 0% 20%);
 }
 
 button {
@@ -83,7 +80,7 @@ button:active {
 .yoyo__string {
   height: 200vmax;
   width: 10px;
-  background: black;
+  background: hsl(0 0% 98%);
   position: absolute;
   bottom: 50%;
   left: 50%;
@@ -115,7 +112,7 @@ button:active {
 /* Cylinder code */
 
 .cylinder {
-  --bg: hsl(var(--hue, 10), 80%, 50%);
+  --bg: hsl(10 66% 50%);
   height: calc(var(--height, 40) * 1vmin);
   position: relative;
   width: calc(var(--radius, 40) * 2vmin);
