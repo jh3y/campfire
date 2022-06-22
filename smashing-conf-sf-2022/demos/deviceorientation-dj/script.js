@@ -12,8 +12,6 @@ const TRACK = new Audio(
 TRACK.loop = true
 TRACK.muted = false
 
-let timer
-
 const toggleMute = () => {
 	VOLUME_TOGGLE.setAttribute(
 		'aria-pressed',
@@ -50,7 +48,7 @@ const genRate = (s) => {
 // })
 
 let currentRotation
-let currrentScratch
+let currentScratch
 let scratchEnabled
 const FLAT_THRESHOLD = 20
 const handleOrientation = ({ alpha, beta }) => {
@@ -65,9 +63,36 @@ const handleOrientation = ({ alpha, beta }) => {
 		console.warn('You are outside the scratch zone. Get that phone flat!')
 }
 
-const TL = gsap.timeline({ repeat: -1 })
+let timer
+const faceSwap = spinning => {
+  gsap.set('.face', { display: spinning ? 'none' : 'block' })
+  gsap.set('.face--nauseous', { display: spinning ? 'block' : 'none' })
+}
+
+const EYES = document.querySelector('.eyes--open')
+const blink = EYES => {
+  gsap.set(EYES, { scaleY: 1 })
+  if (EYES.BLINK_TL) EYES.BLINK_TL.kill()
+  EYES.BLINK_TL = gsap.timeline({
+    delay: Math.floor(Math.random() * 5) + 1,
+    onComplete: () => blink(EYES),
+  })
+  EYES.BLINK_TL.to(EYES, {
+    duration: 0.05,
+    transformOrigin: '50% 50%',
+    scaleY: 0,
+    yoyo: true,
+    repeat: 1,
+  })
+}
+blink(EYES)
+
+
+gsap.set('.record', { transformOrigin: '50% 50%' })  
+gsap.set('.record__shine', { transformOrigin: '50% 50%', rotate: 55 })
+const TL = gsap.timeline({ repeat: -1, paused: true })
   .to(
-    '.box',
+    '.record',
     {
       rotate: 360,
       duration: 1,
@@ -76,22 +101,44 @@ const TL = gsap.timeline({ repeat: -1 })
     0
   )
   .to(
-    '.box',
+    '.record',
     {
-      transformOrigin: '49% 50%',
+      transformOrigin: '49.5% 50%',
       repeat: 1,
       yoyo: true,
       duration: 0.5,
     },
     0
   )
+  .to(
+    '.record__shine',
+    {
+      transformOrigin: '49.5% 50%',
+      repeat: 1,
+      yoyo: true,
+      duration: 0.5,
+    },
+    0
+  )
+  .to(
+    '.record__shine',
+    {
+      rotate: '+=4',
+      repeat: 1,
+      yoyo: true,
+      duration: 0.5,
+      ease: 'none',
+    },
+    0
+  )
+
 
 const handleMotion = ({ rotationRate: { alpha } }) => {
 	const velocity = Math.round(alpha) / 10
 	if (Math.abs(velocity) > 5) {
 		// Not pixels per second but instead degrees per second? Rotation Rate?
 		// Sooo velocity === degrees per second
-
+		faceSwap(true)
 		const speed = gsap.utils.clamp(-20, 20, velocity)
 		const rate = genRate(speed)
 		gsap.timeline().fromTo(
@@ -106,12 +153,15 @@ const handleMotion = ({ rotationRate: { alpha } }) => {
 			0
 		)
 		.fromTo(TL, { timeScale: speed }, { timeScale: 1 }, 0)
+		if (timer) timer.kill()
+    timer = gsap.delayedCall(0.2, () => faceSwap(false))
 	}
 }
 
 const START = () => {
 	INTRO_CONTAINER.remove()
 	TRACK.play()
+	TL.play()
 	navigator.vibrate([1000])
 	if (
 		DeviceOrientationEvent?.requestPermission &&

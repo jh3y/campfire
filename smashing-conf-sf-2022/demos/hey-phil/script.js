@@ -98,7 +98,8 @@ const ACTIONS = [
       if (transcript.startsWith("say")) {
         const MSG = transcript.slice(transcript.indexOf(PHRASES.SAY) + PHRASES.SAY.length).trim()
         SPEAK(MSG)
-        if (MSG.toLowerCase().indexOf('bye phil') !== -1) {
+        console.info(MSG)
+        if (MSG.toLowerCase().indexOf('bye phil') !== -1 || MSG.toLowerCase().indexOf('by phil') !== -1 || MSG.toLowerCase().indexOf('by fill') !== -1) {
           setTimeout(() => {
             DEACTIVATE()
             confetti()

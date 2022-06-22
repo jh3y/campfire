@@ -1,0 +1,76 @@
+@import "npm:open-props/sizes.min.css";
+@import "npm:open-props/colors.min.css";
+@import "npm:open-props/fonts.min.css";
+@import "npm:open-props/zindex.min.css";
+@import "npm:open-props/shadows.min.css";
+@import "npm:open-props/borders.min.css";
+@import "npm:open-props/gradients.min.css";
+@import "npm:open-props/easings.min.css";
+@import "npm:open-props/aspects.min.css";
+@import "npm:open-props/normalize.min.css";
+
+* {
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.table {
+  display: flex;
+  gap: 4vmin;
+}
+
+.card {
+  width: 20vmin;
+  aspect-ratio: 2.5 / 3.5;
+  background: hsl(10 80% 50% / 0.4);
+  border-radius: 2.5vmin;
+  contain: paint;
+  order: var(--order);
+}
+
+.card span {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: hsl(0 0% 20%);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  font-size: 8vmin;
+  background: hsl(0 0% 98%);
+  line-height: 0;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: saturate(0.6);
+}
+
+.card:nth-of-type(1) {
+  --content: "1";
+  page-transition-tag: card-one;
+}
+.card:nth-of-type(2) {
+  --content: "2";
+  page-transition-tag: card-two;
+}
+.card:nth-of-type(3) {
+  --content: "3";
+  page-transition-tag: card-three;
+}
+.card:nth-of-type(4) {
+  --content: "4";
+  page-transition-tag: card-four;
+}
