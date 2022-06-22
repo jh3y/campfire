@@ -3,20 +3,40 @@
 }
 
 body {
-  background: hsl(0 0% 15%);
   display: grid;
-  color: hsl(0 0% 100%);
-  font-family: 'Google Sans', sans-serif;
   place-items: center;
   min-height: 100vh;
-  margin: 0;
+  background: hsl(0 0% 15%);
 }
 
 h1 {
-  font-size: 10vmin;
-  color: hsl(0 0% 100% / 0.2);
+  color: hsl(0 0% 98% / 0.2);
+  position: relative;
+  text-align: center;
 }
 
 h1:after {
   content: attr(data-word);
+  color: hsl(0 0% 98%);
+  clip-path: inset(var(--t, 0) 0 0 var(--l, 100%));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  font-family: 'Google Sans', system-ui, sans-serif;
+  font-weight: bold;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+h1 {
+  grid-row: 1;
+  grid-column: 1;
+  font-family: 'Google Sans', system-ui, sans-serif;
+  font-weight: bold;
 }
