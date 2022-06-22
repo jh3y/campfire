@@ -97,14 +97,24 @@ const ACTIONS = [
       if (deactivateTimer !== undefined) clearTimeout(deactivateTimer)
       if (transcript.startsWith("say")) {
         const MSG = transcript.slice(transcript.indexOf(PHRASES.SAY) + PHRASES.SAY.length).trim()
-        SPEAK(MSG)
         console.info(MSG)
         if (MSG.toLowerCase().indexOf('bye phil') !== -1 || MSG.toLowerCase().indexOf('by phil') !== -1 || MSG.toLowerCase().indexOf('by fill') !== -1) {
+          SPEAK(MSG)
           setTimeout(() => {
             DEACTIVATE()
             confetti()
             AUDIO.POP.play()
           }, 2000)
+        }
+        else if (MSG.toLowerCase().indexOf('bye smashing') !== -1 || MSG.toLowerCase().indexOf('by smashing') !== -1) {
+          SPEAK('Bye Smashing, thank you for having us!')
+          setTimeout(() => {
+            DEACTIVATE()
+            confetti()
+            AUDIO.POP.play()
+          }, 2000)
+        } else {
+          SPEAK(MSG)
         }
       }
     }

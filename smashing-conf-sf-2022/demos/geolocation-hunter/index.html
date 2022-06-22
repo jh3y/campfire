@@ -1,13 +1,49 @@
 <html>
   <head>
     <title>Geolocation Hunter</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <label class="debug-label"></label>
     <main>
-      <div class="chest"></div>
-      <button class="unlock">Unlock!</button>
+      <div class="chest-wrapper">
+        <div class="chest-spinner">
+          <div class="chest">
+            <div class="chest__lid">
+              <div class="chest__lid-hinge">
+                <div class="cuboid">
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                  <div class="cuboid__side"></div>
+                </div>
+              </div>
+            </div>
+            <div class="chest__note">
+              <p>Look under the chair!</p>
+              <img src="../../../assets/smashing-cat.svg" />
+            </div>
+            <div class="chest__body">
+              <div class="cuboid">
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side"></div>
+                <div class="cuboid__side">
+                  <img class="chest__keyhole" src="../../../assets/keyhole.png" />
+                  <img class="chest__bear" src="../../../assets/bear-2022--black.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chest-shadow"></div>
+        </div>
+      </div>
+      <button class="start-button">Start!</button>
+      <button class="unlock">Open!</button>
     </main>
     <script type="module" src="./script.js"></script>
   </body>

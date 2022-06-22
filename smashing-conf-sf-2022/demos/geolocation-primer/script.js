@@ -11,7 +11,7 @@ const CHEST = document.querySelector('.chest')
 
 const REVEAL_THRESHOLD = 85
 
-const UNLOCK_SOUND = new Audio(new URL('../../../assets/zelda-chest.mp3', import.meta.url))
+const UNLOCK_SOUND = new Audio(new URL('../../../assets/grunt-party--optimised.mp3', import.meta.url))
 
 const TEMPS = ['🥶', '😨', '🧐', '😡', '🥵']
 
