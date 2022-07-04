@@ -1,0 +1,400 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: grid;
+  place-items: center;
+  background: hsl(0 0% 15%);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Google Sans', sans-serif;
+  color: hsl(0 0% 98%);
+}
+
+main {
+  max-width: 80ch;
+  padding: 6rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#myPopup {
+  height: 100vh;
+  width: 100vw;
+  /* Required if you want to put things into a blanket popup container */
+  padding: 0;
+  background: transparent;
+/* Can you trick it with a pointer-events: none? Yep!   */
+  pointer-events: none;
+}
+
+svg {
+  height: 15vmin;
+  fill: hsl(var(--hue, 0) 100% 50%);
+}
+
+marquee {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#myPopup > marquee {
+  background: hsl(0 0% 0% / 0.25);
+  backdrop-filter: blur(10px);
+}
+
+marquee > marquee {
+  height: 15vmin;
+}
+
+input[type="range"] {
+  accent-color: yellow;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+[for="threshold"] {
+  font-weight: bold;
+}
+
+h1 {
+  background: linear-gradient(90deg, purple, yellow, orange, purple);
+  font-size: 5rem;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: roll 6s infinite linear;
+  text-align: center;
+  margin: 2rem auto;
+}
+
+body.timing:after {
+  content: "";
+  height: 0.35rem;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, purple, yellow, orange, purple);
+  opacity: 1;
+  filter: saturate(0.5);
+  background-size: 200% 100%;
+  animation: roll 26s infinite linear, timeout calc(var(--threshold, 10) * 1s) both;
+}
+
+@keyframes timeout {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.controls {
+  display: inline-grid;
+  margin: 0 auto 4rem;
+}
+
+
+
+@keyframes roll {
+  to {
+    background-position: 200% 100%;
+  }
+}
+
+
+
+
+
+
+/* PrismJS 1.23.0
+https://prismjs.com/download.html#themes=prism-tomorrow&languages=css+css-extras&plugins=line-numbers+inline-color+toolbar+copy-to-clipboard */
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 3rem 2rem;
+  margin: 0;
+  overflow-y: scroll;
+  outline: transparent;
+  height: 100%;
+}
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #2d2d2d;
+}
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
+}
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+.token.punctuation {
+  color: #ccc;
+}
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+  color: #e2777a;
+}
+.token.function-name {
+  color: #6196cc;
+}
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+.token.operator,
+.token.entity,
+.token.url {
+  color: #67cdcc;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+.token.inserted {
+  color: #008000;
+}
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em; /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+span.inline-color-wrapper {
+/*
+   * The background image is the following SVG inline in base 64:
+   *
+   * <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2">
+   *     <path fill="gray" d="M0 0h2v2H0z"/>
+   *     <path fill="white" d="M0 0h1v1H0zM1 1h1v1H1z"/>
+   * </svg>
+   *
+   * SVG-inlining explained:
+   * https://stackoverflow.com/a/21626701/7595472
+   */
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyIDIiPjxwYXRoIGZpbGw9ImdyYXkiIGQ9Ik0wIDBoMnYySDB6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0wIDBoMXYxSDB6TTEgMWgxdjFIMXoiLz48L3N2Zz4=");
+/* This is to prevent visual glitches where one pixel from the repeating pattern could be seen. */
+  background-position: center;
+  background-size: 110%;
+  display: inline-block;
+  height: 1.333ch;
+  width: 1.333ch;
+  margin: 0 0.333ch;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  outline: 1px solid rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+span.inline-color {
+  display: block;
+/* To prevent visual glitches again */
+  height: 120%;
+  width: 120%;
+}
+div.code-toolbar {
+  position: relative;
+}
+div.code-toolbar > .toolbar {
+  position: absolute;
+  top: 0.3em;
+  right: 1.2em;
+  opacity: 1;
+}
+div.code-toolbar:hover > .toolbar {
+  opacity: 1;
+}
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+div.code-toolbar:focus-within > .toolbar {
+  opacity: 1;
+}
+div.code-toolbar > .toolbar .toolbar-item {
+  display: inline-block;
+}
+div.code-toolbar > .toolbar a {
+  cursor: pointer;
+}
+div.code-toolbar > .toolbar button,
+.toggle-button,
+.codepen-button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+.toggle-button {
+  color: #bbb;
+  font-size: 1rem;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  background: #404040;
+  border-radius: 0.5em;
+  outline: transparent;
+  cursor: pointer;
+}
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus,
+.toggle-button:focus,
+.toggle-button:hover {
+  background: #666;
+  text-decoration: none;
+}
+.toggle-button {
+  position: absolute;
+  top: 0.3rem;
+  right: 1.2rem;
+  z-index: 5;
+  width: 7rem;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+/* div.code-toolbar > .toolbar {
+  right: 8.6em;
+} */
+* {
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+.code-blocks,
+.code-toolbar {
+  height: 100%;
+  width: 100%;
+}
+
+pre[class*="language"] {
+  overflow: hidden;
+}
+
+p > code {
+  background: black;
+  color: #e2777a;
+  padding: 0.5ch;
+}
+
+a {
+  color: #e2777a;
+  font-weight: bold;
+}
+
+[togglepopup] {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin: 1rem auto;
+  width: 50%;
+}

@@ -1,0 +1,113 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+.cheez {
+  height: 60vmin;
+  position: absolute;
+  top: calc(var(--y, 0) * 1%);
+  left: calc(var(--x, 0) * 1%);
+  transform: translate(-50%, -50%) scale(0) rotate(calc(var(--r, 0) * 1deg));
+  animation: say-cheez 4s forwards;
+}
+
+.🐱,
+.🍔 {
+  font-size: 30vmin;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.🐱:before,
+.🍔:before {
+  display: inline-block;
+  content: var(--content);
+}
+
+.🐱:before {
+  --content: "🐱";
+}
+.🍔:before {
+  --content: "🍔";
+}
+
+.🐱:has(.🍔):before {
+  --content: "😻";
+  transform-origin: 50% 75%;
+  animation: satisfied steps(1, end) 2s both, gobble 0.2s 10 linear both, full 6s 2s infinite linear;
+}
+
+.🐱 .🍔:before {
+  animation: eat 2s steps(10) forwards;
+}
+
+.result__result--inside * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.🍔 {
+  transform: translate(-50%, -35%);
+}
+
+@keyframes say-cheez {
+  90% {
+    transform: translate(-50%, -50%) scale(1) rotate(calc(var(--r, 0) * -1deg));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.25) rotate(calc(var(--r, 0) * -1deg));
+    opacity: 0;
+  }
+}
+
+@keyframes full {
+  25% {
+    transform: translate(0, 0) scale(1) rotate(-15deg);
+  }
+  75% {
+    transform: translate(0, 0) scale(1) rotate(15deg);
+  }
+}
+
+@keyframes gobble {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(0, -5%) scale(1.1);
+  }
+}
+
+@keyframes satisfied {
+  to {
+    content: "😺";
+  }
+}
+
+@keyframes eat {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+@keyframes anticipate {
+  50% {
+    transform: translate(0, -5%);
+  }
+}

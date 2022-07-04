@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.column {
+  position: relative;
+  grid-column: 1;
+}
+.column span {
+  display: inline-block;
+  font-size: 4vmin;
+  position: absolute;
+  top: calc(var(--y, 0) * 1%);
+  left: calc(var(--x, 0) * 1%);
+  transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg));
+  animation: thought 2s calc(var(--delay) * 1s) both;
+}
+.column--left span {
+  --mirror: 1;
+}
+.column--right {
+  grid-column: -2;
+}
+
+@keyframes thought {
+  25%, 40% {
+    transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) scale(4);
+  }
+  0%, 75%, 100% {
+    transform: translateZ(0) translate(-50%, -50%) rotateY(calc(var(--mirror, 0) * 180deg)) scale(0);
+  }
+}

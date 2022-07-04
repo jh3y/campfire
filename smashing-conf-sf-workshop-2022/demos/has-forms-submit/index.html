@@ -1,0 +1,27 @@
+<html class='has-support'>
+  <head>
+    <title>Basic Input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="../feature-detection/style.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <form>
+      <div class="form-group">
+        <label for="email" class="form-label">
+          Email
+        </label>
+        <input required type="email" id="email" class="form-input" placeholder="Email"/>   
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Password
+        </label>
+        <input required type="password" id="password" class="form-input" placeholder="Password" pattern=".{8,}"/>   
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+
+    <script src="../feature-detection/script.js"></script>
+  </body>
+</html>

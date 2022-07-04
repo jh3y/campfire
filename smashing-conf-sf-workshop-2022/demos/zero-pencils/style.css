@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+:root {
+ --outline: hsl(0 0% 10%);
+ --edge: hsl(45 25% 50% / 0.5);
+ --body: hsl(45 95% 70%);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+button {
+  height: 48px;
+  aspect-ratio: 1;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s;
+  padding: 0;
+  transform: scale(var(--scale, 1)) translateY(var(--y));
+}
+
+button:hover {
+  --scale: 1.1;
+  --y: -5%;
+}
+
+button:active {
+  --scale: 0.9;
+  --y: 5%;
+}
+
+button svg {
+  height: 80%;
+  aspect-ratio: 1;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+:root {
+  --thickness: 4vmin;
+}
+
+#rubber, #nib {
+  marker-height: var(--thickness);
+  marker-width: var(--thickness);
+}
+
+path.squiggle {
+  fill: none;
+  stroke-width: calc(var(--thickness) * 0.9);
+  stroke: var(--body);
+}
+
+path.outline {
+  fill: none;
+  stroke-width: var(--thickness);
+  stroke: var(--outline);
+}
+
+path.edge {
+  fill: none;
+  stroke-width: calc(var(--thickness) * 0.2);
+  stroke: var(--edge);
+}
+
+.point {
+  height: 4px;
+  aspect-ratio: 1;
+  position: fixed;
+  background: hsl(var(--hue, 10) 80% 50%);
+  left: calc(var(--x, 0) * 1px);
+  top: calc(var(--y, 0) * 1px);
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Squiggle Wiggle</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <button><span class="sr-only">Reset</span>
+      <svg class="reset" viewBox="0 0 24 24">
+        <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"></path>
+      </svg>
+    </button>
+    <svg class="pencil">
+      <marker id="nib" viewBox="0 0 258 201" fill="none" refX="10" refY="100" markerUnits="strokeWidth" markerWidth="9" markerHeight="5.25" orient="auto">
+        <path d="m.5.5 254 99-254 101V.5Z" fill="#FDF2CA"></path>
+        <path d="M243.581 99.537 4.5 194.605V6.352l239.081 93.185Z" fill="#FDF2CA" stroke="#000" stroke-width="8"></path>
+        <path d="m238 99.5-65.5 24V76L238 99.5Z" fill="#6F6F6F"></path>
+      </marker>
+      <marker id="rubber" viewBox="0 0 204 200" fill="none" refX="150" refY="100" markerUnits="strokeWidth" markerWidth="5" markerHeight="8" orient="auto">
+        <mask id="a" fill="#fff">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M40 0v200h124c22.091 0 40-44.772 40-100S186.091 0 164 0H40Z"></path>
+        </mask>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M40 0v200h124c22.091 0 40-44.772 40-100S186.091 0 164 0H40Z" fill="#D9D9D9"></path>
+        <path d="M40 200h-8v8h8v-8ZM40 0v-8h-8v8h8Zm8 200V0H32v200h16Zm116-8H40v16h124v-16Zm32-92c0 26.857-4.369 50.803-11.144 67.74-3.396 8.49-7.24 14.824-11.099 18.905-3.843 4.063-7.143 5.355-9.757 5.355v16c8.431 0 15.654-4.305 21.382-10.362 5.712-6.04 10.488-14.35 14.33-23.956C207.415 154.425 212 128.371 212 100h-16ZM164 8c2.614 0 5.914 1.292 9.757 5.355 3.859 4.081 7.703 10.415 11.099 18.905C191.631 49.197 196 73.143 196 100h16c0-28.371-4.585-54.425-12.288-73.682-3.842-9.606-8.618-17.916-14.33-23.956C179.654-3.695 172.431-8 164-8V8ZM40 8h124V-8H40V8Z" fill="#000" mask="url(#a)"></path>
+        <path d="M44 196V4h70c4.069 0 8.349 2.045 12.664 6.607 4.322 4.57 8.399 11.399 11.906 20.168C145.577 48.29 150 72.765 150 100c0 27.236-4.423 51.709-11.43 69.225-3.507 8.769-7.584 15.598-11.906 20.168C122.349 193.955 118.069 196 114 196H44Z" fill="#EBB7B7" stroke="#000" stroke-width="8"></path>
+        <path d="M40 4c4.069 0 8.35 2.045 12.664 6.607 4.322 4.57 8.399 11.399 11.906 20.168C71.577 48.29 76 72.765 76 100c0 27.236-4.423 51.709-11.43 69.225-3.507 8.769-7.584 15.598-11.906 20.168C48.349 193.955 44.069 196 40 196c-4.069 0-8.35-2.045-12.664-6.607-4.322-4.57-8.399-11.399-11.906-20.168C8.423 151.709 4 127.236 4 100c0-27.236 4.423-51.709 11.43-69.225 3.507-8.77 7.584-15.598 11.906-20.168C31.651 6.045 35.931 4 40 4Z" fill="#EBB7B7" stroke="#000" stroke-width="8"></path>
+      </marker>
+      <path class="outline" stroke-linejoin="round"></path>
+      <path class="squiggle" stroke-linejoin="round"></path>
+      <path class="edge" marker-start="url(#rubber)" marker-end="url(#nib)" stroke-linejoin="round"></path>
+      <g class="clones"></g>
+    </svg>
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

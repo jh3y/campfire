@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+.inputs {
+  position: relative;
+}
+.inputs:after {
+  content: '';
+  width: 4px;
+  height: calc(var(--projection) * 1px);
+  background: #f00;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  --defaultAngle: calc((360 / (var(--count) * 2)) * -1);
+  transform: translate(-50%, 0) rotate(calc(var(--angle, var(--defaultAngle)) * 1deg));
+  z-index: -1;
+  opacity: 0;
+}
+.inputs__label {
+  color: hsl(0 0% 98%);
+  font-family: 'Google Sans', sans-serif;
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: inline-block;
+  transform: scale(calc(1 + var(--scale, 0)));
+}
+input {
+  accent-color: hsl(var(--accent, 0) 80% 60%);
+  outline-color: hsl(var(--accent, 0) 100% 50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--side) * 1px);
+  transform: translate(-50%, -50%) rotate(calc(((360 / var(--count) * var(--index)) * 1deg))) translate(0, calc(var(--projection) * -1px));
+}

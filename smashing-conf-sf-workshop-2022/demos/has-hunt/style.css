@@ -1,0 +1,153 @@
+@import "npm:open-props/open-props.min.css";
+@import "npm:open-props/normalize.min.css";
+
+
+@font-face {
+  font-family: 'Permanent';
+  src: url('../../../assets/PermanentMarker-Regular.ttf') format('ttf');
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --ultraviolet: hsl(270 70% 60%);
+  --color: var(--gray-8);
+  --text-2: var(--gray-7);
+  --bg: var(--gray-1);
+}
+
+html {
+  color-scheme: none;
+  background: var(--bg);
+  transition: background 0.2s;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  max-width: 80vw;
+  margin: 0 auto;
+  color: var(--color);
+  background: var(--bg);
+  transition: background 0.2s;
+  font-size: 1rem;
+}
+
+:where(h1) {
+  color: var(--color);
+  font-size: var(--font-size-6);
+  line-height: 1.1;
+}
+
+:where(p,ul,ol,dl,h6) {
+  font-size: var(--font-size-1);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+svg {
+  height: 100%;
+  color: var(--gray-9);
+  fill: var(--gray-9);
+  stroke: var(--gray-9);
+}
+
+.controls {
+  position: fixed;
+  right: 10vmin;
+  top: 0.5rem;
+}
+
+fieldset {
+  border-color: var(--color);
+}
+
+footer {
+  color: var(--gray-6);
+}
+
+p {
+  position: relative;
+  margin: 1em 0;
+  line-height: 1;
+}
+
+p:nth-of-type(1) {
+  --x: 75%;
+  --y: 25%;
+  --r: 15deg;
+  --s: 1.2;
+}
+
+p:nth-of-type(3) {
+  --x: 50%;
+  --y: 15%;
+  --r: -15deg;
+  --s: 1.5;
+}
+
+p:nth-of-type(2) {
+  --x: 15%;
+  --y: 5%;
+  --r: -10deg;
+  --s: 3;
+}
+
+.revealer {
+  height: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  margin: 0;
+  padding: 0.25rem;
+  background: var(--gray-2);
+  border-width: 2px;
+}
+
+fieldset {
+  display: grid;
+  place-items: center;
+}
+
+.secret-message {
+  position: absolute;
+  color: var(--ultraviolet);
+  top: var(--y);
+  left: var(--x);
+  font-size: var(--font-size-6);
+  transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s, 1));
+  display: inline-block;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: bold;
+  filter: brightness(1.35) drop-shadow(0 0 1px var(--ultraviolet));
+  opacity: var(--reveal, 0);
+  transition: opacity 0.2s;
+}
+
+.secret-message:not(.cow) {
+  filter: saturated(0.25) brightness(2) drop-shadow(0 0 4px var(--ultraviolet));
+}
+
+:root:has(.revealer:active) {
+  --reveal: 1;
+  --bg: var(--gray-9);
+  --color: var(--gray-8);
+}
+
+:root:has(.revealer:active) footer {
+  color:  var(--gray-8);
+  transition:  color 0.2s;
+}

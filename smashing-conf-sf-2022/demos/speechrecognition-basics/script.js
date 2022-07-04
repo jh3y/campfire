@@ -2,10 +2,10 @@ window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition
 
 const RECOG = new window.SpeechRecognition()
-RECOG.continuous = false
+RECOG.continuous = true
 // RECOG.lang = 'en-US'
 // Continous results or not
-// RECOG.interimResults = true
+RECOG.interimResults = true
 
 
 const STATE = {
